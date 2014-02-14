@@ -69,7 +69,7 @@ void definePitchClassTests() {
   });
 
   group('PitchClass', () {
-    test('#parse should construct a pitch class', () {
+    test('parse', () {
       expect(PitchClass.parse('C').number, equals(0));
       expect(PitchClass.parse('E').number, equals(4));
       expect(PitchClass.parse('G').number, equals(7));
@@ -77,40 +77,50 @@ void definePitchClassTests() {
       expect(PitchClass.parse('C♯').number, equals(1));
     });
 
-    test('#fromSemitones should construct a pitch class', () {
-      expect(new PitchClass.fromSemitones(60), equals(PitchClass.parse('C')));
-      expect(new PitchClass.fromSemitones(61), equals(PitchClass.parse('C♯')));
-      expect(new PitchClass.fromSemitones(62), equals(PitchClass.parse('D')));
-      expect(new PitchClass.fromSemitones(48), equals(PitchClass.parse('C')));
-      expect(new PitchClass.fromSemitones(72), equals(PitchClass.parse('C')));
-      expect(new PitchClass.fromSemitones(50), equals(PitchClass.parse('D')));
-      expect(new PitchClass.fromSemitones(74), equals(PitchClass.parse('D')));
+    test('fromSemitones', () {
+      expect(new PitchClass.fromSemitones(60).number, equals(0));
+      expect(new PitchClass.fromSemitones(61).number, equals(1));
+      expect(new PitchClass.fromSemitones(62).number, equals(2));
+      expect(new PitchClass.fromSemitones(48).number, equals(0));
+      expect(new PitchClass.fromSemitones(72).number, equals(0));
+      expect(new PitchClass.fromSemitones(50).number, equals(2));
+      expect(new PitchClass.fromSemitones(74).number, equals(2));
     });
 
-    test('#toString should return the name of the pitch class', () {
+    test('toString', () {
       expect(new PitchClass.fromSemitones(0).toString(), equals('C'));
       expect(new PitchClass.fromSemitones(2).toString(), equals('D'));
       expect(new PitchClass.fromSemitones(4).toString(), equals('E'));
+      expect(new PitchClass.fromSemitones(60).toString(), equals('C'));
+      expect(new PitchClass.fromSemitones(61).toString(), equals('C♯'));
+      expect(new PitchClass.fromSemitones(62).toString(), equals('D'));
+      expect(new PitchClass.fromSemitones(48).toString(), equals('C'));
+      expect(new PitchClass.fromSemitones(72).toString(), equals('C'));
+      expect(new PitchClass.fromSemitones(50).toString(), equals('D'));
+      expect(new PitchClass.fromSemitones(74).toString(), equals('D'));
     });
 
     test('should normalize its input', () {
-      expect(new PitchClass.fromSemitones(12).toString(), equals('C'));
-      expect(new PitchClass.fromSemitones(14).toString(), equals('D'));
+      expect(new PitchClass.fromSemitones(12).number, equals(0));
+      expect(new PitchClass.fromSemitones(14).number, equals(2));
+      expect(new PitchClass.fromSemitones(24).number, equals(0));
+      expect(new PitchClass.fromSemitones(26).number, equals(2));
     });
 
     test('should add to an interval', () {
       expect((PitchClass.parse('C') + Interval.parse('M2')).toString(), equals('D'));
     });
 
-    test('#toPitch should return a pitch within the specified octave', () {
+    test('toPitch should return a pitch within the specified octave', () {
       expect(PitchClass.parse('C').toPitch(), equals(Pitch.parse('C0')));
       expect(PitchClass.parse('D').toPitch(octave: -1), equals(Pitch.parse('D-1')));
+      expect(PitchClass.parse('D').toPitch(octave: 0), equals(Pitch.parse('D0')));
       expect(PitchClass.parse('D').toPitch(octave: 1), equals(Pitch.parse('D1')));
       expect(PitchClass.parse('D').toPitch(octave: 3), equals(Pitch.parse('D3')));
       expect(PitchClass.parse('D').toPitch(octave: 5), equals(Pitch.parse('D5')));
     });
 
-    test('#toPitchClass should return itself', () {
+    test('toPitchClass should return itself', () {
       expect(PitchClass.parse('C').toPitchClass(), equals(PitchClass.parse('C')));
       expect(PitchClass.parse('D').toPitchClass(), equals(PitchClass.parse('D')));
     });
