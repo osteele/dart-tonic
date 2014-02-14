@@ -21,18 +21,27 @@ final Map<String,int> AccidentalValues = {
   '𝄫': -2,
 };
 
-String semitonesToAccidentalString(int semitones) {
-  if (semitones <= -2) { return semitonesToAccidentalString(semitones + 2) + '𝄫'; }
-  if (semitones >=  2) { return semitonesToAccidentalString(semitones - 2) + '𝄪'; }
+int parseAccidentals(String accidentals) {
+  int semitones = 0;
+  accidentals.runes.forEach((int rune) {
+    var glyph = new String.fromCharCode(rune);
+    int value = AccidentalValues[glyph];
+    if (value == null) {
+      throw new ArgumentError("not an accidental: $glyph in $accidentals");
+    }
+    semitones += value;
+  });
+  return semitones;
+}
+
+String accidentalsToString(int semitones) {
+  if (semitones <= -2) { return accidentalsToString(semitones + 2) + '𝄫'; }
+  if (semitones >=  2) { return accidentalsToString(semitones - 2) + '𝄪'; }
   return ['𝄫', '♭', '', '♯', '𝄪'][semitones + 2];
 }
 
-String getPitchClassName(int pitchClass) => NoteNames[(pitchClass)];
-
-// really returns the name of a pitch *class*
-String getPitchName(int pitch, {bool flat: false, bool sharp: false}) {
-  // if (pitch is String) { return pitch; }
-  Int pitchClass = pitchToPitchClass(pitch);
+String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
+  int pitchClass = pitchToPitchClass(pitch);
   String flatName = FlatNoteNames[pitchClass];
   String sharpName = SharpNoteNames[pitchClass];
   String name = sharp ? sharpName : flatName;
@@ -49,20 +58,7 @@ int normalizePitchClass(int pitchClass) => pitchClass % 12;
 
 final pitchToPitchClass = normalizePitchClass;
 
-int accidentalsToSemitones(String accidentals) {
-  int semitones = 0;
-  accidentals.runes.forEach((int rune) {
-    var glyph = new String.fromCharCode(rune);
-    int value = AccidentalValues[glyph];
-    if (value == null) {
-      throw new ArgumentError("not an accidental: $glyph in $accidentals");
-    }
-    semitones += value;
-  });
-  return semitones;
-}
-
-int pitchFromScientificNotation(String pitchName) {
+int parseScientificNotation(String pitchName) {
   var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$');
   var match = re.matchAsPrefix(pitchName);
   if (match == null) {
@@ -72,7 +68,7 @@ int pitchFromScientificNotation(String pitchName) {
   String accidentals = match[2];
   String octaveName = match[3];
   int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += accidentalsToSemitones(accidentals);
+  pitch += parseAccidentals(accidentals);
   pitch += 12 * (int.parse(octaveName) + 1);
   return pitch;
 }
@@ -88,7 +84,7 @@ int pitchFromHelmholtzNotation(String pitchName) {
   String commas = match[3];
   String apostrophes = match[4];
   int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += accidentalsToSemitones(accidentals);
+  pitch += parseAccidentals(accidentals);
   int octave = 4 - commas.length + apostrophes.length;
   if (naturalName == naturalName.toUpperCase()) { octave -= 1; }
   pitch += 12 * octave;
@@ -97,7 +93,7 @@ int pitchFromHelmholtzNotation(String pitchName) {
 
 // toScientificNotation = (midiNumber) ->
 //   octave = Math.floor(midiNumber / 12) - 1
-//   return getPitchClassName(normalizePitchClass(midiNumber)) + octave
+//   return parsePitchClass(normalizePitchClass(midiNumber)) + octave
 
 int parsePitchClass(String pitchClassName, {bool normal: true}) {
   var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
@@ -108,7 +104,7 @@ int parsePitchClass(String pitchClassName, {bool normal: true}) {
   String naturalName = match[1];
   String accidentals = match[2];
   int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += accidentalsToSemitones(accidentals);
+  pitch += parseAccidentals(accidentals);
   if (normal) { pitch = normalizePitchClass(pitch); }
   return pitch;
 }
@@ -125,7 +121,7 @@ int name2midi(String midiNoteName) {
   String accidentals = match[2];
   String octaveName = match[3];
   int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += accidentalsToSemitones(accidentals);
+  pitch += parseAccidentals(accidentals);
   pitch += 12 * (int.parse(octaveName) + 1);
   return pitch;
 }
@@ -167,7 +163,7 @@ class Interval {
   String toString() {
     var s = IntervalNames[semitones];
     if (accidentals != 0) {
-      s = semitonesToAccidentalString(accidentals) + s;
+      s = accidentalsToString(accidentals) + s;
     }
     return s;
   }
@@ -195,28 +191,16 @@ class Pitch {
 
   static final Map<String, Interval> _cache = <String, Interval>{};
 
-//   constructor: ({@name, @midiNumber}) ->
-//     @name ?= toScientificNotation(@midiNumber)
-
-//   add: (other) ->
-//     throw new Error("Can't add #{self} and #{other}") unless other.semitones?
-//     return new Pitch midiNumber: @midiNumber + other.semitones
-
   Pitch toPitch() => this;
 
   PitchClass toPitchClass() =>
     new PitchClass.fromSemitones(pitchToPitchClass(midiNumber));
-
-//   transposeBy: (interval) ->
-//     new Pitch(midiNumber: @midiNumber + interval.semitones)
-
 
   factory Pitch({String name, int midiNumber}) {
     var key = name;
     if (_cache.containsKey(key)) {
       return _cache[key];
     }
-    // print("new $name $midiNumber");
     var pitch = new Pitch._internal(name: name, midiNumber: midiNumber);
     _cache[key] = pitch;
     return pitch;
@@ -225,7 +209,7 @@ class Pitch {
   Pitch._internal({int this.midiNumber, String this.name});
 
   static Pitch parse(String name) {
-    int midiNumber = (new RegExp(r'\d').hasMatch(name) ? pitchFromScientificNotation : pitchFromHelmholtzNotation)(name);
+    int midiNumber = (new RegExp(r'\d').hasMatch(name) ? parseScientificNotation : pitchFromHelmholtzNotation)(name);
     return new Pitch(name: name, midiNumber: midiNumber);
   }
 
@@ -253,15 +237,6 @@ class PitchClass {
 
   String toString() => name;
 
-//   add: (other) ->
-//     throw new Error("Can''t add #{self} and #{other}") unless other.semitones?
-//     return PitchClass.fromSemitones(@semitones + other.semitones)
-
-// // # enharmonicizeTo: (scale) ->
-// // #   for name, semitones in scale.noteNames()
-// // #     return new PitchClass {name, semitones} if semitones == @semitones
-// // #   return this
-
   Pitch toPitch({int octave: 0}) =>
     new Pitch.fromMidiNumber(semitones + 12 * (octave + 1));
 
@@ -276,5 +251,3 @@ class PitchClass {
   PitchClass operator + (Interval interval) =>
     new PitchClass.fromSemitones(semitones + interval.semitones);
 }
-
-// Pitches = [0 ... 12].map (pitch) -> new Pitch(pitch)

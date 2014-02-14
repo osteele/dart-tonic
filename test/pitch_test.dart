@@ -76,115 +76,131 @@ void definePitchTests() {
   // Functions
   //
 
-  group('semitonesToAccidentalString', () {
+  group('accidentalsToString', () {
     test('should convert semitone counts to strings', () {
-      expect(semitonesToAccidentalString(0), equals(''));
-      expect(semitonesToAccidentalString(-1), equals('♭'));
-      expect(semitonesToAccidentalString(-2), equals('𝄫'));
-      expect(semitonesToAccidentalString(-3), equals('♭𝄫'));
-      expect(semitonesToAccidentalString(-4), equals('𝄫𝄫'));
-      expect(semitonesToAccidentalString(-5), equals('♭𝄫𝄫'));
-      expect(semitonesToAccidentalString(1), equals('♯'));
-      expect(semitonesToAccidentalString(2), equals('𝄪'));
-      expect(semitonesToAccidentalString(3), equals('♯𝄪'));
-      expect(semitonesToAccidentalString(4), equals('𝄪𝄪'));
-      expect(semitonesToAccidentalString(5), equals('♯𝄪𝄪'));
+      expect(accidentalsToString(0), equals(''));
+      expect(accidentalsToString(-1), equals('♭'));
+      expect(accidentalsToString(-2), equals('𝄫'));
+      expect(accidentalsToString(-3), equals('♭𝄫'));
+      expect(accidentalsToString(-4), equals('𝄫𝄫'));
+      expect(accidentalsToString(-5), equals('♭𝄫𝄫'));
+      expect(accidentalsToString(1), equals('♯'));
+      expect(accidentalsToString(2), equals('𝄪'));
+      expect(accidentalsToString(3), equals('♯𝄪'));
+      expect(accidentalsToString(4), equals('𝄪𝄪'));
+      expect(accidentalsToString(5), equals('♯𝄪𝄪'));
     });
   });
 
-  group('getPitchClassName', () {
+  group('pitchClassToString', () {
     test('should return natural names', () {
-      expect(getPitchClassName(0), equals('C'));
-      expect(getPitchClassName(2), equals('D'));
-      expect(getPitchClassName(4), equals('E'));
-      expect(getPitchClassName(5), equals('F'));
-      expect(getPitchClassName(7), equals('G'));
-      expect(getPitchClassName(9), equals('A'));
-      expect(getPitchClassName(11), equals('B'));
+      expect(pitchClassToString(0), equals('C'));
+      expect(pitchClassToString(2), equals('D'));
+      expect(pitchClassToString(4), equals('E'));
+      expect(pitchClassToString(5), equals('F'));
+      expect(pitchClassToString(7), equals('G'));
+      expect(pitchClassToString(9), equals('A'));
+      expect(pitchClassToString(11), equals('B'));
+    });
+
+    test('should default to flat names', () {
+      expect(pitchClassToString(1), equals('D♭'));
+      expect(pitchClassToString(3), equals('E♭'));
+      expect(pitchClassToString(6), equals('G♭'));
+      expect(pitchClassToString(8), equals('A♭'));
+      expect(pitchClassToString(10), equals('B♭'));
+    });
+
+    test('should return flat names', () {
+      expect(pitchClassToString(1, flat: true), equals('D♭'));
+      expect(pitchClassToString(3, flat: true), equals('E♭'));
+      expect(pitchClassToString(6, flat: true), equals('G♭'));
+      expect(pitchClassToString(8, flat: true), equals('A♭'));
+      expect(pitchClassToString(10, flat: true), equals('B♭'));
     });
 
     test('should return sharp names', () {
-      expect(getPitchClassName(1), equals('C♯'));
-      expect(getPitchClassName(3), equals('D♯'));
-      expect(getPitchClassName(6), equals('F♯'));
-      expect(getPitchClassName(8), equals('G♯'));
-      expect(getPitchClassName(10), equals('A♯'));
+      expect(pitchClassToString(1, sharp: true), equals('C♯'));
+      expect(pitchClassToString(3, sharp: true), equals('D♯'));
+      expect(pitchClassToString(6, sharp: true), equals('F♯'));
+      expect(pitchClassToString(8, sharp: true), equals('G♯'));
+      expect(pitchClassToString(10, sharp: true), equals('A♯'));
     });
   });
 
   // aka pitchNumberToName
-  group('getPitchName', () {
+  group('pitchClassToString', () {
     test('should return names of natural names', () {
-      expect(getPitchName(0), equals('C'));
-      expect(getPitchName(2), equals('D'));
-      expect(getPitchName(4), equals('E'));
-      expect(getPitchName(5), equals('F'));
-      expect(getPitchName(7), equals('G'));
-      expect(getPitchName(9), equals('A'));
-      expect(getPitchName(11), equals('B'));
+      expect(pitchClassToString(0), equals('C'));
+      expect(pitchClassToString(2), equals('D'));
+      expect(pitchClassToString(4), equals('E'));
+      expect(pitchClassToString(5), equals('F'));
+      expect(pitchClassToString(7), equals('G'));
+      expect(pitchClassToString(9), equals('A'));
+      expect(pitchClassToString(11), equals('B'));
     });
 
     test('should return names of flat names', () {
-      expect(getPitchName(1), equals('D♭'));
-      expect(getPitchName(3), equals('E♭'));
-      expect(getPitchName(6), equals('G♭'));
-      expect(getPitchName(8), equals('A♭'));
-      expect(getPitchName(10), equals('B♭'));
+      expect(pitchClassToString(1), equals('D♭'));
+      expect(pitchClassToString(3), equals('E♭'));
+      expect(pitchClassToString(6), equals('G♭'));
+      expect(pitchClassToString(8), equals('A♭'));
+      expect(pitchClassToString(10), equals('B♭'));
     });
 
     test('with flat option should return flat names', () {
-      expect(getPitchName(1, flat: true), equals('D♭'));
-      expect(getPitchName(3, flat: true), equals('E♭'));
-      expect(getPitchName(6, flat: true), equals('G♭'));
-      expect(getPitchName(8, flat: true), equals('A♭'));
-      expect(getPitchName(10, flat: true), equals('B♭'));
+      expect(pitchClassToString(1, flat: true), equals('D♭'));
+      expect(pitchClassToString(3, flat: true), equals('E♭'));
+      expect(pitchClassToString(6, flat: true), equals('G♭'));
+      expect(pitchClassToString(8, flat: true), equals('A♭'));
+      expect(pitchClassToString(10, flat: true), equals('B♭'));
     });
 
     test('with sharp option should return sharp names', () {
-      expect(getPitchName(1, sharp: true), equals('C♯'));
-      expect(getPitchName(3, sharp: true), equals('D♯'));
-      expect(getPitchName(6, sharp: true), equals('F♯'));
-      expect(getPitchName(8, sharp: true), equals('G♯'));
-      expect(getPitchName(10, sharp: true), equals('A♯'));
+      expect(pitchClassToString(1, sharp: true), equals('C♯'));
+      expect(pitchClassToString(3, sharp: true), equals('D♯'));
+      expect(pitchClassToString(6, sharp: true), equals('F♯'));
+      expect(pitchClassToString(8, sharp: true), equals('G♯'));
+      expect(pitchClassToString(10, sharp: true), equals('A♯'));
     });
 
     test('should return both names with both options', () {
-      expect(getPitchName(1, sharp: true, flat: true), equals("D♭/\nC♯"));
+      expect(pitchClassToString(1, sharp: true, flat: true), equals("D♭/\nC♯"));
     });
   });
 
-  group('pitchFromScientificNotation', () {
+  group('parseScientificNotation', () {
     test('should parse the pitch class', () {
-      expect(pitchFromScientificNotation('C4'), equals(60));
-      expect(pitchFromScientificNotation('D4'), equals(62));
-      expect(pitchFromScientificNotation('E4'), equals(64));
-      expect(pitchFromScientificNotation('F4'), equals(65));
-      expect(pitchFromScientificNotation('G4'), equals(67));
-      expect(pitchFromScientificNotation('A4'), equals(69));
-      expect(pitchFromScientificNotation('B4'), equals(71));
+      expect(parseScientificNotation('C4'), equals(60));
+      expect(parseScientificNotation('D4'), equals(62));
+      expect(parseScientificNotation('E4'), equals(64));
+      expect(parseScientificNotation('F4'), equals(65));
+      expect(parseScientificNotation('G4'), equals(67));
+      expect(parseScientificNotation('A4'), equals(69));
+      expect(parseScientificNotation('B4'), equals(71));
     });
 
     test('should parse the octave', () {
-      expect(pitchFromScientificNotation('C1'), equals(24));
-      expect(pitchFromScientificNotation('C2'), equals(36));
-      expect(pitchFromScientificNotation('C3'), equals(48));
-      expect(pitchFromScientificNotation('C4'), equals(60));
-      expect(pitchFromScientificNotation('C5'), equals(72));
-      expect(pitchFromScientificNotation('C6'), equals(84));
+      expect(parseScientificNotation('C1'), equals(24));
+      expect(parseScientificNotation('C2'), equals(36));
+      expect(parseScientificNotation('C3'), equals(48));
+      expect(parseScientificNotation('C4'), equals(60));
+      expect(parseScientificNotation('C5'), equals(72));
+      expect(parseScientificNotation('C6'), equals(84));
     });
 
     test('should parse accidentals', () {
-      expect(pitchFromScientificNotation('Cb4'), equals(59));
-      expect(pitchFromScientificNotation('C#4'), equals(61));
-      expect(pitchFromScientificNotation('C♭4'), equals(59));
-      expect(pitchFromScientificNotation('C♯4'), equals(61));
-      expect(pitchFromScientificNotation('C♭♭4'), equals(58));
-      expect(pitchFromScientificNotation('C♯♯4'), equals(62));
+      expect(parseScientificNotation('Cb4'), equals(59));
+      expect(parseScientificNotation('C#4'), equals(61));
+      expect(parseScientificNotation('C♭4'), equals(59));
+      expect(parseScientificNotation('C♯4'), equals(61));
+      expect(parseScientificNotation('C♭♭4'), equals(58));
+      expect(parseScientificNotation('C♯♯4'), equals(62));
     });
 
     test('should parse double accidentals', () {
-      expect(pitchFromScientificNotation('C𝄫4'), equals(58));
-      expect(pitchFromScientificNotation('C𝄪4'), equals(62));
+      expect(parseScientificNotation('C𝄫4'), equals(58));
+      expect(parseScientificNotation('C𝄪4'), equals(62));
     });
   });
 
@@ -438,13 +454,6 @@ void definePitchTests() {
     test('#toPitchClass should return itself', () {
       expect(PitchClass.parse('C').toPitchClass(), equals(PitchClass.parse('C')));
       expect(PitchClass.parse('D').toPitchClass(), equals(PitchClass.parse('D')));
-    });
-  });
-
-  group('Pitches array', () {
-    test('should contain 12 pitches', () {
-      expect(Pitches, hasLength(12));
-      // Pitches[0].should.be.an.instanceOf(Pitch)
     });
   });
 }
