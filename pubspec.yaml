@@ -1,0 +1,11 @@
+name: tonic
+version: 0.0.1
+author: Oliver Steele <steele@osteele.com>
+description: Music theory
+homepage: http://github.com/osteele/tonic
+
+environment:
+  sdk: '>=1.1.1 <2.0.0'
+dependencies:
+dev_dependencies:
+  unittest: '>=0.10.0 < 0.11.0'
