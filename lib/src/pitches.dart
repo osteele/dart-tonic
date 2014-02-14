@@ -45,13 +45,6 @@ String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
   return name;
 }
 
-// The interval class (integer in [0...12]) between two pitch class numbers
-int intervalClassDifference(pca, pcb) => normalizePitchClass(pcb - pca);
-
-int normalizePitchClass(int pitchClass) => pitchClass % 12;
-
-final pitchToPitchClass = normalizePitchClass;
-
 int parseScientificNotation(String pitchName) {
   var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$');
   var match = re.matchAsPrefix(pitchName);
@@ -88,20 +81,6 @@ int pitchFromHelmholtzNotation(String pitchName) {
 // toScientificNotation = (midiNumber) ->
 //   octave = Math.floor(midiNumber / 12) - 1
 //   return parsePitchClass(normalizePitchClass(midiNumber)) + octave
-
-int parsePitchClass(String pitchClassName, {bool normal: true}) {
-  var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
-  var match = re.matchAsPrefix(pitchClassName);
-  if (match == null) {
-    throw new ArgumentError("$pitchClassName is not a pitch class name");
-  }
-  String naturalName = match[1];
-  String accidentals = match[2];
-  int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += parseAccidentals(accidentals);
-  if (normal) { pitch = normalizePitchClass(pitch); }
-  return pitch;
-}
 
 String midi2name(int number) =>
   "${NoteNames[number % 12]}${number ~/ 12 - 1}";
@@ -158,31 +137,4 @@ class Pitch {
     new Pitch.fromMidiNumber(midiNumber + interval.semitones);
 
   String toString() => name;
-}
-
-
-class PitchClass {
-  int semitones;
-  String name;
-
-  PitchClass({int this.semitones, String this.name}) {
-    semitones = normalizePitchClass(semitones);
-    if (name == null) { name = NoteNames[semitones]; }
-  }
-
-  String toString() => name;
-
-  Pitch toPitch({int octave: 0}) =>
-    new Pitch.fromMidiNumber(semitones + 12 * (octave + 1));
-
-  PitchClass toPitchClass() => this;
-
-  PitchClass.fromSemitones(int semitones): this(semitones: semitones);
-
-  static PitchClass parse(string) => new PitchClass.fromSemitones(parsePitchClass(string));
-
-  bool operator ==(PitchClass other) => other.semitones == semitones;
-
-  PitchClass operator + (Interval interval) =>
-    new PitchClass.fromSemitones(semitones + interval.semitones);
 }

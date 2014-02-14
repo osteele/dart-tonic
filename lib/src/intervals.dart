@@ -6,6 +6,10 @@ final List<string>  LongIntervalNames = [
   'Unison', 'Minor 2nd', 'Major 2nd', 'Minor 3rd', 'Major 3rd', 'Perfect 4th',
   'Tritone', 'Perfect 5th', 'Minor 6th', 'Major 6th', 'Minor 7th', 'Major 7th', 'Octave'];
 
+// The interval class (integer in [0...12]) between two pitch class numbers
+int intervalClassDifference(int pca, int pcb) =>
+  normalizePitchClass(pcb - pca);
+
 // An Interval is the signed distance between two notes.
 // Intervals that represent the same semitone span *and* accidental are interned.
 // Thus, two instance of M3 are ===, but sharp P4 and flat P5 are distinct from
