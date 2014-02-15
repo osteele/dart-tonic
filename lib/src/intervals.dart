@@ -1,8 +1,8 @@
 part of tonic;
 
-final List<string> IntervalNames = ['P1', 'm2', 'M2', 'm3', 'M3', 'P4', 'TT', 'P5', 'm6', 'M6', 'm7', 'M7', 'P8'];
+final List<String> IntervalNames = ['P1', 'm2', 'M2', 'm3', 'M3', 'P4', 'TT', 'P5', 'm6', 'M6', 'm7', 'M7', 'P8'];
 
-final List<string>  LongIntervalNames = [
+final List<String>  LongIntervalNames = [
   'Unison', 'Minor 2nd', 'Major 2nd', 'Minor 3rd', 'Major 3rd', 'Perfect 4th',
   'Tritone', 'Perfect 5th', 'Minor 6th', 'Major 6th', 'Minor 7th', 'Major 7th', 'Octave'];
 
@@ -52,12 +52,8 @@ class Interval {
     return s;
   }
 
-  Interval operator + (Interval other) {
-    // throw new Error("Can''t add #{self} and #{other}") unless other.semitones?
-    return new Interval(semitones + other.semitones, accidentals: accidentals + other.accidentals);
-  }
-
-//   @fromSemitones: (semitones) -> new Interval(semitones)
+  Interval operator + (Interval other) =>
+    new Interval(semitones + other.semitones, accidentals: accidentals + other.accidentals);
 
   static Interval between(int pitch1, int pitch2) {
     var semitones = normalizePitchClass(pitch2 - pitch1);
@@ -65,7 +61,5 @@ class Interval {
   }
 }
 
-final List<Interval> Intervals = IntervalNames.map((name, index) =>
-  Interval.fromSemitones(semitones));
-
-
+// final List Intervals = IntervalNames.map((name, semitones) =>
+//   new Interval.fromSemitones(semitones)) as List<Interval>;

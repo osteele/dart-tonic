@@ -4,7 +4,7 @@ final List<String> SharpNoteNames = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯',
 
 final List<String> FlatNoteNames = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'];
 
-final List<string> NoteNames = SharpNoteNames;
+final List<String> NoteNames = SharpNoteNames;
 
 final Map<String,int> AccidentalValues = {
   '#': 1,
@@ -55,7 +55,7 @@ class Pitch {
   int _naturalNumber;
   int _sharps;
 
-  static final Map<String, Interval> _cache = <String, Interval>{};
+  static final Map<String, Pitch> _cache = <String, Pitch>{};
 
   int get midiNumber => _naturalNumber + _sharps;
   PitchClass get pitchClass => toPitchClass();
@@ -66,14 +66,14 @@ class Pitch {
   PitchClass toPitchClass() =>
     new PitchClass.fromSemitones(pitchToPitchClass(midiNumber));
 
-  factory Pitch({String name, int midiNumber}) {
-    var key = name;
+  factory Pitch({int number, int octave: 0, int sharps: 0}) {
+    octave += number ~/ 12;
+    number %= 12;
+    var key = "$number:$octave:$sharps";
     if (_cache.containsKey(key)) {
       return _cache[key];
     }
-    var pitch = new Pitch._internal(name: name, midiNumber: midiNumber);
-    _cache[key] = pitch;
-    return pitch;
+    return _cache[key] = new Pitch._internal(number: number, octave: octave, sharps: sharps);
   }
 
   Pitch._internal({int number, int octave: 0, int sharps: 0})
@@ -98,7 +98,7 @@ class Pitch {
     int pitch = NoteNames.indexOf(naturalName.toUpperCase());
     int sharps = parseAccidentals(accidentals);
     int octave = int.parse(octaveName) + 1;
-    return new Pitch._internal(number: pitch, octave: octave, sharps: sharps);
+    return new Pitch(number: pitch, octave: octave, sharps: sharps);
   }
 
   static Pitch parseHelmholtzNotation(String pitchName) {
@@ -115,10 +115,11 @@ class Pitch {
     int sharps = parseAccidentals(accidentals);
     int octave = 4 - commas.length + apostrophes.length;
     if (naturalName == naturalName.toUpperCase()) { octave -= 1; }
-    return new Pitch._internal(number: pitch, octave: octave, sharps: sharps);
+    return new Pitch(number: pitch, octave: octave, sharps: sharps);
   }
 
-  Pitch.fromMidiNumber(int midiNumber): this._internal(number: midiNumber);
+  factory Pitch.fromMidiNumber(int midiNumber) =>
+    new Pitch(number: midiNumber);
 
   bool operator ==(Pitch other) =>
     _naturalNumber == other._naturalNumber && _sharps == other._sharps;
