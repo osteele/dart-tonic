@@ -34,54 +34,6 @@ String accidentalsToString(int semitones) {
   return ['𝄫', '♭', '', '♯', '𝄪'][semitones + 2];
 }
 
-String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
-  int pitchClass = pitchToPitchClass(pitch);
-  String flatName = FlatNoteNames[pitchClass];
-  String sharpName = SharpNoteNames[pitchClass];
-  String name = sharp ? sharpName : flatName;
-  if (flat && sharp && flatName != sharpName) {
-    name = "$flatName/\n$sharpName";
-  }
-  return name;
-}
-
-int parseScientificNotation(String pitchName) {
-  var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$');
-  var match = re.matchAsPrefix(pitchName);
-  if (match == null) {
-    throw new ArgumentError("$pitchName is not in scientific notation");
-  }
-  String naturalName = match[1];
-  String accidentals = match[2];
-  String octaveName = match[3];
-  int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += parseAccidentals(accidentals);
-  pitch += 12 * (int.parse(octaveName) + 1);
-  return pitch;
-}
-
-int pitchFromHelmholtzNotation(String pitchName) {
-  var re = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(,*)('*)$");
-  var match = re.matchAsPrefix(pitchName);
-  if (match == null) {
-    throw new ArgumentError("$pitchName is not in Helmholtz notation");
-  }
-  String naturalName = match[1];
-  String accidentals = match[2];
-  String commas = match[3];
-  String apostrophes = match[4];
-  int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += parseAccidentals(accidentals);
-  int octave = 4 - commas.length + apostrophes.length;
-  if (naturalName == naturalName.toUpperCase()) { octave -= 1; }
-  pitch += 12 * octave;
-  return pitch;
-}
-
-// toScientificNotation = (midiNumber) ->
-//   octave = Math.floor(midiNumber / 12) - 1
-//   return parsePitchClass(normalizePitchClass(midiNumber)) + octave
-
 String midi2name(int number) =>
   "${NoteNames[number % 12]}${number ~/ 12 - 1}";
 
@@ -100,10 +52,14 @@ int name2midi(String midiNoteName) {
 }
 
 class Pitch {
-  int midiNumber;
-  String name;
+  int _naturalNumber;
+  int _sharps;
 
   static final Map<String, Interval> _cache = <String, Interval>{};
+
+  int get midiNumber => _naturalNumber + _sharps;
+  PitchClass get pitchClass => toPitchClass();
+  int get octave => _naturalNumber ~/ 12;
 
   Pitch toPitch() => this;
 
@@ -120,21 +76,55 @@ class Pitch {
     return pitch;
   }
 
-  Pitch._internal({int this.midiNumber, String this.name});
+  Pitch._internal({int number, int octave: 0, int sharps: 0})
+    : _naturalNumber = number + 12 * octave
+    , _sharps = sharps;
 
-  static Pitch parse(String name) {
-    int midiNumber = (new RegExp(r'\d').hasMatch(name) ? parseScientificNotation : pitchFromHelmholtzNotation)(name);
-    return new Pitch(name: name, midiNumber: midiNumber);
+  static Pitch parse(String pitchName) {
+    return new RegExp(r'\d').hasMatch(pitchName)
+      ? parseScientificNotation(pitchName)
+      : parseHelmholtzNotation(pitchName);
   }
 
-  Pitch.fromMidiNumber(int this.midiNumber) {
-    name = midi2name(midiNumber);
+  static Pitch parseScientificNotation(String pitchName) {
+    var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$');
+    var match = re.matchAsPrefix(pitchName);
+    if (match == null) {
+      throw new ArgumentError("$pitchName is not in scientific notation");
+    }
+    String naturalName = match[1];
+    String accidentals = match[2];
+    String octaveName = match[3];
+    int pitch = NoteNames.indexOf(naturalName.toUpperCase());
+    int sharps = parseAccidentals(accidentals);
+    int octave = int.parse(octaveName) + 1;
+    return new Pitch._internal(number: pitch, octave: octave, sharps: sharps);
   }
 
-  bool operator ==(Pitch other) => other.name == name;
+  static Pitch parseHelmholtzNotation(String pitchName) {
+    var re = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(,*)('*)$");
+    var match = re.matchAsPrefix(pitchName);
+    if (match == null) {
+      throw new ArgumentError("$pitchName is not in Helmholtz notation");
+    }
+    String naturalName = match[1];
+    String accidentals = match[2];
+    String commas = match[3];
+    String apostrophes = match[4];
+    int pitch = NoteNames.indexOf(naturalName.toUpperCase());
+    int sharps = parseAccidentals(accidentals);
+    int octave = 4 - commas.length + apostrophes.length;
+    if (naturalName == naturalName.toUpperCase()) { octave -= 1; }
+    return new Pitch._internal(number: pitch, octave: octave, sharps: sharps);
+  }
+
+  Pitch.fromMidiNumber(int midiNumber): this._internal(number: midiNumber);
+
+  bool operator ==(Pitch other) =>
+    _naturalNumber == other._naturalNumber && _sharps == other._sharps;
 
   Pitch operator + (Interval interval) =>
-    new Pitch.fromMidiNumber(midiNumber + interval.semitones);
+    new Pitch._internal(number: _naturalNumber + interval.semitones, sharps: _sharps);
 
-  String toString() => name;
+  String toString() => "$pitchClass${octave-1}";
 }

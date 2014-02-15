@@ -66,59 +66,36 @@ void definePitchTests() {
 
   group('parseScientificNotation', () {
     test('should parse the pitch class', () {
-      expect(parseScientificNotation('C4'), equals(60));
-      expect(parseScientificNotation('D4'), equals(62));
-      expect(parseScientificNotation('E4'), equals(64));
-      expect(parseScientificNotation('F4'), equals(65));
-      expect(parseScientificNotation('G4'), equals(67));
-      expect(parseScientificNotation('A4'), equals(69));
-      expect(parseScientificNotation('B4'), equals(71));
+      expect(Pitch.parseScientificNotation('C4').midiNumber, equals(60));
+      expect(Pitch.parseScientificNotation('D4').midiNumber, equals(62));
+      expect(Pitch.parseScientificNotation('E4').midiNumber, equals(64));
+      expect(Pitch.parseScientificNotation('F4').midiNumber, equals(65));
+      expect(Pitch.parseScientificNotation('G4').midiNumber, equals(67));
+      expect(Pitch.parseScientificNotation('A4').midiNumber, equals(69));
+      expect(Pitch.parseScientificNotation('B4').midiNumber, equals(71));
     });
 
     test('should parse the octave', () {
-      expect(parseScientificNotation('C1'), equals(24));
-      expect(parseScientificNotation('C2'), equals(36));
-      expect(parseScientificNotation('C3'), equals(48));
-      expect(parseScientificNotation('C4'), equals(60));
-      expect(parseScientificNotation('C5'), equals(72));
-      expect(parseScientificNotation('C6'), equals(84));
+      expect(Pitch.parseScientificNotation('C1').midiNumber, equals(24));
+      expect(Pitch.parseScientificNotation('C2').midiNumber, equals(36));
+      expect(Pitch.parseScientificNotation('C3').midiNumber, equals(48));
+      expect(Pitch.parseScientificNotation('C4').midiNumber, equals(60));
+      expect(Pitch.parseScientificNotation('C5').midiNumber, equals(72));
+      expect(Pitch.parseScientificNotation('C6').midiNumber, equals(84));
     });
 
     test('should parse accidentals', () {
-      expect(parseScientificNotation('Cb4'), equals(59));
-      expect(parseScientificNotation('C#4'), equals(61));
-      expect(parseScientificNotation('C♭4'), equals(59));
-      expect(parseScientificNotation('C♯4'), equals(61));
-      expect(parseScientificNotation('C♭♭4'), equals(58));
-      expect(parseScientificNotation('C♯♯4'), equals(62));
+      expect(Pitch.parseScientificNotation('Cb4').midiNumber, equals(59));
+      expect(Pitch.parseScientificNotation('C#4').midiNumber, equals(61));
+      expect(Pitch.parseScientificNotation('C♭4').midiNumber, equals(59));
+      expect(Pitch.parseScientificNotation('C♯4').midiNumber, equals(61));
+      expect(Pitch.parseScientificNotation('C♭♭4').midiNumber, equals(58));
+      expect(Pitch.parseScientificNotation('C♯♯4').midiNumber, equals(62));
     });
 
     test('should parse double accidentals', () {
-      expect(parseScientificNotation('C𝄫4'), equals(58));
-      expect(parseScientificNotation('C𝄪4'), equals(62));
-    });
-  });
-
-  group('normalizePitchClass', () {
-    test('should return an integer in 0..11', () {
-      expect(normalizePitchClass(0), equals(0));
-      expect(normalizePitchClass(11), equals(11));
-      expect(normalizePitchClass(-1), equals(11));
-      expect(normalizePitchClass(-13), equals(11));
-      expect(normalizePitchClass(12), equals(0));
-      expect(normalizePitchClass(13), equals(1));
-      expect(normalizePitchClass(25), equals(1));
-    });
-  });
-
-  group('pitchToPitchClass', () {
-    test('should return an integer in [0...12]', () {
-      expect(pitchToPitchClass(0), equals(0));
-      expect(pitchToPitchClass(1), equals(1));
-      expect(pitchToPitchClass(12), equals(0));
-      expect(pitchToPitchClass(13), equals(1));
-      expect(pitchToPitchClass(-1), equals(11));
-      expect(pitchToPitchClass(-13), equals(11));
+      expect(Pitch.parseScientificNotation('C𝄫4').midiNumber, equals(58));
+      expect(Pitch.parseScientificNotation('C𝄪4').midiNumber, equals(62));
     });
   });
 
@@ -148,7 +125,7 @@ void definePitchTests() {
 
 
   group('Pitch', () {
-    test('.parse should read pitch names in scientific notation', () {
+    test('parse should read pitch names in scientific notation', () {
       expect(Pitch.parse('C4').midiNumber, equals(60));
       expect(Pitch.parse('C5').midiNumber, equals(72));
       expect(Pitch.parse('E4').midiNumber, equals(64));
@@ -161,7 +138,7 @@ void definePitchTests() {
       expect(Pitch.parse('C𝄫4').midiNumber, equals(58));
     });
 
-    test('.parse should read pitch names in Helmholtz notation', () {
+    test('parse should read pitch names in Helmholtz notation', () {
       expect(Pitch.parse('C,').midiNumber, equals(24));
       expect(Pitch.parse('D,').midiNumber, equals(26));
       expect(Pitch.parse('C').midiNumber, equals(36));
@@ -179,14 +156,14 @@ void definePitchTests() {
       expect(Pitch.parse('C𝄫,').midiNumber, equals(22));
     });
 
-    test('.fromMidiNumber should convert midi numbers into pitches', () {
+    test('fromMidiNumber should convert midi numbers into pitches', () {
       expect(new Pitch.fromMidiNumber(60), equals(Pitch.parse('C4')));
       expect(new Pitch.fromMidiNumber(72), equals(Pitch.parse('C5')));
       expect(new Pitch.fromMidiNumber(64), equals(Pitch.parse('E4')));
       expect(new Pitch.fromMidiNumber(79), equals(Pitch.parse('G5')));
     });
 
-    test('#toString should return scientific notation', () {
+    test('toString should return scientific notation', () {
       expect(new Pitch.fromMidiNumber(60).toString(), equals('C4'));
       expect(new Pitch.fromMidiNumber(72).toString(), equals('C5'));
       expect(new Pitch.fromMidiNumber(64).toString(), equals('E4'));
@@ -200,11 +177,11 @@ void definePitchTests() {
       expect((Pitch.parse('C4') + Interval.parse('P8')).toString(), equals('C5'));
     });
 
-    test('#toPitch should return itself', () {
+    test('toPitch should return itself', () {
       expect(Pitch.parse('C4').toPitch(), equals(Pitch.parse('C4')));
     });
 
-    test('#toPitchClass should return the pitch class', () {
+    test('toPitchClass should return the pitch class', () {
       expect(Pitch.parse('C4').toPitchClass(), equals(PitchClass.parse('C')));
       expect(Pitch.parse('D4').toPitchClass(), equals(PitchClass.parse('D')));
     });

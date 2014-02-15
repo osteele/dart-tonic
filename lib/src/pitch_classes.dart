@@ -18,6 +18,17 @@ int parsePitchClass(String pitchClassName, {bool normal: true}) {
   return pitch;
 }
 
+String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
+  int pitchClass = pitchToPitchClass(pitch);
+  String flatName = FlatNoteNames[pitchClass];
+  String sharpName = SharpNoteNames[pitchClass];
+  String name = sharp ? sharpName : flatName;
+  if (flat && sharp && flatName != sharpName) {
+    name = "$flatName/\n$sharpName";
+  }
+  return name;
+}
+
 class PitchClass {
   int number;
   String name;

@@ -68,6 +68,29 @@ void definePitchClassTests() {
     });
   });
 
+  group('normalizePitchClass', () {
+    test('should return an integer in 0..11', () {
+      expect(normalizePitchClass(0), equals(0));
+      expect(normalizePitchClass(11), equals(11));
+      expect(normalizePitchClass(-1), equals(11));
+      expect(normalizePitchClass(-13), equals(11));
+      expect(normalizePitchClass(12), equals(0));
+      expect(normalizePitchClass(13), equals(1));
+      expect(normalizePitchClass(25), equals(1));
+    });
+  });
+
+  group('pitchToPitchClass', () {
+    test('should return an integer in [0...12]', () {
+      expect(pitchToPitchClass(0), equals(0));
+      expect(pitchToPitchClass(1), equals(1));
+      expect(pitchToPitchClass(12), equals(0));
+      expect(pitchToPitchClass(13), equals(1));
+      expect(pitchToPitchClass(-1), equals(11));
+      expect(pitchToPitchClass(-13), equals(11));
+    });
+  });
+
   group('PitchClass', () {
     test('parse', () {
       expect(PitchClass.parse('C').number, equals(0));
