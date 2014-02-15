@@ -30,18 +30,17 @@ String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
 }
 
 class PitchClass {
-  int number;
-  String name;
+  final int number;
+  final String name;
 
-  PitchClass({int this.number, String this.name}) {
-    number = normalizePitchClass(number);
-    if (name == null) { name = NoteNames[number]; }
-  }
+  PitchClass({int number, String name})
+    : number = normalizePitchClass(number)
+    , name = name != null ? name : NoteNames[normalizePitchClass(number)];
 
   String toString() => name;
 
   Pitch toPitch({int octave: 0}) =>
-    new Pitch.fromMidiNumber(number + 12 * (octave + 1));
+    new Pitch(number: number, octave: octave);
 
   PitchClass toPitchClass() => this;
 

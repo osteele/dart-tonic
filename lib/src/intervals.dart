@@ -17,8 +17,8 @@ int intervalClassDifference(int pca, int pcb) =>
 
 // FIXME these are interval classes, not intervals
 class Interval {
-  int semitones;
-  int accidentals;
+  final int semitones;
+  final int accidentals;
 
   static final Map<String, Interval> _cache = <String, Interval>{};
 

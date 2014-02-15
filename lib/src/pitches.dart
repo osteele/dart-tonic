@@ -34,6 +34,12 @@ String accidentalsToString(int semitones) {
   return ['𝄫', '♭', '', '♯', '𝄪'][semitones + 2];
 }
 
+int roundToNatural(int pitchNumber) {
+  int pitchClassNumber = pitchNumber % 12;
+  if (FlatNoteNames[pitchClassNumber].length > 1) { pitchNumber += 1; }
+  return pitchNumber;
+}
+
 String midi2name(int number) =>
   "${NoteNames[number % 12]}${number ~/ 12 - 1}";
 
@@ -52,12 +58,11 @@ int name2midi(String midiNoteName) {
 }
 
 class Pitch {
-  int _naturalNumber;
-  int _sharps;
+  final int _naturalNumber;
+  final int _sharps;
 
   static final Map<String, Pitch> _cache = <String, Pitch>{};
 
-  int get midiNumber => _naturalNumber + _sharps;
   PitchClass get pitchClass => toPitchClass();
   int get octave => _naturalNumber ~/ 12;
 
@@ -66,18 +71,20 @@ class Pitch {
   PitchClass toPitchClass() =>
     new PitchClass.fromSemitones(pitchToPitchClass(midiNumber));
 
-  factory Pitch({int number, int octave: 0, int sharps: 0}) {
-    octave += number ~/ 12;
-    number %= 12;
-    var key = "$number:$octave:$sharps";
+  factory Pitch({int number, int sharps: 0, int octave: -1}) {
+    int natural = roundToNatural(number);
+    sharps += number - natural;
+    octave += natural ~/ 12;
+    int pitchClassNumber = natural % 12;
+    var key = "$pitchClassNumber:$sharps:$octave";
     if (_cache.containsKey(key)) {
       return _cache[key];
     }
-    return _cache[key] = new Pitch._internal(number: number, octave: octave, sharps: sharps);
+    return _cache[key] = new Pitch._internal(number: pitchClassNumber, sharps: sharps, octave: octave);
   }
 
-  Pitch._internal({int number, int octave: 0, int sharps: 0})
-    : _naturalNumber = number + 12 * octave
+  Pitch._internal({int number, int sharps: 0, int octave: -1})
+    : _naturalNumber = number + 12 * (octave + 1)
     , _sharps = sharps;
 
   static Pitch parse(String pitchName) {
@@ -97,8 +104,8 @@ class Pitch {
     String octaveName = match[3];
     int pitch = NoteNames.indexOf(naturalName.toUpperCase());
     int sharps = parseAccidentals(accidentals);
-    int octave = int.parse(octaveName) + 1;
-    return new Pitch(number: pitch, octave: octave, sharps: sharps);
+    int octave = int.parse(octaveName);
+    return new Pitch(number: pitch, sharps: sharps, octave: octave);
   }
 
   static Pitch parseHelmholtzNotation(String pitchName) {
@@ -113,19 +120,23 @@ class Pitch {
     String apostrophes = match[4];
     int pitch = NoteNames.indexOf(naturalName.toUpperCase());
     int sharps = parseAccidentals(accidentals);
-    int octave = 4 - commas.length + apostrophes.length;
+    int octave = 3 + apostrophes.length - commas.length;
     if (naturalName == naturalName.toUpperCase()) { octave -= 1; }
-    return new Pitch(number: pitch, octave: octave, sharps: sharps);
+    return new Pitch(number: pitch, sharps: sharps, octave: octave);
   }
 
   factory Pitch.fromMidiNumber(int midiNumber) =>
-    new Pitch(number: midiNumber);
+    new Pitch(number: midiNumber % 12, octave: midiNumber ~/ 12 - 1);
+
+  int get midiNumber => _naturalNumber + _sharps;
 
   bool operator ==(Pitch other) =>
     _naturalNumber == other._naturalNumber && _sharps == other._sharps;
 
   Pitch operator + (Interval interval) =>
-    new Pitch._internal(number: _naturalNumber + interval.semitones, sharps: _sharps);
+    new Pitch(number: _naturalNumber + interval.semitones, sharps: _sharps);
 
   String toString() => "$pitchClass${octave-1}";
+
+  String get inspect => {'number': _naturalNumber, 'sharps': _sharps}.toString();
 }
