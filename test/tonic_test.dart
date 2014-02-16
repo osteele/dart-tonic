@@ -6,9 +6,11 @@ import 'package:tonic/tonic.dart';
 part 'interval_test.dart';
 part 'pitch_class_test.dart';
 part 'pitch_test.dart';
+part 'scales_test.dart';
 
 main() {
   defineIntervalTests();
   definePitchClassTests();
   definePitchTests();
+  defineScaleTests();
 }

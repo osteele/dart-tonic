@@ -55,10 +55,27 @@ class Interval {
   Interval operator + (Interval other) =>
     new Interval(semitones + other.semitones, accidentals: accidentals + other.accidentals);
 
+  Interval operator - (Interval other) =>
+    new Interval((semitones - other.semitones) % 12, accidentals: accidentals - other.accidentals);
+
   static Interval between(int pitch1, int pitch2) {
     var semitones = normalizePitchClass(pitch2 - pitch1);
     return new Interval.fromSemitones(semitones);
   }
+
+  static final Interval P1 = Interval.parse('P1');
+  static final Interval m2 = Interval.parse('m2');
+  static final Interval M2 = Interval.parse('M2');
+  static final Interval m3 = Interval.parse('m3');
+  static final Interval M3 = Interval.parse('M3');
+  static final Interval P4 = Interval.parse('P4');
+  static final Interval TT = Interval.parse('TT');
+  static final Interval P5 = Interval.parse('P5');
+  static final Interval m6 = Interval.parse('m6');
+  static final Interval M6 = Interval.parse('M6');
+  static final Interval m7 = Interval.parse('m7');
+  static final Interval M7 = Interval.parse('M7');
+  static final Interval P8 = Interval.parse('P8');
 }
 
 // final List Intervals = IntervalNames.map((name, semitones) =>
