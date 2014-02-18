@@ -171,12 +171,6 @@ void definePitchTests() {
       expect(new Pitch.fromMidiNumber(61).toString(), equals('C♯4'));
     });
 
-    test('should add to an interval', () {
-      expect((Pitch.parse('C4') + Interval.parse('P1')).toString(), equals('C4'));
-      expect((Pitch.parse('C4') + Interval.parse('M2')).toString(), equals('D4'));
-      expect((Pitch.parse('C4') + Interval.parse('P8')).toString(), equals('C5'));
-    });
-
     test('toPitch should return itself', () {
       expect(Pitch.parse('C4').toPitch(), equals(Pitch.parse('C4')));
     });
@@ -185,5 +179,18 @@ void definePitchTests() {
       expect(Pitch.parse('C4').toPitchClass(), equals(PitchClass.parse('C')));
       expect(Pitch.parse('D4').toPitchClass(), equals(PitchClass.parse('D')));
     });
+
+    test('+ should add to an interval', () {
+      expect((Pitch.parse('C4') + Interval.P1), equals(Pitch.parse('C4')));
+      expect((Pitch.parse('C4') + Interval.M2), equals(Pitch.parse('D4')));
+      expect((Pitch.parse('C4') + Interval.P8), equals(Pitch.parse('C5')));
+    });
+
+    // test('- should return the interval between two pitches', () {
+    //   expect((Pitch.parse('C4') - Pitch.parse('C4')), equals(Interval.P1));
+    //   expect((Pitch.parse('C♯4') - Pitch.parse('C4')), equals(Interval.m2));
+    //   expect((Pitch.parse('D4') - Pitch.parse('C4')), equals(Interval.M2));
+    //   expect((Pitch.parse('C5') - Pitch.parse('C4')), equals(Interval.P8));
+    // });
   });
 }

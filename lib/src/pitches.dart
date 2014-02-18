@@ -136,6 +136,9 @@ class Pitch {
   Pitch operator + (Interval interval) =>
     new Pitch(number: _naturalNumber + interval.semitones, sharps: _sharps);
 
+  // Interval operator - (Pitch other) =>
+  //   new Interval.fromSemitones(midiNumber - other.midiNumber, number: (pitchClass.number - other.pitchClass.number) % 12 + 1);
+
   String toString() => "$pitchClass${octave-1}";
 
   String get inspect => {'number': _naturalNumber, 'sharps': _sharps}.toString();

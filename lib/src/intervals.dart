@@ -17,51 +17,78 @@ int intervalClassDifference(int pca, int pcb) =>
 
 // FIXME these are interval classes, not intervals
 class Interval {
+  final int number;
+  final String quality;
   final int semitones;
-  final int accidentals;
+  Interval _augmented = null;
+  Interval _diminished = null;
 
   static final Map<String, Interval> _cache = <String, Interval>{};
 
-  factory Interval(semitones, {accidentals: 0}) {
-    var key = "$semitones:$accidentals";
-    if (_cache.containsKey(key)) {
-      return _cache[key];
+  static final List<int> _semitonesByNumber = [0, 2, 4, 5, 7, 9, 11, 12];
+  static bool _numberIsPerfect(int number) => [1, 4, 5, 8].indexOf(number) >= 0;
+  static String _defaultQualityForNumber(int number) => _numberIsPerfect(number) ? 'P' : 'M';
+
+  factory Interval({int number, String quality}) {
+    assert(number != null);
+    var semitones = _semitonesByNumber[number - 1];
+    if (semitones == null) { throw new ArgumentError("invalid interval number: $number"); }
+    if (quality == null) { quality = IntervalNames[semitones][0]; }
+    final key = "$quality$number";
+    if (_cache.containsKey(key)) {return _cache[key]; }
+    var qualityDelta = _numberIsPerfect(number)
+      ? "dPA".indexOf(quality) - 1
+      : "dmMA".indexOf(quality) - 2;
+    if (qualityDelta == null) { throw new ArgumentError("invalid interval quality: $quality"); }
+    semitones += qualityDelta;
+    return _cache[key] = new Interval._internal(number, quality, semitones);
+  }
+
+  Interval._internal(int this.number, this.quality, this.semitones);
+
+  factory Interval.fromSemitones(semitones, {int number}) {
+    if (semitones < 0 || 12 < semitones) { semitones %= 12; }
+    var interval = Interval.parse(IntervalNames[semitones]);
+    if (number != null) {
+      interval = new Interval(number: number);
+      var qs = _numberIsPerfect(number) ? "dPA" : "dmMA";
+      var i = semitones - interval.semitones + (qs.length ~/ 2);
+      if (!(0 <= i && i < qs.length)) { throw new ArgumentError("can't qualify $interval to $semitones semitone(s)"); }
+      var q = qs[i];
+      interval = new Interval(number: number, quality: q);
     }
-    var interval = new Interval._internal(semitones, accidentals: accidentals);
-    _cache[key] = interval;
     return interval;
   }
 
-  Interval._internal(this.semitones, {this.accidentals: 0});
+  Interval get augmented =>
+    _augmented != null ? _augmented
+    : "mMP".indexOf(quality) >= 0 ? _augmented = new Interval(number: number, quality: 'A')
+    : throw new ArgumentError("can't augment $this");
 
-  factory Interval.fromSemitones(semitones) => new Interval(semitones);
+  // TODO error if quality is not mMP
+  Interval get diminished =>
+    _diminished != null ? _diminished : _diminished = new Interval(number: number, quality: 'd');
 
   static parse(String name) {
-    var semitones = IntervalNames.indexOf(name);
-    if (semitones < 0) {
-      throw new ArgumentError("No interval named $name");
+    if (!name.startsWith(new RegExp(r'^([dmMA][2367])|([dPA][1458])|TT$'))) {
+     throw new ArgumentError("No interval named $name");
     }
-    return new Interval(semitones);
+    if (name == "TT") { name = "d5"; }
+    final re = new RegExp(r'^([dmMPA])(\d)$');
+    var match = re.matchAsPrefix(name);
+    assert(match != null);
+    return new Interval(number: int.parse(match[2]), quality: match[1]);
   }
 
-  String toString() {
-    var s = IntervalNames[semitones];
-    if (accidentals != 0) {
-      s = accidentalsToString(accidentals) + s;
-    }
-    return s;
-  }
+  String toString() => "$quality$number";
+
+  Interval inversion() => new Interval.fromSemitones(12 - semitones, number: 9 - number % 12);
 
   Interval operator + (Interval other) =>
-    new Interval(semitones + other.semitones, accidentals: accidentals + other.accidentals);
+    new Interval.fromSemitones(semitones + other.semitones, number: number + other.number - 1);
 
   Interval operator - (Interval other) =>
-    new Interval((semitones - other.semitones) % 12, accidentals: accidentals - other.accidentals);
-
-  static Interval between(int pitch1, int pitch2) {
-    var semitones = normalizePitchClass(pitch2 - pitch1);
-    return new Interval.fromSemitones(semitones);
-  }
+    new Interval.fromSemitones(semitones - other.semitones % 12, number: (number - other.number) % 7 + 1);
 
   static final Interval P1 = Interval.parse('P1');
   static final Interval m2 = Interval.parse('m2');
@@ -76,6 +103,22 @@ class Interval {
   static final Interval m7 = Interval.parse('m7');
   static final Interval M7 = Interval.parse('M7');
   static final Interval P8 = Interval.parse('P8');
+
+  static final Interval A1 = Interval.P1.augmented;
+  static final Interval A2 = Interval.M2.augmented;
+  static final Interval A3 = Interval.M3.augmented;
+  static final Interval A4 = Interval.P4.augmented;
+  static final Interval A5 = Interval.P5.augmented;
+  static final Interval A6 = Interval.M6.augmented;
+  static final Interval A7 = Interval.M7.augmented;
+
+  static final Interval d2 = Interval.m2.diminished;
+  static final Interval d3 = Interval.m3.diminished;
+  static final Interval d4 = Interval.P4.diminished;
+  static final Interval d5 = Interval.P5.diminished;
+  static final Interval d6 = Interval.m6.diminished;
+  static final Interval d7 = Interval.m7.diminished;
+  static final Interval d8 = Interval.P8.diminished;
 }
 
 // final List Intervals = IntervalNames.map((name, semitones) =>
