@@ -24,7 +24,7 @@ class ScalePattern {
   static void _initializeBuiltinPatterns() {
     if (_builtinPatternsInitialized) return;
     _builtinPatternsInitialized = true;
-    BuiltinScalePatternSpecs.forEach((spec) {
+    for (var spec in ScalePatternSpecs) {
       var scaleName = spec['name'];
       var parentName = spec['parent'];
       var modeNames = spec['modeNames'];
@@ -40,7 +40,7 @@ class ScalePattern {
         modeIntervals = modeIntervals.map((interval) => interval - root).toList();
         new Mode(name: modeName, parent: scale, intervals: modeIntervals);
       });
-    });
+    }
   }
 
   at(PitchClass tonic) => new Scale(pattern: this, tonic: tonic);
@@ -92,7 +92,7 @@ class Scale {
 //     return scale
 }
 
-List BuiltinScalePatternSpecs = [
+final List ScalePatternSpecs = [
   {
     'name': 'Diatonic Major',
     'intervals': [0, 2, 4, 5, 7, 9, 11],

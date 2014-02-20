@@ -156,6 +156,22 @@ void definePitchTests() {
       expect(Pitch.parse('C𝄫,').midiNumber, equals(22));
     });
 
+    test('parse should preserve accidentals', () {
+      // expect(Pitch.parse('C5').toString(), equals('C5'));
+      // expect(Pitch.parse('C♯5').toString(), equals('C♯5'));
+      // expect(Pitch.parse('C♭5').toString(), equals('C♭5'));
+      // expect(Pitch.parse('C𝄪5').toString(), equals('C𝄪5'));
+      // expect(Pitch.parse('C𝄫5').toString(), equals('C𝄫5'));
+
+      // expect(Pitch.parse('C♭,').midiNumber, equals(24));
+      // expect(Pitch.parse('D♭,').midiNumber, equals(26));
+      // expect(Pitch.parse('C♭').midiNumber, equals(36));
+      // expect(Pitch.parse('c♭').midiNumber, equals(48));
+      // expect(Pitch.parse("c♭'").midiNumber, equals(60));
+      // expect(Pitch.parse('C♭,').midiNumber, equals(25));
+      // TODO: add sharp, doubles
+    });
+
     test('fromMidiNumber should convert midi numbers into pitches', () {
       expect(new Pitch.fromMidiNumber(60), equals(Pitch.parse('C4')));
       expect(new Pitch.fromMidiNumber(72), equals(Pitch.parse('C5')));
@@ -186,11 +202,11 @@ void definePitchTests() {
       expect((Pitch.parse('C4') + Interval.P8), equals(Pitch.parse('C5')));
     });
 
-    // test('- should return the interval between two pitches', () {
-    //   expect((Pitch.parse('C4') - Pitch.parse('C4')), equals(Interval.P1));
-    //   expect((Pitch.parse('C♯4') - Pitch.parse('C4')), equals(Interval.m2));
-    //   expect((Pitch.parse('D4') - Pitch.parse('C4')), equals(Interval.M2));
-    //   expect((Pitch.parse('C5') - Pitch.parse('C4')), equals(Interval.P8));
-    // });
+    test('- should return the number of semitones between two pitches', () {
+      expect(Pitch.parse('C4') - Pitch.parse('C4'), equals(0));
+      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), equals(1));
+      expect(Pitch.parse('D4') - Pitch.parse('C4'), equals(2));
+      expect(Pitch.parse('C5') - Pitch.parse('C4'), equals(12));
+    });
   });
 }

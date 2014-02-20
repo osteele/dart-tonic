@@ -62,6 +62,8 @@ class Pitch {
   final int _sharps;
 
   static final Map<String, Pitch> _cache = <String, Pitch>{};
+  static final Pattern _helmholtzPitchNamePattern = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(,*)('*)$");
+  static final Pattern _scientificPitchNamePattern = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$");
 
   PitchClass get pitchClass => toPitchClass();
   int get octave => _naturalNumber ~/ 12;
@@ -77,9 +79,7 @@ class Pitch {
     octave += natural ~/ 12;
     int pitchClassNumber = natural % 12;
     var key = "$pitchClassNumber:$sharps:$octave";
-    if (_cache.containsKey(key)) {
-      return _cache[key];
-    }
+    if (_cache.containsKey(key)) { return _cache[key]; }
     return _cache[key] = new Pitch._internal(number: pitchClassNumber, sharps: sharps, octave: octave);
   }
 
@@ -94,11 +94,8 @@ class Pitch {
   }
 
   static Pitch parseScientificNotation(String pitchName) {
-    var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$');
-    var match = re.matchAsPrefix(pitchName);
-    if (match == null) {
-      throw new ArgumentError("$pitchName is not in scientific notation");
-    }
+    var match = _scientificPitchNamePattern.matchAsPrefix(pitchName);
+    if (match == null) { throw new ArgumentError("$pitchName is not in scientific notation"); }
     String naturalName = match[1];
     String accidentals = match[2];
     String octaveName = match[3];
@@ -109,11 +106,8 @@ class Pitch {
   }
 
   static Pitch parseHelmholtzNotation(String pitchName) {
-    var re = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(,*)('*)$");
-    var match = re.matchAsPrefix(pitchName);
-    if (match == null) {
-      throw new ArgumentError("$pitchName is not in Helmholtz notation");
-    }
+    var match = _helmholtzPitchNamePattern.matchAsPrefix(pitchName);
+    if (match == null) { throw new ArgumentError("$pitchName is not in Helmholtz notation"); }
     String naturalName = match[1];
     String accidentals = match[2];
     String commas = match[3];
@@ -133,11 +127,13 @@ class Pitch {
   bool operator ==(Pitch other) =>
     _naturalNumber == other._naturalNumber && _sharps == other._sharps;
 
+  int get hashCode => 37 * _naturalNumber + _sharps;
+
   Pitch operator + (Interval interval) =>
     new Pitch(number: _naturalNumber + interval.semitones, sharps: _sharps);
 
-  // Interval operator - (Pitch other) =>
-  //   new Interval.fromSemitones(midiNumber - other.midiNumber, number: (pitchClass.number - other.pitchClass.number) % 12 + 1);
+  int operator - (Pitch other) =>
+    midiNumber - other.midiNumber;
 
   String toString() => "$pitchClass${octave-1}";
 
