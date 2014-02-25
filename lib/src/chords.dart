@@ -2,7 +2,13 @@ part of tonic;
 
 // final List<String> InversionNames = ['a', 'c', 'd'];
 
-class NotFoundException extends Exception {}
+class NotFoundException implements Exception {
+  String message;
+
+  NotFoundException(this.message);
+
+  String toString() => "NotFoundException: $message";
+}
 
 // An instance of ChordPattern represents the intervals of the chord,
 // without the root. For example, Dom7. It represents the quality, suspensions, and additions.

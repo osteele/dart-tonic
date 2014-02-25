@@ -62,8 +62,10 @@ class Scale {
 
   Scale({ScalePattern this.pattern, PitchClass this.tonic});
 
+  List<Interval> get intervals => pattern.intervals;
+
   List<PitchClass> get pitchClasses =>
-    pattern.intervals.map((interval) => tonic + interval).toList();
+    intervals.map((interval) => tonic + interval).toList();
 
     // : intervals = (new Interval(semitones) for semitones in @pitchClasses)
     // @pitches = (@tonic.add(interval) for interval in @intervals) if @tonic?

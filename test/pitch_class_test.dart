@@ -41,33 +41,6 @@ void definePitchClassTests() {
     });
   });
 
-  group('parsePitchClass', () {
-    test('should parse naturals', () {
-      expect(parsePitchClass('C'), equals(0));
-      expect(parsePitchClass('D'), equals(2));
-      expect(parsePitchClass('E'), equals(4));
-      expect(parsePitchClass('F'), equals(5));
-      expect(parsePitchClass('G'), equals(7));
-      expect(parsePitchClass('A'), equals(9));
-      expect(parsePitchClass('B'), equals(11));
-    });
-
-    test('should parse sharps', () {
-      expect(parsePitchClass('C#'), equals(1));
-      expect(parsePitchClass('C♯'), equals(1));
-    });
-
-    test('should parse flats', () {
-      expect(parsePitchClass('Cb'), equals(11));
-      expect(parsePitchClass('C♭'), equals(11));
-    });
-
-    test('should parse double sharps and flats', () {
-      expect(parsePitchClass('C𝄪'), equals(2));
-      expect(parsePitchClass('C𝄫'), equals(10));
-    });
-  });
-
   group('normalizePitchClass', () {
     test('should return an integer in 0..11', () {
       expect(normalizePitchClass(0), equals(0));
@@ -92,46 +65,100 @@ void definePitchClassTests() {
   });
 
   group('PitchClass', () {
-    test('parse', () {
-      expect(PitchClass.parse('C').number, equals(0));
-      expect(PitchClass.parse('E').number, equals(4));
-      expect(PitchClass.parse('G').number, equals(7));
-      expect(PitchClass.parse('C♭').number, equals(11));
-      expect(PitchClass.parse('C♯').number, equals(1));
+    group('parse', () {
+      test('should parse naturals', () {
+        expect(PitchClass.parse('C').integer, equals(0));
+        expect(PitchClass.parse('D').integer, equals(2));
+        expect(PitchClass.parse('E').integer, equals(4));
+        expect(PitchClass.parse('F').integer, equals(5));
+        expect(PitchClass.parse('G').integer, equals(7));
+        expect(PitchClass.parse('A').integer, equals(9));
+        expect(PitchClass.parse('B').integer, equals(11));
+      });
+
+      test('should parse sharps', () {
+        expect(PitchClass.parse('C#').integer, equals(1));
+        expect(PitchClass.parse('C♯').integer, equals(1));
+      });
+
+      test('should parse flats', () {
+        expect(PitchClass.parse('Cb').integer, equals(11));
+        expect(PitchClass.parse('C♭').integer, equals(11));
+      });
+
+      test('should parse double sharps and flats', () {
+        expect(PitchClass.parse('C𝄪').integer, equals(2));
+        expect(PitchClass.parse('C𝄫').integer, equals(10));
+      });
     });
 
+
     test('fromSemitones', () {
-      expect(new PitchClass.fromSemitones(60).number, equals(0));
-      expect(new PitchClass.fromSemitones(61).number, equals(1));
-      expect(new PitchClass.fromSemitones(62).number, equals(2));
-      expect(new PitchClass.fromSemitones(48).number, equals(0));
-      expect(new PitchClass.fromSemitones(72).number, equals(0));
-      expect(new PitchClass.fromSemitones(50).number, equals(2));
-      expect(new PitchClass.fromSemitones(74).number, equals(2));
+      expect(new PitchClass.fromSemitones(60).integer, equals(0));
+      expect(new PitchClass.fromSemitones(61).integer, equals(1));
+      expect(new PitchClass.fromSemitones(62).integer, equals(2));
+      expect(new PitchClass.fromSemitones(48).integer, equals(0));
+      expect(new PitchClass.fromSemitones(72).integer, equals(0));
+      expect(new PitchClass.fromSemitones(50).integer, equals(2));
+      expect(new PitchClass.fromSemitones(74).integer, equals(2));
     });
 
     test('toString', () {
       expect(new PitchClass.fromSemitones(0).toString(), equals('C'));
+      expect(new PitchClass.fromSemitones(1).toString(), equals('C♯'));
       expect(new PitchClass.fromSemitones(2).toString(), equals('D'));
+      expect(new PitchClass.fromSemitones(3).toString(), equals('D♯'));
       expect(new PitchClass.fromSemitones(4).toString(), equals('E'));
-      expect(new PitchClass.fromSemitones(60).toString(), equals('C'));
-      expect(new PitchClass.fromSemitones(61).toString(), equals('C♯'));
-      expect(new PitchClass.fromSemitones(62).toString(), equals('D'));
-      expect(new PitchClass.fromSemitones(48).toString(), equals('C'));
-      expect(new PitchClass.fromSemitones(72).toString(), equals('C'));
-      expect(new PitchClass.fromSemitones(50).toString(), equals('D'));
-      expect(new PitchClass.fromSemitones(74).toString(), equals('D'));
+      expect(new PitchClass.fromSemitones(5).toString(), equals('F'));
+      expect(new PitchClass.fromSemitones(6).toString(), equals('F♯'));
+      expect(new PitchClass.fromSemitones(7).toString(), equals('G'));
+      expect(new PitchClass.fromSemitones(8).toString(), equals('G♯'));
+      expect(new PitchClass.fromSemitones(9).toString(), equals('A'));
+      expect(new PitchClass.fromSemitones(10).toString(), equals('A♯'));
+      expect(new PitchClass.fromSemitones(11).toString(), equals('B'));
+
+      expect(PitchClass.parse('C').toString(), equals('C'));
+      expect(PitchClass.parse('E').toString(), equals('E'));
+      expect(PitchClass.parse('G').toString(), equals('G'));
+      expect(PitchClass.parse('C♭').toString(), equals('B'));
+      expect(PitchClass.parse('C♯').toString(), equals('C♯'));
+      expect(PitchClass.parse('C𝄫').toString(), equals('A♯'));
+      expect(PitchClass.parse('C𝄪').toString(), equals('D'));
     });
 
     test('should normalize its input', () {
-      expect(new PitchClass.fromSemitones(12).number, equals(0));
-      expect(new PitchClass.fromSemitones(14).number, equals(2));
-      expect(new PitchClass.fromSemitones(24).number, equals(0));
-      expect(new PitchClass.fromSemitones(26).number, equals(2));
+      expect(new PitchClass.fromSemitones(12).integer, equals(0));
+      expect(new PitchClass.fromSemitones(14).integer, equals(2));
+      expect(new PitchClass.fromSemitones(24).integer, equals(0));
+      expect(new PitchClass.fromSemitones(26).integer, equals(2));
     });
 
-    test('should add to an interval', () {
-      expect((PitchClass.parse('C') + Interval.parse('M2')).toString(), equals('D'));
+    test('+ Interval should return a PitchClass', () {
+      expect((PitchClass.parse('C') + Interval.P1).toString(), equals('C'));
+      expect((PitchClass.parse('C') + Interval.m2).toString(), equals('C♯'));
+      expect((PitchClass.parse('C') + Interval.M2).toString(), equals('D'));
+      expect((PitchClass.parse('C') + Interval.m3).toString(), equals('D♯'));
+      expect((PitchClass.parse('C') + Interval.M3).toString(), equals('E'));
+      expect((PitchClass.parse('C') + Interval.P4).toString(), equals('F'));
+      expect((PitchClass.parse('C') + Interval.TT).toString(), equals('F♯'));
+      expect((PitchClass.parse('C') + Interval.P5).toString(), equals('G'));
+      expect((PitchClass.parse('C') + Interval.m6).toString(), equals('G♯'));
+      expect((PitchClass.parse('C') + Interval.M6).toString(), equals('A'));
+      expect((PitchClass.parse('C') + Interval.m7).toString(), equals('A♯'));
+      expect((PitchClass.parse('C') + Interval.M7).toString(), equals('B'));
+
+      expect((PitchClass.parse('D') + Interval.P1).toString(), equals('D'));
+      expect((PitchClass.parse('D') + Interval.m2).toString(), equals('D♯'));
+      expect((PitchClass.parse('D') + Interval.M2).toString(), equals('E'));
+      expect((PitchClass.parse('D') + Interval.m3).toString(), equals('F'));
+      expect((PitchClass.parse('D') + Interval.M3).toString(), equals('F♯'));
+      expect((PitchClass.parse('D') + Interval.P4).toString(), equals('G'));
+      expect((PitchClass.parse('D') + Interval.TT).toString(), equals('G♯'));
+      expect((PitchClass.parse('D') + Interval.P5).toString(), equals('A'));
+      expect((PitchClass.parse('D') + Interval.m6).toString(), equals('A♯'));
+      expect((PitchClass.parse('D') + Interval.M6).toString(), equals('B'));
+      expect((PitchClass.parse('D') + Interval.m7).toString(), equals('C'));
+      expect((PitchClass.parse('D') + Interval.M7).toString(), equals('C♯'));
     });
 
     test('toPitch should return a pitch within the specified octave', () {

@@ -34,20 +34,20 @@ String accidentalsToString(int semitones) {
   return ['𝄫', '♭', '', '♯', '𝄪'][semitones + 2];
 }
 
-int roundToNatural(int pitchNumber) {
-  int pitchClassNumber = pitchNumber % 12;
-  if (FlatNoteNames[pitchClassNumber].length > 1) { pitchNumber += 1; }
-  return pitchNumber;
+int diatonicFloor(int semitones) {
+  int pitchClassNumber = semitones % 12;
+  if (FlatNoteNames[pitchClassNumber].length > 1) { semitones += 1; }
+  return semitones;
 }
 
 String midi2name(int number) =>
   "${NoteNames[number % 12]}${number ~/ 12 - 1}";
 
+final MidiNamePattern = new RegExp(r'^([A-Ga-g])([♯#♭b𝄪𝄫]*)(-?\d+)');
+
 int name2midi(String midiNoteName) {
-  var match = new RegExp(r'^([A-Ga-g])([♯#♭b𝄪𝄫]*)(-?\d+)').matchAsPrefix(midiNoteName);
-  if (match == null) {
-    throw new ArgumentError("$midiNoteName is not a midi note name");
-  }
+  final match = MidiNamePattern.matchAsPrefix(midiNoteName);
+  if (match == null) { throw new FormatException("$midiNoteName is not a midi note name"); }
   String naturalName = match[1];
   String accidentals = match[2];
   String octaveName = match[3];
@@ -58,84 +58,102 @@ int name2midi(String midiNoteName) {
 }
 
 class Pitch {
-  final int _naturalNumber;
-  final int _sharps;
+  final int diatonicSemitones;
+  final int accidentalSemitones;
 
-  static final Map<String, Pitch> _cache = <String, Pitch>{};
+  static final Map<String, Pitch> _interned = <String, Pitch>{};
   static final Pattern _helmholtzPitchNamePattern = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(,*)('*)$");
   static final Pattern _scientificPitchNamePattern = new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$");
 
   PitchClass get pitchClass => toPitchClass();
-  int get octave => _naturalNumber ~/ 12;
+  int get octave => diatonicSemitones ~/ 12;
 
+  /// a String in ['A'..'G']
+  String get letterName => NoteNames[diatonicSemitones % 12];
+
+  /// an integer in [0...7], where 0 represents 'C'
+  int get letterIndex => (letterName.codeUnitAt(0) - 67) % 7;
+
+  // both Pitch and PitchClass respond to toPitch
   Pitch toPitch() => this;
 
+  // both Pitch and PitchClass respond to toPitchClass
   PitchClass toPitchClass() =>
-    new PitchClass.fromSemitones(pitchToPitchClass(midiNumber));
+    new PitchClass(integer: midiNumber % 12);
 
-  factory Pitch({int number, int sharps: 0, int octave: -1}) {
-    int natural = roundToNatural(number);
-    sharps += number - natural;
-    octave += natural ~/ 12;
-    int pitchClassNumber = natural % 12;
-    var key = "$pitchClassNumber:$sharps:$octave";
-    if (_cache.containsKey(key)) { return _cache[key]; }
-    return _cache[key] = new Pitch._internal(number: pitchClassNumber, sharps: sharps, octave: octave);
+  // chromaticIndex is in semitones but must index a diatonic pitch
+  factory Pitch({int chromaticIndex, int accidentalSemitones: 0, int octave: -1}) {
+    octave += chromaticIndex ~/ 12;
+    chromaticIndex = chromaticIndex % 12;
+    if (NoteNames[chromaticIndex].length > 1) {
+      accidentalSemitones += 1;
+      chromaticIndex -= 1;
+    }
+    var key = "$octave:$chromaticIndex:$accidentalSemitones";
+    if (_interned.containsKey(key)) { return _interned[key]; }
+    return _interned[key] = new Pitch._internal(chromaticIndex: chromaticIndex, accidentalSemitones: accidentalSemitones, octave: octave);
   }
 
-  Pitch._internal({int number, int sharps: 0, int octave: -1})
-    : _naturalNumber = number + 12 * (octave + 1)
-    , _sharps = sharps;
+  Pitch._internal({int chromaticIndex, int this.accidentalSemitones: 0, int octave: -1})
+    : diatonicSemitones = chromaticIndex + 12 * (octave + 1);
 
-  static Pitch parse(String pitchName) {
-    return new RegExp(r'\d').hasMatch(pitchName)
+  static Pitch parse(String pitchName) =>
+    _scientificPitchNamePattern.hasMatch(pitchName)
       ? parseScientificNotation(pitchName)
       : parseHelmholtzNotation(pitchName);
-  }
 
   static Pitch parseScientificNotation(String pitchName) {
     var match = _scientificPitchNamePattern.matchAsPrefix(pitchName);
-    if (match == null) { throw new ArgumentError("$pitchName is not in scientific notation"); }
+    if (match == null) { throw new FormatException("not in scientific notation: $pitchName"); }
     String naturalName = match[1];
     String accidentals = match[2];
     String octaveName = match[3];
     int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-    int sharps = parseAccidentals(accidentals);
+    int accidentalSemitones = parseAccidentals(accidentals);
     int octave = int.parse(octaveName);
-    return new Pitch(number: pitch, sharps: sharps, octave: octave);
+    return new Pitch(chromaticIndex: pitch, accidentalSemitones: accidentalSemitones, octave: octave);
   }
 
   static Pitch parseHelmholtzNotation(String pitchName) {
     var match = _helmholtzPitchNamePattern.matchAsPrefix(pitchName);
-    if (match == null) { throw new ArgumentError("$pitchName is not in Helmholtz notation"); }
+    if (match == null) { throw new FormatException("not in Helmholtz notation: $pitchName"); }
     String naturalName = match[1];
     String accidentals = match[2];
     String commas = match[3];
     String apostrophes = match[4];
     int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-    int sharps = parseAccidentals(accidentals);
+    int accidentalSemitones = parseAccidentals(accidentals);
     int octave = 3 + apostrophes.length - commas.length;
     if (naturalName == naturalName.toUpperCase()) { octave -= 1; }
-    return new Pitch(number: pitch, sharps: sharps, octave: octave);
+    return new Pitch(chromaticIndex: pitch, accidentalSemitones: accidentalSemitones, octave: octave);
   }
 
   factory Pitch.fromMidiNumber(int midiNumber) =>
-    new Pitch(number: midiNumber % 12, octave: midiNumber ~/ 12 - 1);
+    new Pitch(chromaticIndex: midiNumber % 12, octave: midiNumber ~/ 12 - 1);
 
-  int get midiNumber => _naturalNumber + _sharps;
+  int get midiNumber => diatonicSemitones + accidentalSemitones;
 
   bool operator ==(Pitch other) =>
-    _naturalNumber == other._naturalNumber && _sharps == other._sharps;
+    diatonicSemitones == other.diatonicSemitones && accidentalSemitones == other.accidentalSemitones;
 
-  int get hashCode => 37 * _naturalNumber + _sharps;
+  int get hashCode => 37 * diatonicSemitones + accidentalSemitones;
 
-  Pitch operator + (Interval interval) =>
-    new Pitch(number: _naturalNumber + interval.semitones, sharps: _sharps);
+  Pitch operator +(Interval interval) {
+    var diatonicIndex = letterIndex + interval.number - 1;
+    var octave = this.octave + diatonicIndex ~/ 7;
+    diatonicIndex %= 7;
+    var semitones = [0, 2, 4, 5, 7, 9, 11][diatonicIndex] + 12 * octave;
+    var accidentals = midiNumber + interval.semitones - semitones;
+    return new Pitch(chromaticIndex: semitones, accidentalSemitones: accidentals);
+  }
 
-  int operator - (Pitch other) =>
-    midiNumber - other.midiNumber;
+  // TODO subtract an Interval to produce a Pitch; subtract a Pitch to product an Interval?
+  Interval operator -(other) =>
+    new Interval.fromSemitones(midiNumber - other.midiNumber, number: 1 + letterIndex + 7 * octave - other.letterIndex - 7 * other.octave);
 
-  String toString() => "$pitchClass${octave-1}";
+  String get accidentalsString => accidentalsToString(accidentalSemitones);
+  String toString() => "$letterName$accidentalsString${octave-1}";
 
-  String get inspect => {'number': _naturalNumber, 'sharps': _sharps}.toString();
+  String get inspect =>
+    {'letter': letterName, 'diatonicSemitones': diatonicSemitones, 'accidentals': accidentalSemitones}.toString();
 }

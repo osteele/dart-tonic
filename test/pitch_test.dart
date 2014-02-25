@@ -157,18 +157,17 @@ void definePitchTests() {
     });
 
     test('parse should preserve accidentals', () {
-      // expect(Pitch.parse('C5').toString(), equals('C5'));
-      // expect(Pitch.parse('C♯5').toString(), equals('C♯5'));
-      // expect(Pitch.parse('C♭5').toString(), equals('C♭5'));
-      // expect(Pitch.parse('C𝄪5').toString(), equals('C𝄪5'));
-      // expect(Pitch.parse('C𝄫5').toString(), equals('C𝄫5'));
+      expect(Pitch.parse('C5').toString(), equals('C5'));
+      expect(Pitch.parse('C♯5').toString(), equals('C♯5'));
+      expect(Pitch.parse('C♭5').toString(), equals('C♭5'));
+      expect(Pitch.parse('C𝄪5').toString(), equals('C𝄪5'));
+      expect(Pitch.parse('C𝄫5').toString(), equals('C𝄫5'));
 
-      // expect(Pitch.parse('C♭,').midiNumber, equals(24));
-      // expect(Pitch.parse('D♭,').midiNumber, equals(26));
-      // expect(Pitch.parse('C♭').midiNumber, equals(36));
-      // expect(Pitch.parse('c♭').midiNumber, equals(48));
-      // expect(Pitch.parse("c♭'").midiNumber, equals(60));
-      // expect(Pitch.parse('C♭,').midiNumber, equals(25));
+      expect(Pitch.parse('C♭,').midiNumber, equals(23));
+      expect(Pitch.parse('D♭,').midiNumber, equals(25));
+      expect(Pitch.parse('C♭').midiNumber, equals(35));
+      expect(Pitch.parse('c♭').midiNumber, equals(47));
+      expect(Pitch.parse("c♭'").midiNumber, equals(59));
       // TODO: add sharp, doubles
     });
 
@@ -196,17 +195,64 @@ void definePitchTests() {
       expect(Pitch.parse('D4').toPitchClass(), equals(PitchClass.parse('D')));
     });
 
-    test('+ should add to an interval', () {
+    test('+ Interval should return a Pitch', () {
       expect((Pitch.parse('C4') + Interval.P1), equals(Pitch.parse('C4')));
+      expect((Pitch.parse('C4') + Interval.m2), equals(Pitch.parse('D♭4')));
       expect((Pitch.parse('C4') + Interval.M2), equals(Pitch.parse('D4')));
+      expect((Pitch.parse('C4') + Interval.m3), equals(Pitch.parse('E♭4')));
+      expect((Pitch.parse('C4') + Interval.M3), equals(Pitch.parse('E4')));
+      expect((Pitch.parse('C4') + Interval.P4), equals(Pitch.parse('F4')));
+      expect((Pitch.parse('C4') + Interval.TT), equals(Pitch.parse('G♭4')));
+      expect((Pitch.parse('C4') + Interval.P5), equals(Pitch.parse('G4')));
+      expect((Pitch.parse('C4') + Interval.m6), equals(Pitch.parse('A♭4')));
+      expect((Pitch.parse('C4') + Interval.M6), equals(Pitch.parse('A4')));
+      expect((Pitch.parse('C4') + Interval.m7), equals(Pitch.parse('B♭4')));
+      expect((Pitch.parse('C4') + Interval.M7), equals(Pitch.parse('B4')));
       expect((Pitch.parse('C4') + Interval.P8), equals(Pitch.parse('C5')));
+
+      expect((Pitch.parse('E4') + Interval.P1), equals(Pitch.parse('E4')));
+      expect((Pitch.parse('E4') + Interval.m2), equals(Pitch.parse('F4')));
+      expect((Pitch.parse('E4') + Interval.M2), equals(Pitch.parse('F♯4')));
+      expect((Pitch.parse('E4') + Interval.m3), equals(Pitch.parse('G4')));
+      expect((Pitch.parse('E4') + Interval.M3), equals(Pitch.parse('G♯4')));
+      expect((Pitch.parse('E4') + Interval.P4), equals(Pitch.parse('A4')));
+      expect((Pitch.parse('E4') + Interval.TT), equals(Pitch.parse('B♭4')));
+      expect((Pitch.parse('E4') + Interval.P5), equals(Pitch.parse('B4')));
+      expect((Pitch.parse('E4') + Interval.m6), equals(Pitch.parse('C5')));
+      expect((Pitch.parse('E4') + Interval.M6), equals(Pitch.parse('C♯5')));
+      expect((Pitch.parse('E4') + Interval.m7), equals(Pitch.parse('D5')));
+      expect((Pitch.parse('E4') + Interval.M7), equals(Pitch.parse('D♯5')));
+      expect((Pitch.parse('E4') + Interval.P8), equals(Pitch.parse('E5')));
+
+      expect((Pitch.parse('E♭4') + Interval.P1), equals(Pitch.parse('E♭4')));
+      expect((Pitch.parse('E♯4') + Interval.P1), equals(Pitch.parse('E♯4')));
+      expect((Pitch.parse('E𝄫4') + Interval.P1), equals(Pitch.parse('E𝄫4')));
+      expect((Pitch.parse('E𝄪4') + Interval.P1), equals(Pitch.parse('E𝄪4')));
+
+      expect((Pitch.parse('E♭4') + Interval.m2), equals(Pitch.parse('F♭4')));
+      expect((Pitch.parse('E♯4') + Interval.m2), equals(Pitch.parse('F♯4')));
+      expect((Pitch.parse('E𝄫4') + Interval.m2), equals(Pitch.parse('F𝄫4')));
+      expect((Pitch.parse('E𝄪4') + Interval.m2), equals(Pitch.parse('F𝄪4')));
+
+      expect((Pitch.parse('E♭4') + Interval.M2), equals(Pitch.parse('F4')));
+      expect((Pitch.parse('E♯4') + Interval.M2), equals(Pitch.parse('F𝄪4')));
+      expect((Pitch.parse('E𝄫4') + Interval.M2), equals(Pitch.parse('F♭4')));
+      expect((Pitch.parse('E𝄪4') + Interval.M2), equals(Pitch.parse('F♯𝄪4')));
     });
 
-    test('- should return the number of semitones between two pitches', () {
-      expect(Pitch.parse('C4') - Pitch.parse('C4'), equals(0));
-      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), equals(1));
-      expect(Pitch.parse('D4') - Pitch.parse('C4'), equals(2));
-      expect(Pitch.parse('C5') - Pitch.parse('C4'), equals(12));
+    test('- Pitch should return an Interval', () {
+      expect(Pitch.parse('C4') - Pitch.parse('C4'), Interval.P1);
+      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.A1);
+      expect(Pitch.parse('D♭4') - Pitch.parse('C4'), Interval.m2);
+      expect(Pitch.parse('D4') - Pitch.parse('C4'), Interval.M2);
+      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.A2);
+      expect(Pitch.parse('C5') - Pitch.parse('C4'), Interval.P8);
+
+      expect(Pitch.parse('C4') - Pitch.parse('B3'), Interval.m2);
+      expect(Pitch.parse('C♯4') - Pitch.parse('B3'), Interval.M2);
+      expect(Pitch.parse('D♭4') - Pitch.parse('B3'), Interval.d3);
+      expect(Pitch.parse('D4') - Pitch.parse('B3'), Interval.m3);
+      expect(Pitch.parse('D♯4') - Pitch.parse('B3'), Interval.M3);
     });
   });
 }

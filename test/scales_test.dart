@@ -48,10 +48,10 @@ void defineScaleTests() {
       expect(scalePattern.modes['Ionian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.P4, Interval.P5, Interval.M6, Interval.M7]));
       expect(scalePattern.modes['Dorian'].intervals, equals([Interval.P1, Interval.M2, Interval.m3, Interval.P4, Interval.P5, Interval.M6, Interval.m7]));
       expect(scalePattern.modes['Phrygian'].intervals, equals([Interval.P1, Interval.m2, Interval.m3, Interval.P4, Interval.P5, Interval.m6, Interval.m7]));
-      // expect(scalePattern.modes['Lydian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.A4, Interval.P5, Interval.M6, Interval.m7]));
+      expect(scalePattern.modes['Lydian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.A4, Interval.P5, Interval.M6, Interval.M7]));
       expect(scalePattern.modes['Mixolydian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.P4, Interval.P5, Interval.M6, Interval.m7]));
       expect(scalePattern.modes['Aeolian'].intervals, equals([Interval.P1, Interval.M2, Interval.m3, Interval.P4, Interval.P5, Interval.m6, Interval.m7]));
-      // expect(scalePattern.modes['Locrian'].intervals, equals([Interval.P1, Interval.m2, Interval.m3, Interval.P4, Interval.d5, Interval.m6, Interval.m7]));
+      expect(scalePattern.modes['Locrian'].intervals, equals([Interval.P1, Interval.m2, Interval.m3, Interval.P4, Interval.d5, Interval.m6, Interval.m7]));
     });
 
     group('at E', () {

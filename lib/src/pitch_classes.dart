@@ -4,20 +4,6 @@ int normalizePitchClass(int pitchClass) => pitchClass % 12;
 
 final pitchToPitchClass = normalizePitchClass;
 
-int parsePitchClass(String pitchClassName, {bool normal: true}) {
-  var re = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
-  var match = re.matchAsPrefix(pitchClassName);
-  if (match == null) {
-    throw new ArgumentError("$pitchClassName is not a pitch class name");
-  }
-  String naturalName = match[1];
-  String accidentals = match[2];
-  int pitch = NoteNames.indexOf(naturalName.toUpperCase());
-  pitch += parseAccidentals(accidentals);
-  if (normal) { pitch = normalizePitchClass(pitch); }
-  return pitch;
-}
-
 String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
   int pitchClass = pitchToPitchClass(pitch);
   String flatName = FlatNoteNames[pitchClass];
@@ -30,27 +16,49 @@ String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
 }
 
 class PitchClass {
-  final int number;
-  final String name;
+  final int integer;
 
-  PitchClass({int number, String name})
-    : number = normalizePitchClass(number)
-    , name = name != null ? name : NoteNames[normalizePitchClass(number)];
+  static final Map<int, PitchClass> _interned = <int, PitchClass>{};
 
-  String toString() => name;
+  factory PitchClass({int integer}) {
+    integer %= 12;
+    var key = integer;
+    if (_interned.containsKey(key)) { return _interned[key]; }
+    return _interned[key] = new PitchClass._internal(integer);
+  }
+
+  PitchClass._internal(int this.integer);
+
+  String toString() => NoteNames[integer];
+
+  String get inspect => {'integer': integer}.toString();
 
   Pitch toPitch({int octave: 0}) =>
-    new Pitch(number: number, octave: octave);
+    new Pitch(chromaticIndex: integer, octave: octave);
 
   PitchClass toPitchClass() => this;
 
-  PitchClass.fromSemitones(int number): this(number: number);
+  factory PitchClass.fromSemitones(int integer) =>
+    new PitchClass(integer: integer);
 
-  static PitchClass parse(string) =>
-    new PitchClass.fromSemitones(parsePitchClass(string));
+  static final PitchClassPattern = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
 
-  bool operator ==(PitchClass other) => other.number == number;
+  static PitchClass parse(String pitchClassName) {
+    final match = PitchClassPattern.matchAsPrefix(pitchClassName);
+    if (match == null) { throw new FormatException("$pitchClassName is not a pitch class name"); }
+    String naturalName = match[1];
+    String accidentals = match[2];
+    int integer = NoteNames.indexOf(naturalName.toUpperCase());
+    integer += parseAccidentals(accidentals);
+    return new PitchClass(integer: integer);
+  }
+
+  bool operator ==(PitchClass other) =>
+    integer == other.integer;
+
+  int get hashCode =>
+    integer;
 
   PitchClass operator + (Interval interval) =>
-    new PitchClass.fromSemitones(number + interval.semitones);
+    new PitchClass(integer: integer + interval.semitones);
 }
