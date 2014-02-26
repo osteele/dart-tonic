@@ -1,11 +1,12 @@
 name: tonic
 version: 0.0.1
 author: Oliver Steele <steele@osteele.com>
-description: Music theory
+description: >
+  Classes and methods for representing and manipulating concepts from music theory:
+  Pitch, PitchClass, Interval, Scale, Chord.
 homepage: http://github.com/osteele/tonic
 
 environment:
-  sdk: '>=1.1.1 <2.0.0'
-dependencies:
+  sdk: '>=1.1.1'
 dev_dependencies:
   unittest: '>=0.10.0 < 0.11.0'
