@@ -14,5 +14,5 @@ main() {
   definePitchClassTests();
   definePitchTests();
   defineScaleTests();
-  // defineChordTests();
+  defineChordTests();
 }

@@ -172,7 +172,7 @@ void definePitchTests() {
         // TODO: add sharp, doubles
       });
 
-      test('should throw a FormatException', () {
+      test('should throw FormatException', () {
         expect(()=>Pitch.parse('H'), throwsFormatException);
         expect(()=>Pitch.parse('CC'), throwsFormatException);
         expect(()=>Pitch.parse('C^'), throwsFormatException);

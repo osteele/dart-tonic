@@ -4,9 +4,7 @@ part of tonic;
 
 class NotFoundException implements Exception {
   String message;
-
-  NotFoundException(this.message);
-
+  NotFoundException(String this.message);
   String toString() => "NotFoundException: $message";
 }
 
@@ -36,7 +34,8 @@ class ChordPattern {
   }
 
   static String _intervalSetKey(Iterable<Interval> intervals) {
-    var key = intervals.map((interval) => interval.semitones).toList();
+    // TODO remove the % to recognize additions
+    var key = intervals.map((interval) => interval.semitones % 12).toList();
     key.sort();
     return key.join(',');
   }
@@ -50,6 +49,9 @@ class ChordPattern {
 
   String get abbr => abbrs[0];
   String toString() => name;
+
+  String get inspect =>
+    {'name': name, 'fullName': fullName, 'abbrs': abbrs, 'intervals': intervals}.toString();
 
   static bool _chordsInitialized = false;
 
@@ -68,6 +70,7 @@ class ChordPattern {
         .replaceAll(new RegExp(r'Major(?!$)'), 'Maj')
         .replaceAll(new RegExp(r'Minor(?!$)'), 'Min')
         .replaceAll(new RegExp(r'Dominant'), 'Dom')
+        .replaceAll(new RegExp(r'Augmented'), 'Aug')
         .replaceAll(new RegExp(r'Diminished'), 'Dim');
       new ChordPattern(name: name, fullName: fullName, abbrs: abbrs, intervals: intervals);
     }
@@ -81,24 +84,25 @@ class Chord {
   Pitch root;
   List<Pitch> _pitches;
 
-  static final Pattern _chordNamePattern = new RegExp(r"^([a-gA-G],*'*[#b♯♭𝄪𝄫]*(?:\d*))\s*(.*)$");
+  static final Pattern _CHORD_NAME_PATTERN = new RegExp(r"^([a-gA-G],*'*[#b♯♭𝄪𝄫]*(?:\d*))\s*(.*)$");
 
   Chord({ChordPattern this.pattern, Pitch this.root});
 
   static Chord parse(String chordName) {
-    final match = _chordNamePattern.matchAsPrefix(chordName);
+    var match = _CHORD_NAME_PATTERN.matchAsPrefix(chordName);
+    if (match == null) throw new FormatException("invalid Chord name: $chordName");
     var chordClass = ChordPattern.parse(match[2]);
     return chordClass.at(Pitch.parse(match[1]));
   }
 
   static Chord fromPitches(List<Pitch> pitches) {
     for (var root in pitches) {
-      var intervals = pitches.map((pitch) => new Interval.fromSemitones(pitch - root)).toSet();
+      var intervals = pitches.map((pitch) => pitch - root).toSet();
       try {
         var chord = ChordPattern.fromIntervals(intervals).at(root);
         chord._pitches = pitches;
         return chord;
-      } catch (NotFoundException) {}
+      } on NotFoundException {}
     }
     throw new NotFoundException("unknown chord pitch pattern ${pitches}");
   }

@@ -64,7 +64,8 @@ class Pitch {
 
   static final Map<String, Pitch> _interned = <String, Pitch>{};
 
-  PitchClass get pitchClass => toPitchClass();
+  int get semitones => diatonicSemitones + accidentalSemitones;
+
   int get octave => diatonicSemitones ~/ 12;
 
   /// a String in ['A'..'G']
@@ -79,6 +80,8 @@ class Pitch {
   // both Pitch and PitchClass respond to toPitchClass
   PitchClass toPitchClass() =>
     new PitchClass(integer: midiNumber % 12);
+
+  PitchClass get pitchClass => toPitchClass();
 
   // chromaticIndex is in semitones but must index a diatonic pitch
   factory Pitch({int chromaticIndex, int accidentalSemitones: 0, int octave: -1}) {
@@ -147,9 +150,23 @@ class Pitch {
   }
 
   // TODO subtract an Interval to produce a Pitch; subtract a Pitch to product an Interval?
-  Interval operator -(other) =>
-    new Interval.fromSemitones(midiNumber - other.midiNumber,
-                               number: 1 + letterIndex + 7 * octave - other.letterIndex - 7 * other.octave);
+  Interval operator -(dynamic other) {
+    if (other is Pitch) {
+      var semitones = this.semitones - other.semitones;
+      var number = 1 + letterIndex + 7 * octave - other.letterIndex - 7 * other.octave;
+      // TODO enhance Interval to represent intervals greater than an octave
+      while (number < 1) {
+        number += 7;
+        semitones += 12;
+      }
+      while (number > 8) {
+        number -= 7;
+        semitones -= 12;
+      }
+      return new Interval.fromSemitones(semitones, number: number);
+    }
+    throw new ArgumentError("can't subtract $other from $this");
+  }
 
   String get accidentalsString => accidentalsToString(accidentalSemitones);
 
