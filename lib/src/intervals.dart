@@ -74,13 +74,15 @@ class Interval {
   Interval get diminished =>
     _diminished != null ? _diminished : _diminished = new Interval(number: number, qualityName: 'd');
 
+  static final Pattern _IntervalNamePattern = new RegExp(r'^(([dmMA][2367])|([dPA][1458])|TT)$');
+  static final Pattern _IntervalNameParsePattern = new RegExp(r'^([dmMPA])(\d)$');
+
   static parse(String name) {
-    if (!name.startsWith(new RegExp(r'^([dmMA][2367])|([dPA][1458])|TT$'))) {
-     throw new ArgumentError("No interval named $name");
-    }
+    // print(name);
+    // print(name.startsWith(_IntervalNamePattern));
+    if (!name.startsWith(_IntervalNamePattern)) { throw new FormatException("No interval named $name"); }
     if (name == "TT") { name = "d5"; }
-    final re = new RegExp(r'^([dmMPA])(\d)$');
-    var match = re.matchAsPrefix(name);
+    var match = _IntervalNameParsePattern.matchAsPrefix(name);
     assert(match != null);
     return new Interval(number: int.parse(match[2]), qualityName: match[1]);
   }

@@ -44,7 +44,7 @@ class ChordPattern {
   static ChordPattern parse(String name) {
     _initializeChords();
     var chord = _byName[name];
-    if (chord == null) { throw new ArgumentError("$name is not a ChordPattern name"); }
+    if (chord == null) { throw new FormatException("$name is not a ChordPattern name"); }
     return chord;
   }
 

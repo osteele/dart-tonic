@@ -38,7 +38,7 @@ void defineIntervalTests() {
   });
 
   group('Interval', () {
-    test('should implement parse', () {
+    test('parse should return an interval', () {
       expect(Interval.parse('P1'), equals(Interval.P1));
       expect(Interval.parse('m2'), equals(Interval.m2));
       expect(Interval.parse('M2'), equals(Interval.M2));
@@ -54,7 +54,19 @@ void defineIntervalTests() {
       expect(Interval.parse('P8'), equals(Interval.P8));
     });
 
-    test('constructor should default the quality', () {
+    test('parse should throw a FormatException', () {
+      expect(()=>Interval.parse('M1'), throwsFormatException);
+      expect(()=>Interval.parse('m1'), throwsFormatException);
+      expect(()=>Interval.parse('P2'), throwsFormatException);
+      expect(()=>Interval.parse('P1x'), throwsFormatException);
+      expect(()=>Interval.parse('x1'), throwsFormatException);
+      expect(()=>Interval.parse('1'), throwsFormatException);
+      expect(()=>Interval.parse('x1'), throwsFormatException);
+      expect(()=>Interval.parse('M8'), throwsFormatException);
+    });
+
+
+    test('constructor should default to Perfect or Major', () {
       expect(new Interval(number: 1), equals(Interval.P1));
       expect(new Interval(number: 2), equals(Interval.M2));
       expect(new Interval(number: 3), equals(Interval.M3));
@@ -65,10 +77,19 @@ void defineIntervalTests() {
       expect(new Interval(number: 8), equals(Interval.P8));
     });
 
-    test('should implement fromSemitones', () {
+    test('fromSemitones should return an Interval', () {
       expect(new Interval.fromSemitones(0), equals(Interval.P1));
       expect(new Interval.fromSemitones(1), equals(Interval.m2));
+      expect(new Interval.fromSemitones(2), equals(Interval.M2));
+      expect(new Interval.fromSemitones(3), equals(Interval.m3));
       expect(new Interval.fromSemitones(4), equals(Interval.M3));
+      expect(new Interval.fromSemitones(5), equals(Interval.P4));
+      expect(new Interval.fromSemitones(6), equals(Interval.TT));
+      expect(new Interval.fromSemitones(7), equals(Interval.P5));
+      expect(new Interval.fromSemitones(8), equals(Interval.m6));
+      expect(new Interval.fromSemitones(9), equals(Interval.M6));
+      expect(new Interval.fromSemitones(10), equals(Interval.m7));
+      expect(new Interval.fromSemitones(11), equals(Interval.M7));
       expect(new Interval.fromSemitones(12), equals(Interval.P8));
     });
 
@@ -102,13 +123,20 @@ void defineIntervalTests() {
       // expect(new Interval.fromSemitones(13, number: 8), equals(Interval.A8));
     });
 
-    test('should implement toString', () {
+    test('toString should return the interval name', () {
       expect(Interval.P1.toString(), equals('P1'));
       expect(Interval.m2.toString(), equals('m2'));
       expect(Interval.M3.toString(), equals('M3'));
       expect(Interval.P8.toString(), equals('P8'));
       expect(Interval.A3.toString(), equals('A3'));
       expect(Interval.d6.toString(), equals('d6'));
+    });
+
+    test('toString should include the quality', () {
+      expect(Interval.d2.toString(), equals('d2'));
+      expect(Interval.m2.toString(), equals('m2'));
+      expect(Interval.M2.toString(), equals('M2'));
+      expect(Interval.A2.toString(), equals('A2'));
     });
 
     test('should be interned', () {
@@ -162,15 +190,13 @@ void defineIntervalTests() {
       expect(Interval.d8.semitones, equals(11));
     });
 
-    test('should define +', () {
+    test('+Interval should return an Interval', () {
       expect(Interval.P1 + Interval.M2, equals(Interval.M2));
       expect(Interval.M2 + Interval.P1, equals(Interval.M2));
       expect(Interval.m2 + Interval.m2, equals(Interval.d3));
       expect(Interval.m2 + Interval.M2, equals(Interval.m3));
       expect(Interval.M2 + Interval.m2, equals(Interval.m3));
       expect(Interval.M2 + Interval.M2, equals(Interval.M3));
-      expect(()=> Interval.d2 + Interval.m2, throwsArgumentError);
-      expect(()=> Interval.m2 + Interval.d2, throwsArgumentError);
       expect(Interval.d2 + Interval.M2, equals(Interval.d3));
       expect(Interval.M2 + Interval.d2, equals(Interval.d3));
       expect(Interval.M2 + Interval.A2, equals(Interval.A3));
@@ -187,7 +213,12 @@ void defineIntervalTests() {
       expect(Interval.P5 + Interval.M3, equals(Interval.M7));
     });
 
-    test('should define -', () {
+    test('+Interval should throw an error when the quality is out of range', () {
+      expect(()=> Interval.d2 + Interval.m2, throwsArgumentError);
+      expect(()=> Interval.m2 + Interval.d2, throwsArgumentError);
+    });
+
+    test('-Interval should return an Interval', () {
       expect(Interval.P5 - Interval.M3, Interval.m3);
       expect(Interval.P5 - Interval.m3, Interval.M3);
       expect(Interval.A5 - Interval.m3, Interval.A3);

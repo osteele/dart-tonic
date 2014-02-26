@@ -10,9 +10,9 @@ part 'scales_test.dart';
 part 'chord_test.dart';
 
 main() {
-  // defineIntervalTests();
-  // definePitchClassTests();
-  // definePitchTests();
+  defineIntervalTests();
+  definePitchClassTests();
+  definePitchTests();
   defineScaleTests();
   // defineChordTests();
 }

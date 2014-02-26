@@ -90,6 +90,14 @@ void definePitchClassTests() {
         expect(PitchClass.parse('C𝄪').integer, equals(2));
         expect(PitchClass.parse('C𝄫').integer, equals(10));
       });
+
+      test('should throw a FormatException', () {
+        expect(()=>PitchClass.parse('H'), throwsFormatException);
+        expect(()=>PitchClass.parse('CC'), throwsFormatException);
+        expect(()=>PitchClass.parse('C^'), throwsFormatException);
+        expect(()=>PitchClass.parse('C+'), throwsFormatException);
+        expect(()=>PitchClass.parse('+C'), throwsFormatException);
+      });
     });
 
 

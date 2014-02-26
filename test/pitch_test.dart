@@ -125,51 +125,62 @@ void definePitchTests() {
 
 
   group('Pitch', () {
-    test('parse should read pitch names in scientific notation', () {
-      expect(Pitch.parse('C4').midiNumber, equals(60));
-      expect(Pitch.parse('C5').midiNumber, equals(72));
-      expect(Pitch.parse('E4').midiNumber, equals(64));
-      expect(Pitch.parse('G5').midiNumber, equals(79));
-      expect(Pitch.parse('C#4').midiNumber, equals(61));
-      expect(Pitch.parse('C♯4').midiNumber, equals(61));
-      expect(Pitch.parse('Cb4').midiNumber, equals(59));
-      expect(Pitch.parse('C♭4').midiNumber, equals(59));
-      expect(Pitch.parse('C𝄪4').midiNumber, equals(62));
-      expect(Pitch.parse('C𝄫4').midiNumber, equals(58));
+    group('parse', () {
+      test('should read pitch names in scientific notation', () {
+        expect(Pitch.parse('C4').midiNumber, equals(60));
+        expect(Pitch.parse('C5').midiNumber, equals(72));
+        expect(Pitch.parse('E4').midiNumber, equals(64));
+        expect(Pitch.parse('G5').midiNumber, equals(79));
+        expect(Pitch.parse('C#4').midiNumber, equals(61));
+        expect(Pitch.parse('C♯4').midiNumber, equals(61));
+        expect(Pitch.parse('Cb4').midiNumber, equals(59));
+        expect(Pitch.parse('C♭4').midiNumber, equals(59));
+        expect(Pitch.parse('C𝄪4').midiNumber, equals(62));
+        expect(Pitch.parse('C𝄫4').midiNumber, equals(58));
+      });
+
+      test('should read pitch names in Helmholtz notation', () {
+        expect(Pitch.parse('C,').midiNumber, equals(24));
+        expect(Pitch.parse('D,').midiNumber, equals(26));
+        expect(Pitch.parse('C').midiNumber, equals(36));
+        expect(Pitch.parse('c').midiNumber, equals(48));
+        expect(Pitch.parse('c♯').midiNumber, equals(49));
+        expect(Pitch.parse('c♭').midiNumber, equals(47));
+        expect(Pitch.parse("c'").midiNumber, equals(60));
+        expect(Pitch.parse("c'''").midiNumber, equals(84));
+        expect(Pitch.parse("d'''").midiNumber, equals(86));
+        expect(Pitch.parse('C#,').midiNumber, equals(25));
+        expect(Pitch.parse('C♯,').midiNumber, equals(25));
+        expect(Pitch.parse('Cb,').midiNumber, equals(23));
+        expect(Pitch.parse('C♭,').midiNumber, equals(23));
+        expect(Pitch.parse('C𝄪,').midiNumber, equals(26));
+        expect(Pitch.parse('C𝄫,').midiNumber, equals(22));
+      });
+
+      test('should preserve accidentals', () {
+        expect(Pitch.parse('C5').toString(), equals('C5'));
+        expect(Pitch.parse('C♯5').toString(), equals('C♯5'));
+        expect(Pitch.parse('C♭5').toString(), equals('C♭5'));
+        expect(Pitch.parse('C𝄪5').toString(), equals('C𝄪5'));
+        expect(Pitch.parse('C𝄫5').toString(), equals('C𝄫5'));
+
+        expect(Pitch.parse('C♭,').midiNumber, equals(23));
+        expect(Pitch.parse('D♭,').midiNumber, equals(25));
+        expect(Pitch.parse('C♭').midiNumber, equals(35));
+        expect(Pitch.parse('c♭').midiNumber, equals(47));
+        expect(Pitch.parse("c♭'").midiNumber, equals(59));
+        // TODO: add sharp, doubles
+      });
+
+      test('should throw a FormatException', () {
+        expect(()=>Pitch.parse('H'), throwsFormatException);
+        expect(()=>Pitch.parse('CC'), throwsFormatException);
+        expect(()=>Pitch.parse('C^'), throwsFormatException);
+        expect(()=>Pitch.parse('C+'), throwsFormatException);
+        expect(()=>Pitch.parse('+C'), throwsFormatException);
+      });
     });
 
-    test('parse should read pitch names in Helmholtz notation', () {
-      expect(Pitch.parse('C,').midiNumber, equals(24));
-      expect(Pitch.parse('D,').midiNumber, equals(26));
-      expect(Pitch.parse('C').midiNumber, equals(36));
-      expect(Pitch.parse('c').midiNumber, equals(48));
-      expect(Pitch.parse('c♯').midiNumber, equals(49));
-      expect(Pitch.parse('c♭').midiNumber, equals(47));
-      expect(Pitch.parse("c'").midiNumber, equals(60));
-      expect(Pitch.parse("c'''").midiNumber, equals(84));
-      expect(Pitch.parse("d'''").midiNumber, equals(86));
-      expect(Pitch.parse('C#,').midiNumber, equals(25));
-      expect(Pitch.parse('C♯,').midiNumber, equals(25));
-      expect(Pitch.parse('Cb,').midiNumber, equals(23));
-      expect(Pitch.parse('C♭,').midiNumber, equals(23));
-      expect(Pitch.parse('C𝄪,').midiNumber, equals(26));
-      expect(Pitch.parse('C𝄫,').midiNumber, equals(22));
-    });
-
-    test('parse should preserve accidentals', () {
-      expect(Pitch.parse('C5').toString(), equals('C5'));
-      expect(Pitch.parse('C♯5').toString(), equals('C♯5'));
-      expect(Pitch.parse('C♭5').toString(), equals('C♭5'));
-      expect(Pitch.parse('C𝄪5').toString(), equals('C𝄪5'));
-      expect(Pitch.parse('C𝄫5').toString(), equals('C𝄫5'));
-
-      expect(Pitch.parse('C♭,').midiNumber, equals(23));
-      expect(Pitch.parse('D♭,').midiNumber, equals(25));
-      expect(Pitch.parse('C♭').midiNumber, equals(35));
-      expect(Pitch.parse('c♭').midiNumber, equals(47));
-      expect(Pitch.parse("c♭'").midiNumber, equals(59));
-      // TODO: add sharp, doubles
-    });
 
     test('fromMidiNumber should convert midi numbers into pitches', () {
       expect(new Pitch.fromMidiNumber(60), equals(Pitch.parse('C4')));

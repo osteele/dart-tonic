@@ -15,9 +15,7 @@ class ScalePattern {
   static ScalePattern findByName(String name) {
     _initializeBuiltinPatterns();
     var scalePattern = _byName[name];
-    if (scalePattern == null) {
-      throw new ArgumentError("$name is not a ScalePattern name");
-    }
+    if (scalePattern == null) { throw new FormatException("$name is not a ScalePattern name"); }
     return scalePattern;
   }
 
