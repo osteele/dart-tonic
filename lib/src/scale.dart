@@ -15,7 +15,7 @@ class ScalePattern {
   static ScalePattern findByName(String name) {
     _initializeBuiltinPatterns();
     var scalePattern = _byName[name];
-    if (scalePattern == null) { throw new FormatException("$name is not a ScalePattern name"); }
+    if (scalePattern == null) throw new FormatException("$name is not a ScalePattern name");
     return scalePattern;
   }
 
@@ -41,14 +41,14 @@ class ScalePattern {
     }
   }
 
-  at(PitchClass tonic) => new Scale(pattern: this, tonic: tonic);
+  Scale at(PitchClass tonic) => new Scale(pattern: this, tonic: tonic);
 }
 
 class Mode extends ScalePattern {
   final ScalePattern parent;
 
   Mode({String name, ScalePattern this.parent, intervals})
-  : super(name: name, intervals: intervals)
+    : super(name: name, intervals: intervals)
   {
     parent.modes[name] = this;
   }

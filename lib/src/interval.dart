@@ -26,22 +26,22 @@ class Interval {
 
   static final Map<String, Interval> _cache = <String, Interval>{};
 
-  static final List<int> _semitonesByNumber = [0, 2, 4, 5, 7, 9, 11, 12];
+  static final List<int> _SEMITONES_BY_NUMBER = [0, 2, 4, 5, 7, 9, 11, 12];
   static bool _numberIsPerfect(int number) => [1, 4, 5, 8].indexOf(number) >= 0;
   static String _defaultQualityForNumber(int number) => _numberIsPerfect(number) ? 'P' : 'M';
 
   factory Interval({int number, String qualityName}) {
     assert(number != null);
     assert(1 <= number && number <= 8);
-    var semitones = _semitonesByNumber[number - 1];
-    if (semitones == null) { throw new ArgumentError("invalid interval number: $number"); }
-    if (qualityName == null) { qualityName = IntervalNames[semitones][0]; }
-    final key = "$qualityName$number";
-    if (_cache.containsKey(key)) {return _cache[key]; }
+    var semitones = _SEMITONES_BY_NUMBER[number - 1];
+    if (semitones == null) throw new ArgumentError("invalid interval number: $number");
+    if (qualityName == null) qualityName = IntervalNames[semitones][0];
+    var key = "$qualityName$number";
+    if (_cache.containsKey(key)) return _cache[key];
     var qualitySemitones = _numberIsPerfect(number)
       ? "dPA".indexOf(qualityName) - 1
       : "dmMA".indexOf(qualityName) - 2;
-    if (qualitySemitones == null) { throw new ArgumentError("invalid interval quality: $qualityName"); }
+    if (qualitySemitones == null) throw new ArgumentError("invalid interval quality: $qualityName");
     semitones += qualitySemitones;
     return _cache[key] = new Interval._internal(number, qualityName, qualitySemitones);
   }
@@ -49,20 +49,20 @@ class Interval {
   Interval._internal(int this.number, String this.qualityName, int this.qualitySemitones);
 
   factory Interval.fromSemitones(semitones, {int number}) {
-    if (semitones < 0 || 12 < semitones) { semitones %= 12; }
+    if (semitones < 0 || 12 < semitones) semitones %= 12;
     var interval = Interval.parse(IntervalNames[semitones]);
     if (number != null) {
       interval = new Interval(number: number);
       var qs = _numberIsPerfect(number) ? "dPA" : "dmMA";
       var i = semitones - interval.semitones + (qs.length ~/ 2);
-      if (!(0 <= i && i < qs.length)) { throw new ArgumentError("can't qualify $interval to $semitones semitone(s)"); }
+      if (!(0 <= i && i < qs.length)) throw new ArgumentError("can't qualify $interval to $semitones semitone(s)");
       var q = qs[i];
       interval = new Interval(number: number, qualityName: q);
     }
     return interval;
   }
 
-  int get diatonicSemitones => _semitonesByNumber[number - 1];
+  int get diatonicSemitones => _SEMITONES_BY_NUMBER[number - 1];
   int get semitones => diatonicSemitones + qualitySemitones;
 
   Interval get augmented =>
@@ -74,15 +74,13 @@ class Interval {
   Interval get diminished =>
     _diminished != null ? _diminished : _diminished = new Interval(number: number, qualityName: 'd');
 
-  static final Pattern _IntervalNamePattern = new RegExp(r'^(([dmMA][2367])|([dPA][1458])|TT)$');
-  static final Pattern _IntervalNameParsePattern = new RegExp(r'^([dmMPA])(\d)$');
+  static final Pattern _INTERVAL_NAME_PATTERN = new RegExp(r'^(([dmMA][2367])|([dPA][1458])|TT)$');
+  static final Pattern _INTERVAL_NAME_PARSE_PATTERN = new RegExp(r'^([dmMPA])(\d)$');
 
   static parse(String name) {
-    // print(name);
-    // print(name.startsWith(_IntervalNamePattern));
-    if (!name.startsWith(_IntervalNamePattern)) { throw new FormatException("No interval named $name"); }
+    if (!name.startsWith(_INTERVAL_NAME_PATTERN)) throw new FormatException("No interval named $name");
     if (name == "TT") { name = "d5"; }
-    var match = _IntervalNameParsePattern.matchAsPrefix(name);
+    var match = _INTERVAL_NAME_PARSE_PATTERN.matchAsPrefix(name);
     assert(match != null);
     return new Interval(number: int.parse(match[2]), qualityName: match[1]);
   }

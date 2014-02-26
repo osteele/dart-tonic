@@ -31,7 +31,7 @@ class ChordPattern {
   static ChordPattern fromIntervals(Iterable<Interval> intervals) {
     _initializeChords();
     var chord = _byIntervals[_intervalSetKey(intervals)];
-    if (chord == null) { throw new NotFoundException("unknown chord interval pattern ${intervals}"); }
+    if (chord == null) throw new NotFoundException("unknown chord interval pattern ${intervals}");
     return chord;
   }
 
@@ -44,7 +44,7 @@ class ChordPattern {
   static ChordPattern parse(String name) {
     _initializeChords();
     var chord = _byName[name];
-    if (chord == null) { throw new FormatException("$name is not a ChordPattern name"); }
+    if (chord == null) throw new FormatException("$name is not a ChordPattern name");
     return chord;
   }
 

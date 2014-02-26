@@ -9,9 +9,7 @@ String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
   String flatName = FlatNoteNames[pitchClass];
   String sharpName = SharpNoteNames[pitchClass];
   String name = sharp ? sharpName : flatName;
-  if (flat && sharp && flatName != sharpName) {
-    name = "$flatName/\n$sharpName";
-  }
+  if (flat && sharp && flatName != sharpName) name = "$flatName/\n$sharpName";
   return name;
 }
 
@@ -23,7 +21,7 @@ class PitchClass {
   factory PitchClass({int integer}) {
     integer %= 12;
     var key = integer;
-    if (_interned.containsKey(key)) { return _interned[key]; }
+    if (_interned.containsKey(key)) return _interned[key];
     return _interned[key] = new PitchClass._internal(integer);
   }
 
@@ -41,11 +39,11 @@ class PitchClass {
   factory PitchClass.fromSemitones(int integer) =>
     new PitchClass(integer: integer);
 
-  static final PitchClassPattern = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
+  static final _PITCH_CLASS_PATTERN = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
 
   static PitchClass parse(String pitchClassName) {
-    final match = PitchClassPattern.matchAsPrefix(pitchClassName);
-    if (match == null) { throw new FormatException("$pitchClassName is not a pitch class name"); }
+    final match = _PITCH_CLASS_PATTERN.matchAsPrefix(pitchClassName);
+    if (match == null) throw new FormatException("$pitchClassName is not a pitch class name");
     String naturalName = match[1];
     String accidentals = match[2];
     int integer = NoteNames.indexOf(naturalName.toUpperCase());
@@ -56,9 +54,8 @@ class PitchClass {
   bool operator ==(PitchClass other) =>
     integer == other.integer;
 
-  int get hashCode =>
-    integer;
+  int get hashCode => integer;
 
-  PitchClass operator + (Interval interval) =>
+  PitchClass operator +(Interval interval) =>
     new PitchClass(integer: integer + interval.semitones);
 }

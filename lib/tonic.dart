@@ -1,7 +1,7 @@
 library tonic;
 
-part 'src/intervals.dart';
-part 'src/pitch_classes.dart';
-part 'src/pitches.dart';
-part 'src/scales.dart';
-part 'src/chords.dart';
+part 'src/interval.dart';
+part 'src/pitch_class.dart';
+part 'src/pitch.dart';
+part 'src/scale.dart';
+part 'src/chord.dart';
