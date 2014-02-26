@@ -8,6 +8,7 @@ part 'pitch_class_test.dart';
 part 'pitch_test.dart';
 part 'scales_test.dart';
 part 'chord_test.dart';
+part 'instrument_test.dart';
 
 main() {
   defineIntervalTests();
@@ -15,4 +16,5 @@ main() {
   definePitchTests();
   defineScaleTests();
   defineChordTests();
+  defineInstrumentTests();
 }

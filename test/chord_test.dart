@@ -83,7 +83,7 @@ void defineChordTests() {
         expect(Chord.parse("c'").root, equals(Pitch.parse('C4')));
       });
 
-      solo_test('should throw FormatException', () {
+      test('should throw FormatException', () {
         expect(()=>Chord.parse('X'), throwsFormatException);
         expect(()=>Chord.parse('Major'), throwsFormatException);
         expect(()=>Chord.parse('X Major'), throwsFormatException);
