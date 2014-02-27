@@ -1,17 +1,48 @@
 part of tonic;
 
+List sortedBy(Iterable items, int sortKey(item), {bool reverse: false}) {
+  var list = new List.from(items);
+  var comparator = reverse ? (a, b) => sortKey(a) - sortKey(b) : (a, b) => sortKey(b) - sortKey(a);
+  insertionSort(list, compare: comparator);
+  return list;
+}
+
 // These are "frettings" and not "voicings" because they also include barre information.
 class Fretting {
   final Chord chord;
-  final Set<FretPosition> positions;
+  final List<FretPosition> positions; // sorted by string index
   final FrettedInstrument instrument;
+
+  // caches:
   List<int> _stringFretList;
   String _fretString;
 
-  Fretting({FrettedInstrument this.instrument, Chord this.chord, Set<FretPosition> this.positions}) {
+  Fretting({FrettedInstrument this.instrument, Chord this.chord, Iterable<FretPosition> positions})
+    : this.positions = sortedBy(positions, (pos) => pos.stringIndex, reverse: true)
+  {
     assert(chord != null);
     assert(instrument != null);
     assert(positions.length == positions.map((position) => position.stringIndex).toSet().length);
+  }
+
+  static Fretting fromFretString(String fretString, {FrettedInstrument instrument, Chord chord}) {
+    if (fretString.length != instrument.stringIndices.length) {
+      throw new FormatException("fretString wrong length for $instrument: $fretString");
+    }
+    var positions = new IterableZip([fretString.split(''), instrument.stringIndices])
+      .map((item) {
+        String char = item[0];
+        int stringIndex = item[1];
+        if (char == 'x') return null;
+        var fretNumber = char.runes.first - 48;
+        if (!(0 <= fretNumber && fretNumber <= 9)) {
+          throw new FormatException("Invalid character $char in fretString $fretString");
+        }
+        var semitones = instrument.pitchAt(stringIndex: stringIndex, fretNumber: fretNumber).semitones;
+        return new FretPosition(stringIndex: stringIndex, fretNumber: fretNumber, semitones: semitones);
+      })
+      .where((pos) => pos != null);
+    return new Fretting(instrument: instrument, chord: chord, positions: positions);
   }
 
   String toString() => fretString;
@@ -34,10 +65,11 @@ class Fretting {
         : throw new UnimplementedError("fret >= 10"))
       .join();
 
-  // List<int> get sounded =>
-  //   _sounded != null
-  //   ? _sounded
-  //   : _sounded = instrument.stringIndices.select()
+  Iterable<Interval> get intervals =>
+    positions.map((pos) => new Interval.fromSemitones((pos.semitones - chord.root.semitones) % 12)).toList();
+
+  int get inversionIndex =>
+    [1, 3, 5, 7, 9].indexOf(intervals.first.number);
 }
 
 //
@@ -108,11 +140,11 @@ class FretPosition {
   String get inspect => {'string': stringIndex, 'fret': fretNumber, 'semitones': semitones}.toString();
 }
 
-Set<FretPosition> chordFrets(Chord chord, FrettedInstrument instrument, int maxFret) {
+Set<FretPosition> chordFrets(Chord chord, FrettedInstrument instrument, int highestFret) {
   var positions = new Set<FretPosition>();
   var semitoneSet = chord.pitches.map((pitch) => pitch.semitones % 12).toSet();
   eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
-    for (var fretNumber = 0; fretNumber <= maxFret; fretNumber++) {
+    for (var fretNumber = 0; fretNumber <= highestFret; fretNumber++) {
       var semitones = instrument.pitchAt(stringIndex: stringIndex, fretNumber: fretNumber).semitones;
       if (semitoneSet.contains(semitones % 12)) {
         var position = new FretPosition(stringIndex: stringIndex, fretNumber: fretNumber, semitones: semitones);
@@ -123,17 +155,16 @@ Set<FretPosition> chordFrets(Chord chord, FrettedInstrument instrument, int maxF
   return positions;
 }
 
-List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument) {
+List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument, {int highestFret: 4}) {
   var warn = false;
-  int minPitchClasses = 2;
-  int maxFret = 4;
+  int minPitchClasses = chord.intervals.length;
 
   //
   // Generate
   //
 
   Map<int, Set<FretPosition>> partitionFretsByString() {
-    Set<FretPosition> positions = chordFrets(chord, instrument, maxFret);
+    Set<FretPosition> positions = chordFrets(chord, instrument, highestFret);
     Map<int, Set<FretPosition>> partitions = new Map.fromIterable(instrument.stringIndices,
       key: (index) => index,
       value: (_) => new Set<FretPosition>()
@@ -180,14 +211,12 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument) {
 
   Set<Fretting> generateFrettings() {
     var frettings = new Set<Fretting>();
-    // print("cf ${chordFrets(chord, instrument, 4)}");
     var stringFrets = partitionFretsByString();
-    // print("frets $stringFrets");
 
     void collect(Iterable<int> unprocessedStringIndices, Set<FretPosition> collectedPositions) {
       if (unprocessedStringIndices.isEmpty) {
         int pitchClassCount = collectedPositions.map((position) => position.semitones % 12).toSet().length;
-        if (pitchClassCount > minPitchClasses) {
+        if (pitchClassCount >= minPitchClasses) {
           frettings.add(new Fretting(chord: chord, instrument: instrument, positions: collectedPositions));
         }
       } else {
@@ -307,9 +336,12 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument) {
 
   List<Fretting> sortFrettings(Iterable<Fretting> frettingSet) {
     List<Fretting> frettingList = frettingSet.toList();
-    // frettingList.sort(compareBy((f) => -f.positions.where((pos) => pos.fretNumber == 0).length, reverse: false));
-    // for (var f in frettingList) print("$f ${f.positions.where((pos) => pos.fretNumber == 0).length}");
-    frettingList.sort(compareBy((f) => f.positions.length));
+    // number of open strings:
+    insertionSort(frettingList, compare: compareBy((f) => f.positions.where((pos) => pos.fretNumber == 0).length));
+    // number of sounded strings:
+    insertionSort(frettingList, compare: compareBy((f) => f.positions.length));
+    // root position:
+    insertionSort(frettingList, compare: compareBy((f) => f.inversionIndex, reverse: true));
     return frettingList;
   }
 
@@ -342,7 +374,6 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument) {
   //     value = if fn instanceof RegExp then fn.test(fingering.fretstring) else fn(fingering)
   //     fingering.properties[name] = value
 
-  print(orderedFrettings);
   return orderedFrettings;
 }
 
