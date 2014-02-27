@@ -1,4 +1,4 @@
-# Quart
+# Dart [![Build Status](https://drone.io/github.com/osteele/dart-tonic/status.png)](https://drone.io/github.com/osteele/dart-tonic/latest)
 
 Tonic is a Dart library that models components of music theory.
 
