@@ -6,3 +6,4 @@ part 'src/pitch.dart';
 part 'src/scale.dart';
 part 'src/chord.dart';
 part 'src/instrument.dart';
+part 'src/fretting.dart';

@@ -40,8 +40,11 @@ class FrettedInstrument extends Instrument {
 
   bool get fretted => true;
 
-  Pitch pitchAt({int string, int fret}) =>
-    stringPitches[string] + new Interval.fromSemitones(fret);
+  // Iterable<int> get stringIndices => [0, ..., stringPitches.length - 1];
+  Iterable<int> get stringIndices => new Iterable<int>.generate(stringPitches.length, (i) => i);
+
+  Pitch pitchAt({int stringIndex, int fretNumber}) =>
+    stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
 
   // eachFingerPosition: (fn) ->
   //   for string in @stringNumbers

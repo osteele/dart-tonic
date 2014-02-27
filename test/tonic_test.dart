@@ -9,6 +9,7 @@ part 'pitch_test.dart';
 part 'scales_test.dart';
 part 'chord_test.dart';
 part 'instrument_test.dart';
+part 'fretting_test.dart';
 
 main() {
   defineIntervalTests();
@@ -17,4 +18,5 @@ main() {
   defineScaleTests();
   defineChordTests();
   defineInstrumentTests();
+  defineFrettingTests();
 }
