@@ -4,11 +4,11 @@ author: Oliver Steele <steele@osteele.com>
 description: >
   Classes and methods for representing and manipulating concepts from music theory:
   Pitch, PitchClass, Interval, Scale, Chord.
-homepage: http://github.com/osteele/tonic
+homepage: http://github.com/osteele/dart-tonic
 
 environment:
   sdk: '>=1.1.1'
 dependencies:
   collection: ">=0.9.1 <0.10.0"
 dev_dependencies:
-  unittest: '>=0.10.0 < 0.11.0'
+  unittest: '>=0.10.0 <0.11.0'
