@@ -60,7 +60,7 @@ void defineFrettingTests() {
   });
 
 
-  solo_test('bestFrettingFor', () {
+  test('bestFrettingFor', () {
     var chord = Chord.parse('E Major');
     var instrument = Instrument.Guitar;
     var fretting = bestFrettingFor(chord, instrument);

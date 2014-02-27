@@ -162,11 +162,3 @@ final List ScalePatternSpecs = [
 // #   minor: 'i ii° ♭III iv v ♭VI ♭VII'.split(/\s/).map parseChordNumeral
 
 final List<String> ScaleDegreeNames = ['1', '♭2', '2', '♭3', '3', '4', '♭5', '5', '♭6', '6', '♭7', '7'];
-
-void eachWithIndex(List list, Function fn) {
-  int i = 0;
-  for (var x in list) {
-    fn(x, i);
-    i += 1;
-  }
-}

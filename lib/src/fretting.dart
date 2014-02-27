@@ -1,12 +1,5 @@
 part of tonic;
 
-List sortedBy(Iterable items, int sortKey(item), {bool reverse: false}) {
-  var list = new List.from(items);
-  var comparator = reverse ? (a, b) => sortKey(a) - sortKey(b) : (a, b) => sortKey(b) - sortKey(a);
-  insertionSort(list, compare: comparator);
-  return list;
-}
-
 // These are "frettings" and not "voicings" because they also include barre information.
 class Fretting {
   final Chord chord;
