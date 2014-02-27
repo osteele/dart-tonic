@@ -225,14 +225,3 @@ void defineChordTests() {
   });
 }
 
-class _IsChordPattern extends TypeMatcher {
-  const _IsChordPattern() : super('ChordPattern');
-  bool matches(item, Map matchState) => item is ChordPattern;
-}
-const isChordPattern = const _IsChordPattern();
-
-class _IsChord extends TypeMatcher {
-  const _IsChord() : super('Chord');
-  bool matches(item, Map matchState) => item is Chord;
-}
-const isChord = const _IsChord();

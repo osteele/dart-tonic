@@ -135,9 +135,3 @@ void defineScaleTests() {
   //   });
   // });
 }
-
-class _IsMode extends TypeMatcher {
-  const _IsMode() : super('Mode');
-  bool matches(item, Map matchState) => item is Mode;
-}
-const isMode = const _IsMode();
