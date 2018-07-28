@@ -9,11 +9,13 @@ description: >
 homepage: http://github.com/AppleEducate/dart-tonic
 
 environment:
-  sdk: ">=1.24.3 <3.0.0"
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
   flutter: ">=0.1.4 <2.0.0"
+
 dependencies:
   collection: ">=0.9.1 <1.14.11"
   flutter:
     sdk: flutter
+    
 dev_dependencies:
   unittest: '>=0.10.0 <0.11.0'
