@@ -3,8 +3,9 @@ part of tonic_test;
 void defineFrettingTests() {
   group('Fretting', () {
     var chord = Chord.parse('E Major');
-    var instrument = Instrument.Guitar;
-    var fretting = Fretting.fromFretString('0221x0', chord: chord, instrument: instrument);
+    var instrument = InstrumentClass.guitar;
+    var fretting =
+        Fretting.fromFretString('0221x0', chord: chord, instrument: instrument);
 
     test('chord', () {
       expect(fretting.chord, equals(chord));
@@ -16,53 +17,87 @@ void defineFrettingTests() {
 
     test('positions', () {
       expect(fretting.positions, hasLength(5));
-      expect(fretting.positions.map((pos) => pos.stringIndex), equals([0, 1, 2, 3, 5]));
-      expect(fretting.positions.map((pos) => pos.fretNumber), equals([0, 2, 2, 1, 0]));
+      expect(fretting.positions.map((pos) => pos.stringIndex),
+          equals([0, 1, 2, 3, 5]));
+      expect(fretting.positions.map((pos) => pos.fretNumber),
+          equals([0, 2, 2, 1, 0]));
     });
 
     group('parse', () {
       test('throws FormatException', () {
-        expect(()=>Fretting.fromFretString('xxx', chord: chord, instrument: instrument), throwsFormatException);
-        expect(()=>Fretting.fromFretString('xxxxxxx', chord: chord, instrument: instrument), throwsFormatException);
-        expect(()=>Fretting.fromFretString('132e56', chord: chord, instrument: instrument), throwsFormatException);
+        expect(
+            () => Fretting.fromFretString('xxx',
+                chord: chord, instrument: instrument),
+            throwsFormatException);
+        expect(
+            () => Fretting.fromFretString('xxxxxxx',
+                chord: chord, instrument: instrument),
+            throwsFormatException);
+        expect(
+            () => Fretting.fromFretString('132e56',
+                chord: chord, instrument: instrument),
+            throwsFormatException);
       });
     });
 
     test('fretstring', () {
-      expect(Fretting.fromFretString('0221x0', chord: chord, instrument: instrument).fretString, equals('0221x0'));
-      expect(Fretting.fromFretString('x221x0', chord: chord, instrument: instrument).fretString, equals('x221x0'));
-      expect(Fretting.fromFretString('0221xx', chord: chord, instrument: instrument).fretString, equals('0221xx'));
+      expect(
+          Fretting
+              .fromFretString('0221x0', chord: chord, instrument: instrument)
+              .fretString,
+          equals('0221x0'));
+      expect(
+          Fretting
+              .fromFretString('x221x0', chord: chord, instrument: instrument)
+              .fretString,
+          equals('x221x0'));
+      expect(
+          Fretting
+              .fromFretString('0221xx', chord: chord, instrument: instrument)
+              .fretString,
+          equals('0221xx'));
     });
 
     test('inversionIndex', () {
-      expect(Fretting.fromFretString('022100', chord: chord, instrument: instrument).inversionIndex, 0);
-      expect(Fretting.fromFretString('422100', chord: chord, instrument: instrument).inversionIndex, 1);
-      expect(Fretting.fromFretString('722100', chord: chord, instrument: instrument).inversionIndex, 2);
+      expect(
+          Fretting
+              .fromFretString('022100', chord: chord, instrument: instrument)
+              .inversionIndex,
+          0);
+      expect(
+          Fretting
+              .fromFretString('422100', chord: chord, instrument: instrument)
+              .inversionIndex,
+          1);
+      expect(
+          Fretting
+              .fromFretString('722100', chord: chord, instrument: instrument)
+              .inversionIndex,
+          2);
     });
 
     // test('should have an inversion letter', () {
-      // fretting.positions.should.be.an.Array
+    // fretting.positions.should.be.an.Array
     // });
   });
 
   test('chordFrettings', () {
     var chord = Chord.parse('E Major');
-    var instrument = Instrument.Guitar;
+    var instrument = InstrumentClass.guitar;
     var frettings = chordFrettings(chord, instrument);
     // print(orderedFrettings);
 
     expect(frettings.length, inInclusiveRange(10, 250));
     expect(frettings[0].fretString, equals('022100'));
-    expect(frettings.map((f)=>f.fretString), contains('022104'));
-    expect(frettings.map((f)=>f.fretString), contains('x22100'));
-    expect(frettings.map((f)=>f.fretString), contains('x2210x'));
-    expect(frettings.map((f)=>f.fretString), contains('422100'));
+    expect(frettings.map((f) => f.fretString), contains('022104'));
+    expect(frettings.map((f) => f.fretString), contains('x22100'));
+    expect(frettings.map((f) => f.fretString), contains('x2210x'));
+    expect(frettings.map((f) => f.fretString), contains('422100'));
   });
-
 
   test('bestFrettingFor', () {
     var chord = Chord.parse('E Major');
-    var instrument = Instrument.Guitar;
+    var instrument = InstrumentClass.guitar;
     var fretting = bestFrettingFor(chord, instrument);
 
     expect(fretting, isNotNull);

@@ -3,12 +3,12 @@ part of tonic_test;
 void defineInstrumentTests() {
   group('Instrument', () {
     test('lookup should define a guitar', () {
-      expect(Instrument.lookup('Guitar'), isInstrument);
+      expect(InstrumentClass.lookup('Guitar'), isInstrument);
     });
   });
 
   group('Guitar', () {
-    var guitar = Instrument.Guitar;
+    var guitar = InstrumentClass.guitar;
 
     test('is an Instrument', () {
       expect(guitar, isInstrument);
@@ -31,7 +31,7 @@ void defineInstrumentTests() {
     // });
 
     // test('should have an array of strings', () {
-      // guitar.stringNumbers.should.eql [0 .. 5]
+    // guitar.stringNumbers.should.eql [0 .. 5]
     // });
 
     test('stringPitches should be a List of pitches', () {
@@ -46,70 +46,106 @@ void defineInstrumentTests() {
     });
 
     test('pitchAt should return a Pitch', () {
-      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 0), equals(Pitch.parse('E2')));
-      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 1), equals(Pitch.parse('F2')));
-      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 2), equals(Pitch.parse('F♯2')));
-      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 5), equals(Pitch.parse('A2')));
-      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 7), equals(Pitch.parse('B2')));
-      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 12), equals(Pitch.parse('E3')));
+      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 0),
+          equals(Pitch.parse('E2')));
+      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 1),
+          equals(Pitch.parse('F2')));
+      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 2),
+          equals(Pitch.parse('F♯2')));
+      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 5),
+          equals(Pitch.parse('A2')));
+      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 7),
+          equals(Pitch.parse('B2')));
+      expect(guitar.pitchAt(stringIndex: 0, fretNumber: 12),
+          equals(Pitch.parse('E3')));
 
-      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 0), equals(Pitch.parse('A2')));
-      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 1), equals(Pitch.parse('B♭2')));
-      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 2), equals(Pitch.parse('B2')));
-      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 5), equals(Pitch.parse('D3')));
-      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 7), equals(Pitch.parse('E3')));
-      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 12), equals(Pitch.parse('A3')));
+      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 0),
+          equals(Pitch.parse('A2')));
+      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 1),
+          equals(Pitch.parse('B♭2')));
+      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 2),
+          equals(Pitch.parse('B2')));
+      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 5),
+          equals(Pitch.parse('D3')));
+      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 7),
+          equals(Pitch.parse('E3')));
+      expect(guitar.pitchAt(stringIndex: 1, fretNumber: 12),
+          equals(Pitch.parse('A3')));
 
-      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 0), equals(Pitch.parse('D3')));
-      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 1), equals(Pitch.parse('E♭3')));
-      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 2), equals(Pitch.parse('E3')));
-      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 5), equals(Pitch.parse('G3')));
-      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 7), equals(Pitch.parse('A3')));
-      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 12), equals(Pitch.parse('D4')));
+      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 0),
+          equals(Pitch.parse('D3')));
+      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 1),
+          equals(Pitch.parse('E♭3')));
+      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 2),
+          equals(Pitch.parse('E3')));
+      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 5),
+          equals(Pitch.parse('G3')));
+      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 7),
+          equals(Pitch.parse('A3')));
+      expect(guitar.pitchAt(stringIndex: 2, fretNumber: 12),
+          equals(Pitch.parse('D4')));
 
-      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 0), equals(Pitch.parse('G3')));
-      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 1), equals(Pitch.parse('A♭3')));
-      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 2), equals(Pitch.parse('A3')));
-      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 5), equals(Pitch.parse('C4')));
-      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 7), equals(Pitch.parse('D4')));
-      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 12), equals(Pitch.parse('G4')));
+      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 0),
+          equals(Pitch.parse('G3')));
+      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 1),
+          equals(Pitch.parse('A♭3')));
+      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 2),
+          equals(Pitch.parse('A3')));
+      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 5),
+          equals(Pitch.parse('C4')));
+      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 7),
+          equals(Pitch.parse('D4')));
+      expect(guitar.pitchAt(stringIndex: 3, fretNumber: 12),
+          equals(Pitch.parse('G4')));
 
-      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 0), equals(Pitch.parse('B3')));
-      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 1), equals(Pitch.parse('C4')));
-      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 2), equals(Pitch.parse('C♯4')));
-      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 5), equals(Pitch.parse('E4')));
-      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 7), equals(Pitch.parse('F♯4')));
-      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 12), equals(Pitch.parse('B4')));
+      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 0),
+          equals(Pitch.parse('B3')));
+      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 1),
+          equals(Pitch.parse('C4')));
+      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 2),
+          equals(Pitch.parse('C♯4')));
+      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 5),
+          equals(Pitch.parse('E4')));
+      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 7),
+          equals(Pitch.parse('F♯4')));
+      expect(guitar.pitchAt(stringIndex: 4, fretNumber: 12),
+          equals(Pitch.parse('B4')));
 
-      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 0), equals(Pitch.parse('E4')));
-      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 1), equals(Pitch.parse('F4')));
-      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 2), equals(Pitch.parse('F♯4')));
-      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 5), equals(Pitch.parse('A4')));
-      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 7), equals(Pitch.parse('B4')));
-      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 12), equals(Pitch.parse('E5')));
+      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 0),
+          equals(Pitch.parse('E4')));
+      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 1),
+          equals(Pitch.parse('F4')));
+      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 2),
+          equals(Pitch.parse('F♯4')));
+      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 5),
+          equals(Pitch.parse('A4')));
+      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 7),
+          equals(Pitch.parse('B4')));
+      expect(guitar.pitchAt(stringIndex: 5, fretNumber: 12),
+          equals(Pitch.parse('E5')));
     });
 
     // group('eachFingerPosition', () {
-      // test('should iterate over each finger position', () {
-        // count = 0
-        // found = false
-        // strings = []
-        // frets = []
-        // guitar.eachFingerPosition ({string, fret}) ->
-        //   string.should.be.within 0, 5
-        //   fret.should.be.within 0, 12
-        //   strings[string] = true
-        //   frets[fret] = true
-        //   count += 1
-        //   found or= string == 2 and fret == 3
-        // count.should.equal 6 * 13
-        // strings.should.have.length 6
-        // frets.should.have.length 13
-        // frets[0].should.be.true
-        // frets[12].should.be.true
-        // should.not.exist frets[13]
-        // found.should.be.true
-      // });
+    // test('should iterate over each finger position', () {
+    // count = 0
+    // found = false
+    // strings = []
+    // frets = []
+    // guitar.eachFingerPosition ({string, fret}) ->
+    //   string.should.be.within 0, 5
+    //   fret.should.be.within 0, 12
+    //   strings[string] = true
+    //   frets[fret] = true
+    //   count += 1
+    //   found or= string == 2 and fret == 3
+    // count.should.equal 6 * 13
+    // strings.should.have.length 6
+    // frets.should.have.length 13
+    // frets[0].should.be.true
+    // frets[12].should.be.true
+    // should.not.exist frets[13]
+    // found.should.be.true
+    // });
     // });
   });
 }

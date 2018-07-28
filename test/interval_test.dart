@@ -11,173 +11,172 @@ void defineIntervalTests() {
 
   group('IntervalNames', () {
     test('should contain 13 intervals', () {
-      expect(IntervalNames, hasLength(13));
+      expect(intervalNames, hasLength(13));
     });
 
-    test('should start with P1', () {
-      expect(IntervalNames[0], equals('P1'));
+    test('should start with iP1', () {
+      expect(intervalNames[0], equals('iP1'));
     });
 
-    test('should end with P8', () {
-      expect(IntervalNames[12], equals('P8'));
+    test('should end with iP8', () {
+      expect(intervalNames[12], equals('iP8'));
     });
   });
 
   group('LongIntervalNames', () {
     test('should contain 13 intervals', () {
-      expect(LongIntervalNames, hasLength(13));
+      expect(longIntervalNames, hasLength(13));
     });
 
     test('should start with Unison', () {
-      expect(LongIntervalNames[0], equals('Unison'));
+      expect(longIntervalNames[0], equals('Unison'));
     });
 
     test('should end with Octave', () {
-      expect(LongIntervalNames[12], equals('Octave'));
+      expect(longIntervalNames[12], equals('Octave'));
     });
   });
 
   group('Interval', () {
     test('parse should return an interval', () {
-      expect(Interval.parse('P1'), equals(Interval.P1));
-      expect(Interval.parse('m2'), equals(Interval.m2));
-      expect(Interval.parse('M2'), equals(Interval.M2));
-      expect(Interval.parse('m3'), equals(Interval.m3));
-      expect(Interval.parse('M3'), equals(Interval.M3));
-      expect(Interval.parse('P4'), equals(Interval.P4));
-      expect(Interval.parse('TT'), equals(Interval.TT));
-      expect(Interval.parse('P5'), equals(Interval.P5));
-      expect(Interval.parse('m6'), equals(Interval.m6));
-      expect(Interval.parse('M6'), equals(Interval.M6));
-      expect(Interval.parse('m7'), equals(Interval.m7));
-      expect(Interval.parse('M7'), equals(Interval.M7));
-      expect(Interval.parse('P8'), equals(Interval.P8));
+      expect(Interval.parse('iP1'), equals(Interval.iP1));
+      expect(Interval.parse('im2'), equals(Interval.im2));
+      expect(Interval.parse('iM2'), equals(Interval.iM2));
+      expect(Interval.parse('im3'), equals(Interval.im3));
+      expect(Interval.parse('iM3'), equals(Interval.iM3));
+      expect(Interval.parse('iP4'), equals(Interval.iP4));
+      expect(Interval.parse('iTT'), equals(Interval.iTT));
+      expect(Interval.parse('iP5'), equals(Interval.iP5));
+      expect(Interval.parse('im6'), equals(Interval.im6));
+      expect(Interval.parse('iM6'), equals(Interval.iM6));
+      expect(Interval.parse('im7'), equals(Interval.im7));
+      expect(Interval.parse('iM7'), equals(Interval.iM7));
+      expect(Interval.parse('iP8'), equals(Interval.iP8));
     });
 
     test('parse should throw a FormatException', () {
-      expect(()=>Interval.parse('M1'), throwsFormatException);
-      expect(()=>Interval.parse('m1'), throwsFormatException);
-      expect(()=>Interval.parse('P2'), throwsFormatException);
-      expect(()=>Interval.parse('P1x'), throwsFormatException);
-      expect(()=>Interval.parse('x1'), throwsFormatException);
-      expect(()=>Interval.parse('1'), throwsFormatException);
-      expect(()=>Interval.parse('x1'), throwsFormatException);
-      expect(()=>Interval.parse('M8'), throwsFormatException);
+      expect(() => Interval.parse('M1'), throwsFormatException);
+      expect(() => Interval.parse('m1'), throwsFormatException);
+      expect(() => Interval.parse('P2'), throwsFormatException);
+      expect(() => Interval.parse('iP1x'), throwsFormatException);
+      expect(() => Interval.parse('x1'), throwsFormatException);
+      expect(() => Interval.parse('1'), throwsFormatException);
+      expect(() => Interval.parse('x1'), throwsFormatException);
+      expect(() => Interval.parse('M8'), throwsFormatException);
     });
 
-
     test('constructor should default to Perfect or Major', () {
-      expect(new Interval(number: 1), equals(Interval.P1));
-      expect(new Interval(number: 2), equals(Interval.M2));
-      expect(new Interval(number: 3), equals(Interval.M3));
-      expect(new Interval(number: 4), equals(Interval.P4));
-      expect(new Interval(number: 5), equals(Interval.P5));
-      expect(new Interval(number: 6), equals(Interval.M6));
-      expect(new Interval(number: 7), equals(Interval.M7));
-      expect(new Interval(number: 8), equals(Interval.P8));
+      expect(new Interval(number: 1), equals(Interval.iP1));
+      expect(new Interval(number: 2), equals(Interval.iM2));
+      expect(new Interval(number: 3), equals(Interval.iM3));
+      expect(new Interval(number: 4), equals(Interval.iP4));
+      expect(new Interval(number: 5), equals(Interval.iP5));
+      expect(new Interval(number: 6), equals(Interval.iM6));
+      expect(new Interval(number: 7), equals(Interval.iM7));
+      expect(new Interval(number: 8), equals(Interval.iP8));
     });
 
     test('fromSemitones should return an Interval', () {
-      expect(new Interval.fromSemitones(0), equals(Interval.P1));
-      expect(new Interval.fromSemitones(1), equals(Interval.m2));
-      expect(new Interval.fromSemitones(2), equals(Interval.M2));
-      expect(new Interval.fromSemitones(3), equals(Interval.m3));
-      expect(new Interval.fromSemitones(4), equals(Interval.M3));
-      expect(new Interval.fromSemitones(5), equals(Interval.P4));
-      expect(new Interval.fromSemitones(6), equals(Interval.TT));
-      expect(new Interval.fromSemitones(7), equals(Interval.P5));
-      expect(new Interval.fromSemitones(8), equals(Interval.m6));
-      expect(new Interval.fromSemitones(9), equals(Interval.M6));
-      expect(new Interval.fromSemitones(10), equals(Interval.m7));
-      expect(new Interval.fromSemitones(11), equals(Interval.M7));
-      expect(new Interval.fromSemitones(12), equals(Interval.P8));
+      expect(new Interval.fromSemitones(0), equals(Interval.iP1));
+      expect(new Interval.fromSemitones(1), equals(Interval.im2));
+      expect(new Interval.fromSemitones(2), equals(Interval.iM2));
+      expect(new Interval.fromSemitones(3), equals(Interval.im3));
+      expect(new Interval.fromSemitones(4), equals(Interval.iM3));
+      expect(new Interval.fromSemitones(5), equals(Interval.iP4));
+      expect(new Interval.fromSemitones(6), equals(Interval.iTT));
+      expect(new Interval.fromSemitones(7), equals(Interval.iP5));
+      expect(new Interval.fromSemitones(8), equals(Interval.im6));
+      expect(new Interval.fromSemitones(9), equals(Interval.iM6));
+      expect(new Interval.fromSemitones(10), equals(Interval.im7));
+      expect(new Interval.fromSemitones(11), equals(Interval.iM7));
+      expect(new Interval.fromSemitones(12), equals(Interval.iP8));
     });
 
     test('fromSemitones should compute the quality', () {
-      expect(new Interval.fromSemitones(0, number: 1), equals(Interval.P1));
+      expect(new Interval.fromSemitones(0, number: 1), equals(Interval.iP1));
       expect(new Interval.fromSemitones(0, number: 2), equals(Interval.d2));
-      expect(new Interval.fromSemitones(1, number: 1), equals(Interval.A1));
-      expect(new Interval.fromSemitones(1, number: 2), equals(Interval.m2));
-      expect(new Interval.fromSemitones(2, number: 2), equals(Interval.M2));
+      expect(new Interval.fromSemitones(1, number: 1), equals(Interval.a1));
+      expect(new Interval.fromSemitones(1, number: 2), equals(Interval.im2));
+      expect(new Interval.fromSemitones(2, number: 2), equals(Interval.iM2));
       expect(new Interval.fromSemitones(2, number: 3), equals(Interval.d3));
-      expect(new Interval.fromSemitones(3, number: 2), equals(Interval.A2));
-      expect(new Interval.fromSemitones(3, number: 3), equals(Interval.m3));
-      expect(new Interval.fromSemitones(4, number: 3), equals(Interval.M3));
+      expect(new Interval.fromSemitones(3, number: 2), equals(Interval.a2));
+      expect(new Interval.fromSemitones(3, number: 3), equals(Interval.im3));
+      expect(new Interval.fromSemitones(4, number: 3), equals(Interval.iM3));
       expect(new Interval.fromSemitones(4, number: 4), equals(Interval.d4));
-      expect(new Interval.fromSemitones(5, number: 3), equals(Interval.A3));
-      expect(new Interval.fromSemitones(5, number: 4), equals(Interval.P4));
-      expect(new Interval.fromSemitones(6, number: 4), equals(Interval.A4));
+      expect(new Interval.fromSemitones(5, number: 3), equals(Interval.a3));
+      expect(new Interval.fromSemitones(5, number: 4), equals(Interval.iP4));
+      expect(new Interval.fromSemitones(6, number: 4), equals(Interval.a4));
       expect(new Interval.fromSemitones(6, number: 5), equals(Interval.d5));
-      expect(new Interval.fromSemitones(7, number: 5), equals(Interval.P5));
+      expect(new Interval.fromSemitones(7, number: 5), equals(Interval.iP5));
       expect(new Interval.fromSemitones(7, number: 6), equals(Interval.d6));
-      expect(new Interval.fromSemitones(8, number: 5), equals(Interval.A5));
-      expect(new Interval.fromSemitones(8, number: 6), equals(Interval.m6));
-      expect(new Interval.fromSemitones(9, number: 6), equals(Interval.M6));
+      expect(new Interval.fromSemitones(8, number: 5), equals(Interval.a5));
+      expect(new Interval.fromSemitones(8, number: 6), equals(Interval.im6));
+      expect(new Interval.fromSemitones(9, number: 6), equals(Interval.iM6));
       expect(new Interval.fromSemitones(9, number: 7), equals(Interval.d7));
-      expect(new Interval.fromSemitones(10, number: 6), equals(Interval.A6));
-      expect(new Interval.fromSemitones(10, number: 7), equals(Interval.m7));
-      expect(new Interval.fromSemitones(11, number: 7), equals(Interval.M7));
+      expect(new Interval.fromSemitones(10, number: 6), equals(Interval.a6));
+      expect(new Interval.fromSemitones(10, number: 7), equals(Interval.im7));
+      expect(new Interval.fromSemitones(11, number: 7), equals(Interval.iM7));
       expect(new Interval.fromSemitones(11, number: 8), equals(Interval.d8));
-      expect(new Interval.fromSemitones(12, number: 7), equals(Interval.A7));
-      expect(new Interval.fromSemitones(12, number: 8), equals(Interval.P8));
+      expect(new Interval.fromSemitones(12, number: 7), equals(Interval.a7));
+      expect(new Interval.fromSemitones(12, number: 8), equals(Interval.iP8));
       // expect(new Interval.fromSemitones(13, number: 8), equals(Interval.A8));
     });
 
     test('toString should return the interval name', () {
-      expect(Interval.P1.toString(), equals('P1'));
-      expect(Interval.m2.toString(), equals('m2'));
-      expect(Interval.M3.toString(), equals('M3'));
-      expect(Interval.P8.toString(), equals('P8'));
-      expect(Interval.A3.toString(), equals('A3'));
+      expect(Interval.iP1.toString(), equals('iP1'));
+      expect(Interval.im2.toString(), equals('im2'));
+      expect(Interval.iM3.toString(), equals('iM3'));
+      expect(Interval.iP8.toString(), equals('iP8'));
+      expect(Interval.a3.toString(), equals('a3'));
       expect(Interval.d6.toString(), equals('d6'));
     });
 
     test('toString should include the quality', () {
       expect(Interval.d2.toString(), equals('d2'));
-      expect(Interval.m2.toString(), equals('m2'));
-      expect(Interval.M2.toString(), equals('M2'));
-      expect(Interval.A2.toString(), equals('A2'));
+      expect(Interval.im2.toString(), equals('im2'));
+      expect(Interval.iM2.toString(), equals('iM2'));
+      expect(Interval.a2.toString(), equals('a2'));
     });
 
     test('should be interned', () {
-      expect(Interval.parse('P1'), equals(Interval.P1));
-      expect(Interval.parse('M2'), equals(Interval.M2));
-      expect(Interval.parse('P1'), isNot(equals(Interval.M2)));
+      expect(Interval.parse('iP1'), equals(Interval.iP1));
+      expect(Interval.parse('iM2'), equals(Interval.iM2));
+      expect(Interval.parse('iP1'), isNot(equals(Interval.iM2)));
     });
 
     test('should define the major intervals', () {
-      expect(Interval.M2.semitones, equals(2));
-      expect(Interval.M3.semitones, equals(4));
-      expect(Interval.M6.semitones, equals(9));
-      expect(Interval.M7.semitones, equals(11));
+      expect(Interval.iM2.semitones, equals(2));
+      expect(Interval.iM3.semitones, equals(4));
+      expect(Interval.iM6.semitones, equals(9));
+      expect(Interval.iM7.semitones, equals(11));
     });
 
     test('should define the minor intervals', () {
-      expect(Interval.m2.semitones, equals(1));
-      expect(Interval.m3.semitones, equals(3));
-      expect(Interval.m6.semitones, equals(8));
-      expect(Interval.m7.semitones, equals(10));
+      expect(Interval.im2.semitones, equals(1));
+      expect(Interval.im3.semitones, equals(3));
+      expect(Interval.im6.semitones, equals(8));
+      expect(Interval.im7.semitones, equals(10));
     });
 
     test('should define the perfect intervals', () {
-      expect(Interval.P1.semitones, equals(0));
-      expect(Interval.P4.semitones, equals(5));
-      expect(Interval.P5.semitones, equals(7));
-      expect(Interval.P8.semitones, equals(12));
+      expect(Interval.iP1.semitones, equals(0));
+      expect(Interval.iP4.semitones, equals(5));
+      expect(Interval.iP5.semitones, equals(7));
+      expect(Interval.iP8.semitones, equals(12));
     });
 
     test('should define the tritone', () {
-      expect(Interval.TT.semitones, equals(6));
+      expect(Interval.iTT.semitones, equals(6));
     });
 
     test('should define the augmented intervals', () {
-      expect(Interval.A1.semitones, equals(1));
-      expect(Interval.A2.semitones, equals(3));
-      expect(Interval.A3.semitones, equals(5));
-      expect(Interval.A4.semitones, equals(6));
-      expect(Interval.A5.semitones, equals(8));
-      expect(Interval.A6.semitones, equals(10));
-      expect(Interval.A7.semitones, equals(12));
+      expect(Interval.a1.semitones, equals(1));
+      expect(Interval.a2.semitones, equals(3));
+      expect(Interval.a3.semitones, equals(5));
+      expect(Interval.a4.semitones, equals(6));
+      expect(Interval.a5.semitones, equals(8));
+      expect(Interval.a6.semitones, equals(10));
+      expect(Interval.a7.semitones, equals(12));
     });
 
     test('should define the diminished intervals', () {
@@ -191,42 +190,43 @@ void defineIntervalTests() {
     });
 
     test('+Interval should return an Interval', () {
-      expect(Interval.P1 + Interval.M2, equals(Interval.M2));
-      expect(Interval.M2 + Interval.P1, equals(Interval.M2));
-      expect(Interval.m2 + Interval.m2, equals(Interval.d3));
-      expect(Interval.m2 + Interval.M2, equals(Interval.m3));
-      expect(Interval.M2 + Interval.m2, equals(Interval.m3));
-      expect(Interval.M2 + Interval.M2, equals(Interval.M3));
-      expect(Interval.d2 + Interval.M2, equals(Interval.d3));
-      expect(Interval.M2 + Interval.d2, equals(Interval.d3));
-      expect(Interval.M2 + Interval.A2, equals(Interval.A3));
-      expect(Interval.A2 + Interval.M2, equals(Interval.A3));
-      expect(Interval.M2 + Interval.d2, equals(Interval.d3));
-      expect(Interval.A2 + Interval.d2, equals(Interval.m3));
-      expect(Interval.M2 + Interval.A4, equals(Interval.A5));
-      expect(Interval.M2 + Interval.d5, equals(Interval.m6));
-      expect(Interval.M3 + Interval.m3, equals(Interval.P5));
-      expect(Interval.m3 + Interval.M3, equals(Interval.P5));
-      expect(Interval.m3 + Interval.m3, equals(Interval.d5));
-      expect(Interval.M3 + Interval.M3, equals(Interval.A5));
-      expect(Interval.P5 + Interval.m3, equals(Interval.m7));
-      expect(Interval.P5 + Interval.M3, equals(Interval.M7));
+      expect(Interval.iP1 + Interval.iM2, equals(Interval.iM2));
+      expect(Interval.iM2 + Interval.iP1, equals(Interval.iM2));
+      expect(Interval.im2 + Interval.im2, equals(Interval.d3));
+      expect(Interval.im2 + Interval.iM2, equals(Interval.im3));
+      expect(Interval.iM2 + Interval.im2, equals(Interval.im3));
+      expect(Interval.iM2 + Interval.iM2, equals(Interval.iM3));
+      expect(Interval.d2 + Interval.iM2, equals(Interval.d3));
+      expect(Interval.iM2 + Interval.d2, equals(Interval.d3));
+      expect(Interval.iM2 + Interval.a2, equals(Interval.a3));
+      expect(Interval.a2 + Interval.iM2, equals(Interval.a3));
+      expect(Interval.iM2 + Interval.d2, equals(Interval.d3));
+      expect(Interval.a2 + Interval.d2, equals(Interval.im3));
+      expect(Interval.iM2 + Interval.a4, equals(Interval.a5));
+      expect(Interval.iM2 + Interval.d5, equals(Interval.im6));
+      expect(Interval.iM3 + Interval.im3, equals(Interval.iP5));
+      expect(Interval.im3 + Interval.iM3, equals(Interval.iP5));
+      expect(Interval.im3 + Interval.im3, equals(Interval.d5));
+      expect(Interval.iM3 + Interval.iM3, equals(Interval.a5));
+      expect(Interval.iP5 + Interval.im3, equals(Interval.im7));
+      expect(Interval.iP5 + Interval.iM3, equals(Interval.iM7));
     });
 
-    test('+Interval should throw an error when the quality is out of range', () {
-      expect(()=> Interval.d2 + Interval.m2, throwsArgumentError);
-      expect(()=> Interval.m2 + Interval.d2, throwsArgumentError);
+    test('+Interval should throw an error when the quality is out of range',
+        () {
+      expect(() => Interval.d2 + Interval.im2, throwsArgumentError);
+      expect(() => Interval.im2 + Interval.d2, throwsArgumentError);
     });
 
     test('-Interval should return an Interval', () {
-      expect(Interval.P5 - Interval.M3, Interval.m3);
-      expect(Interval.P5 - Interval.m3, Interval.M3);
-      expect(Interval.A5 - Interval.m3, Interval.A3);
-      expect(Interval.A5 - Interval.M3, Interval.M3);
-      expect(Interval.d5 - Interval.m3, Interval.m3);
-      expect(Interval.d5 - Interval.M3, Interval.d3);
-      expect(Interval.M7 - Interval.M3, Interval.P5);
-      expect(Interval.M7 - Interval.m3, Interval.A5);
+      expect(Interval.iP5 - Interval.iM3, Interval.im3);
+      expect(Interval.iP5 - Interval.im3, Interval.iM3);
+      expect(Interval.a5 - Interval.im3, Interval.a3);
+      expect(Interval.a5 - Interval.iM3, Interval.iM3);
+      expect(Interval.d5 - Interval.im3, Interval.im3);
+      expect(Interval.d5 - Interval.iM3, Interval.d3);
+      expect(Interval.iM7 - Interval.iM3, Interval.iP5);
+      expect(Interval.iM7 - Interval.im3, Interval.a5);
     });
   });
 }

@@ -8,34 +8,40 @@ class ScalePattern {
   static final Map<String, ScalePattern> _byName = <String, ScalePattern>{};
   static bool _builtinPatternsInitialized = false;
 
-  ScalePattern({String this.name, this.intervals}) {
+  ScalePattern({this.name, this.intervals}) {
     _byName[name] = this;
   }
 
   static ScalePattern findByName(String name) {
     _initializeBuiltinPatterns();
     var scalePattern = _byName[name];
-    if (scalePattern == null) throw new FormatException("$name is not a ScalePattern name");
+    if (scalePattern == null)
+      throw new FormatException("$name is not a ScalePattern name");
     return scalePattern;
   }
 
   static void _initializeBuiltinPatterns() {
     if (_builtinPatternsInitialized) return;
     _builtinPatternsInitialized = true;
-    for (var spec in ScalePatternSpecs) {
+    for (var spec in scalePatternSpecs) {
       var scaleName = spec['name'];
       var parentName = spec['parent'];
       var modeNames = spec['modeNames'];
-      var intervals = spec['intervals'].map((n) => new Interval.fromSemitones(n)).toList();
+      var intervals =
+          spec['intervals'].map((n) => new Interval.fromSemitones(n)).toList();
       var scale = parentName != null
-        ? new Mode(name: scaleName, parent: ScalePattern.findByName(parentName), intervals: intervals)
-        : new ScalePattern(name: scaleName, intervals: intervals);
+          ? new Mode(
+              name: scaleName,
+              parent: ScalePattern.findByName(parentName),
+              intervals: intervals)
+          : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
       eachWithIndex(modeNames, (modeName, index) {
         var modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         var root = modeIntervals[0];
-        modeIntervals = modeIntervals.map((interval) => interval - root).toList();
+        modeIntervals =
+            modeIntervals.map((interval) => interval - root).toList();
         new Mode(name: modeName, parent: scale, intervals: modeIntervals);
       });
     }
@@ -47,9 +53,8 @@ class ScalePattern {
 class Mode extends ScalePattern {
   final ScalePattern parent;
 
-  Mode({String name, ScalePattern this.parent, intervals})
-    : super(name: name, intervals: intervals)
-  {
+  Mode({String name, this.parent, intervals})
+      : super(name: name, intervals: intervals) {
     parent.modes[name] = this;
   }
 }
@@ -58,15 +63,15 @@ class Scale {
   final ScalePattern pattern;
   final PitchClass tonic;
 
-  Scale({ScalePattern this.pattern, PitchClass this.tonic});
+  Scale({this.pattern, this.tonic});
 
   List<Interval> get intervals => pattern.intervals;
 
   List<PitchClass> get pitchClasses =>
-    intervals.map((interval) => tonic + interval).toList();
+      intervals.map((interval) => tonic + interval).toList();
 
-    // : intervals = (new Interval(semitones) for semitones in @pitchClasses)
-    // @pitches = (@tonic.add(interval) for interval in @intervals) if @tonic?
+  // : intervals = (new Interval(semitones) for semitones in @pitchClasses)
+  // @pitches = (@tonic.add(interval) for interval in @intervals) if @tonic?
 
 //   chords: (options={}) ->
 //     throw new Error("only implemented for scales with tonics") unless @tonic?
@@ -92,11 +97,19 @@ class Scale {
 //     return scale
 }
 
-final List ScalePatternSpecs = [
+final List scalePatternSpecs = [
   {
     'name': 'Diatonic Major',
     'intervals': [0, 2, 4, 5, 7, 9, 11],
-    'modeNames': ['Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian']
+    'modeNames': [
+      'Ionian',
+      'Dorian',
+      'Phrygian',
+      'Lydian',
+      'Mixolydian',
+      'Aeolian',
+      'Locrian'
+    ]
   },
   {
     'name': 'Natural Minor',
@@ -106,7 +119,13 @@ final List ScalePatternSpecs = [
   {
     'name': 'Major Pentatonic',
     'intervals': [0, 2, 4, 7, 9],
-    'modeNames': ['Major Pentatonic', 'Suspended Pentatonic', 'Man Gong', 'Ritusen', 'Minor Pentatonic'],
+    'modeNames': [
+      'Major Pentatonic',
+      'Suspended Pentatonic',
+      'Man Gong',
+      'Ritusen',
+      'Minor Pentatonic'
+    ],
   },
   {
     'name': 'Minor Pentatonic',
@@ -116,14 +135,28 @@ final List ScalePatternSpecs = [
   {
     'name': 'Melodic Minor',
     'intervals': [0, 2, 3, 5, 7, 9, 11],
-    'modeNames':
-      ['Jazz Minor', 'Dorian ♭2', 'Lydian Augmented', 'Lydian Dominant', 'Mixolydian ♭6', 'Semilocrian', 'Superlocrian']
+    'modeNames': [
+      'Jazz Minor',
+      'Dorian ♭2',
+      'Lydian Augmented',
+      'Lydian Dominant',
+      'Mixolydian ♭6',
+      'Semilocrian',
+      'Superlocrian'
+    ]
   },
   {
     'name': 'Harmonic Minor',
     'intervals': [0, 2, 3, 5, 7, 8, 11],
-    'modeNames':
-      ['Harmonic Minor', 'Locrian ♯6', 'Ionian Augmented', 'Romanian', 'Phrygian Dominant', 'Lydian ♯2', 'Ultralocrian']
+    'modeNames': [
+      'Harmonic Minor',
+      'Locrian ♯6',
+      'Ionian Augmented',
+      'Romanian',
+      'Phrygian Dominant',
+      'Lydian ♯2',
+      'Ultralocrian'
+    ]
   },
   {
     'name': 'Blues',
@@ -161,4 +194,17 @@ final List ScalePatternSpecs = [
 // #   major: 'I ii iii IV V vi vii°'.split(/\s/).map parseChordNumeral
 // #   minor: 'i ii° ♭III iv v ♭VI ♭VII'.split(/\s/).map parseChordNumeral
 
-final List<String> ScaleDegreeNames = ['1', '♭2', '2', '♭3', '3', '4', '♭5', '5', '♭6', '6', '♭7', '7'];
+final List<String> scaleDegreeNames = [
+  '1',
+  '♭2',
+  '2',
+  '♭3',
+  '3',
+  '4',
+  '♭5',
+  '5',
+  '♭6',
+  '6',
+  '♭7',
+  '7'
+];
