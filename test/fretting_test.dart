@@ -3,7 +3,7 @@ part of tonic_test;
 void defineFrettingTests() {
   group('Fretting', () {
     var chord = Chord.parse('E Major');
-    var instrument = InstrumentClass.Guitar;
+    var instrument = InstrumentClass.guitar;
     var fretting =
         Fretting.fromFretString('0221x0', chord: chord, instrument: instrument);
 
@@ -83,7 +83,7 @@ void defineFrettingTests() {
 
   test('chordFrettings', () {
     var chord = Chord.parse('E Major');
-    var instrument = InstrumentClass.Guitar;
+    var instrument = InstrumentClass.guitar;
     var frettings = chordFrettings(chord, instrument);
     // print(orderedFrettings);
 
@@ -97,7 +97,7 @@ void defineFrettingTests() {
 
   test('bestFrettingFor', () {
     var chord = Chord.parse('E Major');
-    var instrument = InstrumentClass.Guitar;
+    var instrument = InstrumentClass.guitar;
     var fretting = bestFrettingFor(chord, instrument);
 
     expect(fretting, isNotNull);

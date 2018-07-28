@@ -23,58 +23,58 @@ main() {
   print(new Pitch.fromMidiNumber(60)); // => C4
 
   banner("Intervals");
-  print(Interval.M3);
-  print(Interval.parse('M3'));
-  print(Interval.m3.semitones); // => 3
-  print(Interval.M3.semitones); // => 4
-  print(Interval.A3.semitones); // => 5
+  print(Interval.iM3);
+  print(Interval.parse('iM3'));
+  print(Interval.im3.semitones); // => 3
+  print(Interval.iM3.semitones); // => 4
+  print(Interval.a3.semitones); // => 5
   print(Interval.d4.semitones); // => 4
-  print(Interval.P4.semitones); // => 5
-  print(Interval.A4.semitones); // => 6
-  print(Interval.M3.number); // => 3
-  print(Interval.M3.qualityName); // => "M"
+  print(Interval.iP4.semitones); // => 5
+  print(Interval.a4.semitones); // => 6
+  print(Interval.iM3.number); // => 3
+  print(Interval.iM3.qualityName); // => "M"
 
   banner("Interval arithmetic");
-  print(Interval.M3 + Interval.m3); // => P5
-  print(Interval.m3 + Interval.M3); // => P5
-  print(Interval.m3 + Interval.m3); // => d5
-  print(Interval.M3 + Interval.M3); // => A5
+  print(Interval.iM3 + Interval.im3); // => iP5
+  print(Interval.im3 + Interval.iM3); // => iP5
+  print(Interval.im3 + Interval.im3); // => d5
+  print(Interval.iM3 + Interval.iM3); // => A5
 
-  print(Pitch.parse('C4') + Interval.M3); // => E4
-  print(Pitch.parse('C4') + Interval.A3); // => E♯4
+  print(Pitch.parse('C4') + Interval.iM3); // => E4
+  print(Pitch.parse('C4') + Interval.a3); // => E♯4
   print(Pitch.parse('C4') + Interval.d4); // => F♭4
-  print(Pitch.parse('C4') + Interval.P4); // => F4
+  print(Pitch.parse('C4') + Interval.iP4); // => F4
 
   print(Pitch.parse('C4') - Pitch.parse('C4')); // => P1
   print(Pitch.parse('D4') - Pitch.parse('C4')); // => M2
-  print(Pitch.parse('E4') - Pitch.parse('C4')); // => M3
-  print(Pitch.parse('E♯4') - Pitch.parse('C4')); // => A3
+  print(Pitch.parse('E4') - Pitch.parse('C4')); // => iM3
+  print(Pitch.parse('E♯4') - Pitch.parse('C4')); // => a3
   print(Pitch.parse('F♭4') - Pitch.parse('C4')); // => d4
-  print(Pitch.parse('F4') - Pitch.parse('C4')); // => P4
+  print(Pitch.parse('F4') - Pitch.parse('C4')); // => iP4
 
   banner("Chords");
   print(Chord.parse('E Major'));
   print(ChordPattern.parse('Dominant 7th')); // => Dom 7th
   print(ChordPattern
-      .fromIntervals([Interval.P1, Interval.M3, Interval.P5])); // => Major
+      .fromIntervals([Interval.iP1, Interval.iM3, Interval.iP5])); // => Major
   print(ChordPattern
-      .fromIntervals([Interval.P1, Interval.m3, Interval.P5])); // => Minor
+      .fromIntervals([Interval.iP1, Interval.im3, Interval.iP5])); // => Minor
   print(ChordPattern.fromIntervals(
-      [Interval.P1, Interval.m3, Interval.P5, Interval.m7])); // => Min 7th
+      [Interval.iP1, Interval.im3, Interval.iP5, Interval.im7])); // => Min 7th
 
   banner("Scales");
   var scalePattern = ScalePattern.findByName('Diatonic Major');
-  print(scalePattern.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
+  print(scalePattern.intervals); // => [P1, M2, iM3, iP4, iP5, M6, M7]
   print(scalePattern.modes);
   print(scalePattern
-      .modes['Dorian'].intervals); // => [P1, M2, m3, P4, P5, M6, m7]
+      .modes['Dorian'].intervals); // => [P1, M2, im3, iP4, iP5, M6, im7]
 
   var scale = scalePattern.at(PitchClass.parse('E4'));
-  print(scale.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
-  print(scale.pitchClasses); // => [E4, F♯4, G♯4, A4, B4, C♯5, D♯5]
+  print(scale.intervals); // => [P1, M2, iM3, iP4, iP5, M6, M7]
+  print(scale.pitchClasses); // => [E4, F♯4, G♯4, a4, B4, C♯5, D♯5]
 
   var chord = Chord.parse('E Major');
-  var instrument = InstrumentClass.Guitar;
+  var instrument = InstrumentClass.guitar;
   print(bestFrettingFor(chord, instrument)); // => 022100
 }
 

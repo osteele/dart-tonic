@@ -1,45 +1,45 @@
 part of tonic_test;
 
 void definePitchTests() {
-  group('FlatNoteNames', () {
+  group('flatNoteNames', () {
     test('should contain 12 pitches', () {
-      expect(FlatNoteNames, hasLength(12));
+      expect(flatNoteNames, hasLength(12));
     });
 
     test('should start with C', () {
-      expect(FlatNoteNames[0], equals('C'));
+      expect(flatNoteNames[0], equals('C'));
     });
 
     test('should contain five flats', () {
-      expect(FlatNoteNames[1], equals('D♭'));
-      expect(FlatNoteNames[3], equals('E♭'));
-      expect(FlatNoteNames[6], equals('G♭'));
-      expect(FlatNoteNames[8], equals('A♭'));
-      expect(FlatNoteNames[10], equals('B♭'));
+      expect(flatNoteNames[1], equals('D♭'));
+      expect(flatNoteNames[3], equals('E♭'));
+      expect(flatNoteNames[6], equals('G♭'));
+      expect(flatNoteNames[8], equals('A♭'));
+      expect(flatNoteNames[10], equals('B♭'));
     });
   });
 
-  group('SharpNoteNames', () {
+  group('sharpNoteNames', () {
     test('should contain 12 pitches', () {
-      expect(SharpNoteNames, hasLength(12));
+      expect(sharpNoteNames, hasLength(12));
     });
 
     test('should start with C', () {
-      expect(SharpNoteNames[0], equals('C'));
+      expect(sharpNoteNames[0], equals('C'));
     });
 
     test('should contain five flats', () {
-      expect(SharpNoteNames[1], equals('C♯'));
-      expect(SharpNoteNames[3], equals('D♯'));
-      expect(SharpNoteNames[6], equals('F♯'));
-      expect(SharpNoteNames[8], equals('G♯'));
-      expect(SharpNoteNames[10], equals('A♯'));
+      expect(sharpNoteNames[1], equals('C♯'));
+      expect(sharpNoteNames[3], equals('D♯'));
+      expect(sharpNoteNames[6], equals('F♯'));
+      expect(sharpNoteNames[8], equals('G♯'));
+      expect(sharpNoteNames[10], equals('A♯'));
     });
   });
 
   group('NoteNames', () {
-    test('should equal SharpNoteNames', () {
-      expect(NoteNames, equals(SharpNoteNames));
+    test('should equal sharpNoteNames', () {
+      expect(noteNames, equals(sharpNoteNames));
     });
   });
 
@@ -204,63 +204,63 @@ void definePitchTests() {
     });
 
     test('+ Interval should return a Pitch', () {
-      expect((Pitch.parse('C4') + Interval.P1), equals(Pitch.parse('C4')));
-      expect((Pitch.parse('C4') + Interval.m2), equals(Pitch.parse('D♭4')));
-      expect((Pitch.parse('C4') + Interval.M2), equals(Pitch.parse('D4')));
-      expect((Pitch.parse('C4') + Interval.m3), equals(Pitch.parse('E♭4')));
-      expect((Pitch.parse('C4') + Interval.M3), equals(Pitch.parse('E4')));
-      expect((Pitch.parse('C4') + Interval.P4), equals(Pitch.parse('F4')));
-      expect((Pitch.parse('C4') + Interval.TT), equals(Pitch.parse('G♭4')));
-      expect((Pitch.parse('C4') + Interval.P5), equals(Pitch.parse('G4')));
-      expect((Pitch.parse('C4') + Interval.m6), equals(Pitch.parse('A♭4')));
-      expect((Pitch.parse('C4') + Interval.M6), equals(Pitch.parse('A4')));
-      expect((Pitch.parse('C4') + Interval.m7), equals(Pitch.parse('B♭4')));
-      expect((Pitch.parse('C4') + Interval.M7), equals(Pitch.parse('B4')));
-      expect((Pitch.parse('C4') + Interval.P8), equals(Pitch.parse('C5')));
+      expect((Pitch.parse('C4') + Interval.iP1), equals(Pitch.parse('C4')));
+      expect((Pitch.parse('C4') + Interval.im2), equals(Pitch.parse('D♭4')));
+      expect((Pitch.parse('C4') + Interval.iM2), equals(Pitch.parse('D4')));
+      expect((Pitch.parse('C4') + Interval.im3), equals(Pitch.parse('E♭4')));
+      expect((Pitch.parse('C4') + Interval.iM3), equals(Pitch.parse('E4')));
+      expect((Pitch.parse('C4') + Interval.iP4), equals(Pitch.parse('F4')));
+      expect((Pitch.parse('C4') + Interval.iTT), equals(Pitch.parse('G♭4')));
+      expect((Pitch.parse('C4') + Interval.iP5), equals(Pitch.parse('G4')));
+      expect((Pitch.parse('C4') + Interval.im6), equals(Pitch.parse('A♭4')));
+      expect((Pitch.parse('C4') + Interval.iM6), equals(Pitch.parse('A4')));
+      expect((Pitch.parse('C4') + Interval.im7), equals(Pitch.parse('B♭4')));
+      expect((Pitch.parse('C4') + Interval.iM7), equals(Pitch.parse('B4')));
+      expect((Pitch.parse('C4') + Interval.iP8), equals(Pitch.parse('C5')));
 
-      expect((Pitch.parse('E4') + Interval.P1), equals(Pitch.parse('E4')));
-      expect((Pitch.parse('E4') + Interval.m2), equals(Pitch.parse('F4')));
-      expect((Pitch.parse('E4') + Interval.M2), equals(Pitch.parse('F♯4')));
-      expect((Pitch.parse('E4') + Interval.m3), equals(Pitch.parse('G4')));
-      expect((Pitch.parse('E4') + Interval.M3), equals(Pitch.parse('G♯4')));
-      expect((Pitch.parse('E4') + Interval.P4), equals(Pitch.parse('A4')));
-      expect((Pitch.parse('E4') + Interval.TT), equals(Pitch.parse('B♭4')));
-      expect((Pitch.parse('E4') + Interval.P5), equals(Pitch.parse('B4')));
-      expect((Pitch.parse('E4') + Interval.m6), equals(Pitch.parse('C5')));
-      expect((Pitch.parse('E4') + Interval.M6), equals(Pitch.parse('C♯5')));
-      expect((Pitch.parse('E4') + Interval.m7), equals(Pitch.parse('D5')));
-      expect((Pitch.parse('E4') + Interval.M7), equals(Pitch.parse('D♯5')));
-      expect((Pitch.parse('E4') + Interval.P8), equals(Pitch.parse('E5')));
+      expect((Pitch.parse('E4') + Interval.iP1), equals(Pitch.parse('E4')));
+      expect((Pitch.parse('E4') + Interval.im2), equals(Pitch.parse('F4')));
+      expect((Pitch.parse('E4') + Interval.iM2), equals(Pitch.parse('F♯4')));
+      expect((Pitch.parse('E4') + Interval.im3), equals(Pitch.parse('G4')));
+      expect((Pitch.parse('E4') + Interval.iM3), equals(Pitch.parse('G♯4')));
+      expect((Pitch.parse('E4') + Interval.iP4), equals(Pitch.parse('A4')));
+      expect((Pitch.parse('E4') + Interval.iTT), equals(Pitch.parse('B♭4')));
+      expect((Pitch.parse('E4') + Interval.iP5), equals(Pitch.parse('B4')));
+      expect((Pitch.parse('E4') + Interval.im6), equals(Pitch.parse('C5')));
+      expect((Pitch.parse('E4') + Interval.iM6), equals(Pitch.parse('C♯5')));
+      expect((Pitch.parse('E4') + Interval.im7), equals(Pitch.parse('D5')));
+      expect((Pitch.parse('E4') + Interval.iM7), equals(Pitch.parse('D♯5')));
+      expect((Pitch.parse('E4') + Interval.iP8), equals(Pitch.parse('E5')));
 
-      expect((Pitch.parse('E♭4') + Interval.P1), equals(Pitch.parse('E♭4')));
-      expect((Pitch.parse('E♯4') + Interval.P1), equals(Pitch.parse('E♯4')));
-      expect((Pitch.parse('E𝄫4') + Interval.P1), equals(Pitch.parse('E𝄫4')));
-      expect((Pitch.parse('E𝄪4') + Interval.P1), equals(Pitch.parse('E𝄪4')));
+      expect((Pitch.parse('E♭4') + Interval.iP1), equals(Pitch.parse('E♭4')));
+      expect((Pitch.parse('E♯4') + Interval.iP1), equals(Pitch.parse('E♯4')));
+      expect((Pitch.parse('E𝄫4') + Interval.iP1), equals(Pitch.parse('E𝄫4')));
+      expect((Pitch.parse('E𝄪4') + Interval.iP1), equals(Pitch.parse('E𝄪4')));
 
-      expect((Pitch.parse('E♭4') + Interval.m2), equals(Pitch.parse('F♭4')));
-      expect((Pitch.parse('E♯4') + Interval.m2), equals(Pitch.parse('F♯4')));
-      expect((Pitch.parse('E𝄫4') + Interval.m2), equals(Pitch.parse('F𝄫4')));
-      expect((Pitch.parse('E𝄪4') + Interval.m2), equals(Pitch.parse('F𝄪4')));
+      expect((Pitch.parse('E♭4') + Interval.im2), equals(Pitch.parse('F♭4')));
+      expect((Pitch.parse('E♯4') + Interval.im2), equals(Pitch.parse('F♯4')));
+      expect((Pitch.parse('E𝄫4') + Interval.im2), equals(Pitch.parse('F𝄫4')));
+      expect((Pitch.parse('E𝄪4') + Interval.im2), equals(Pitch.parse('F𝄪4')));
 
-      expect((Pitch.parse('E♭4') + Interval.M2), equals(Pitch.parse('F4')));
-      expect((Pitch.parse('E♯4') + Interval.M2), equals(Pitch.parse('F𝄪4')));
-      expect((Pitch.parse('E𝄫4') + Interval.M2), equals(Pitch.parse('F♭4')));
-      expect((Pitch.parse('E𝄪4') + Interval.M2), equals(Pitch.parse('F♯𝄪4')));
+      expect((Pitch.parse('E♭4') + Interval.iM2), equals(Pitch.parse('F4')));
+      expect((Pitch.parse('E♯4') + Interval.iM2), equals(Pitch.parse('F𝄪4')));
+      expect((Pitch.parse('E𝄫4') + Interval.iM2), equals(Pitch.parse('F♭4')));
+      expect((Pitch.parse('E𝄪4') + Interval.iM2), equals(Pitch.parse('F♯𝄪4')));
     });
 
     test('- Pitch should return an Interval', () {
-      expect(Pitch.parse('C4') - Pitch.parse('C4'), Interval.P1);
-      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.A1);
-      expect(Pitch.parse('D♭4') - Pitch.parse('C4'), Interval.m2);
-      expect(Pitch.parse('D4') - Pitch.parse('C4'), Interval.M2);
-      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.A2);
-      expect(Pitch.parse('C5') - Pitch.parse('C4'), Interval.P8);
+      expect(Pitch.parse('C4') - Pitch.parse('C4'), Interval.iP1);
+      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.a1);
+      expect(Pitch.parse('D♭4') - Pitch.parse('C4'), Interval.im2);
+      expect(Pitch.parse('D4') - Pitch.parse('C4'), Interval.iM2);
+      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.a2);
+      expect(Pitch.parse('C5') - Pitch.parse('C4'), Interval.iP8);
 
-      expect(Pitch.parse('C4') - Pitch.parse('B3'), Interval.m2);
-      expect(Pitch.parse('C♯4') - Pitch.parse('B3'), Interval.M2);
+      expect(Pitch.parse('C4') - Pitch.parse('B3'), Interval.im2);
+      expect(Pitch.parse('C♯4') - Pitch.parse('B3'), Interval.iM2);
       expect(Pitch.parse('D♭4') - Pitch.parse('B3'), Interval.d3);
-      expect(Pitch.parse('D4') - Pitch.parse('B3'), Interval.m3);
-      expect(Pitch.parse('D♯4') - Pitch.parse('B3'), Interval.M3);
+      expect(Pitch.parse('D4') - Pitch.parse('B3'), Interval.im3);
+      expect(Pitch.parse('D♯4') - Pitch.parse('B3'), Interval.iM3);
     });
   });
 }

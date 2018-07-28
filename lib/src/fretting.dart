@@ -186,6 +186,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrumentClass instrument,
     {highestFret: 4}) {
   var warn = false;
   int minPitchClasses = chord.intervals.length;
+  print(warn);
 
   //
   // Generate

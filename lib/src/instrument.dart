@@ -18,14 +18,14 @@ class InstrumentClass {
 
   bool get fretted => false;
 
-  static final FrettedInstrumentClass Guitar = InstrumentClass.lookup('Guitar');
+  static final FrettedInstrumentClass guitar = InstrumentClass.lookup('Guitar');
 
   static bool _initialized = false;
 
   static _initialize() {
     if (_initialized) return;
     _initialized = true;
-    for (var spec in _INSTRUMENT_SPECS) {
+    for (var spec in _instrumentSpecs) {
       // var stringPitches = spec['stringPitches']
       //     .split(new RegExp(r'\s+'))
       //     .map(Pitch.parse)
@@ -44,8 +44,7 @@ class InstrumentClass {
 class FrettedInstrumentClass extends InstrumentClass {
   final List<Pitch> stringPitches;
 
-  FrettedInstrumentClass({String name, List<Pitch> this.stringPitches})
-      : super(name: name);
+  FrettedInstrumentClass({String name, this.stringPitches}) : super(name: name);
 
   bool get fretted => true;
 
@@ -62,7 +61,7 @@ class FrettedInstrumentClass extends InstrumentClass {
   //       fn string: string, fret: fret
 }
 
-final _INSTRUMENT_SPECS = [
+final _instrumentSpecs = [
   {
     'name': 'Guitar',
     // TODO: factor into Tuning model http://en.wikipedia.org/wiki/Stringed_instrument_tunings

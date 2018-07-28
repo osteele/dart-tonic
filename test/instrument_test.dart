@@ -8,7 +8,7 @@ void defineInstrumentTests() {
   });
 
   group('Guitar', () {
-    var guitar = InstrumentClass.Guitar;
+    var guitar = InstrumentClass.guitar;
 
     test('is an Instrument', () {
       expect(guitar, isInstrument);

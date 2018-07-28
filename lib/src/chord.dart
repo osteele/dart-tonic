@@ -4,7 +4,7 @@ part of tonic;
 
 class NotFoundException implements Exception {
   String message;
-  NotFoundException(String this.message);
+  NotFoundException(this.message);
   String toString() => "NotFoundException: $message";
 }
 
@@ -20,11 +20,7 @@ class ChordPattern {
   static final Map<String, ChordPattern> _byIntervals =
       <String, ChordPattern>{};
 
-  ChordPattern(
-      {String this.name,
-      String this.fullName,
-      List<String> this.abbrs,
-      List<Interval> this.intervals}) {
+  ChordPattern({this.name, this.fullName, this.abbrs, this.intervals}) {
     _byName[name] = this;
     _byName[fullName] = this;
     for (var abbr in abbrs) {
@@ -37,8 +33,7 @@ class ChordPattern {
     _initializeChords();
     var chord = _byIntervals[_intervalSetKey(intervals)];
     if (chord == null)
-      throw new NotFoundException(
-          "unknown chord interval pattern ${intervals}");
+      throw new NotFoundException("unknown chord interval pattern $intervals");
     return chord;
   }
 
@@ -72,7 +67,7 @@ class ChordPattern {
   static void _initializeChords() {
     if (_chordsInitialized) return;
     _chordsInitialized = true;
-    for (var spec in ChordPatternSpecs) {
+    for (var spec in cordPatternSpecs) {
       var fullName = spec['name'];
       var abbrs = spec['abbrs'];
       var intervals = spec['intervals'].split('').map((c) {
@@ -101,13 +96,13 @@ class Chord {
   Pitch root;
   List<Pitch> _pitches;
 
-  static final Pattern _CHORD_NAME_PATTERN =
+  static final Pattern _cordNamePattern =
       new RegExp(r"^([a-gA-G],*'*[#b♯♭𝄪𝄫]*(?:\d*))\s*(.*)$");
 
-  Chord({ChordPattern this.pattern, Pitch this.root});
+  Chord({this.pattern, this.root});
 
   static Chord parse(String chordName) {
-    var match = _CHORD_NAME_PATTERN.matchAsPrefix(chordName);
+    var match = _cordNamePattern.matchAsPrefix(chordName);
     if (match == null)
       throw new FormatException("invalid Chord name: $chordName");
     var chordClass = ChordPattern.parse(match[2]);
@@ -123,7 +118,7 @@ class Chord {
         return chord;
       } on NotFoundException {}
     }
-    throw new NotFoundException("unknown chord pitch pattern ${pitches}");
+    throw new NotFoundException("unknown chord pitch pattern $pitches");
   }
 
   String get name => "$root $pattern";
@@ -141,7 +136,7 @@ class Chord {
   }
 }
 
-final List ChordPatternSpecs = [
+final List cordPatternSpecs = [
   {
     "name": 'Major',
     "abbrs": ['', 'M'],

@@ -8,7 +8,7 @@ class ScalePattern {
   static final Map<String, ScalePattern> _byName = <String, ScalePattern>{};
   static bool _builtinPatternsInitialized = false;
 
-  ScalePattern({String this.name, this.intervals}) {
+  ScalePattern({this.name, this.intervals}) {
     _byName[name] = this;
   }
 
@@ -23,7 +23,7 @@ class ScalePattern {
   static void _initializeBuiltinPatterns() {
     if (_builtinPatternsInitialized) return;
     _builtinPatternsInitialized = true;
-    for (var spec in ScalePatternSpecs) {
+    for (var spec in scalePatternSpecs) {
       var scaleName = spec['name'];
       var parentName = spec['parent'];
       var modeNames = spec['modeNames'];
@@ -53,7 +53,7 @@ class ScalePattern {
 class Mode extends ScalePattern {
   final ScalePattern parent;
 
-  Mode({String name, ScalePattern this.parent, intervals})
+  Mode({String name, this.parent, intervals})
       : super(name: name, intervals: intervals) {
     parent.modes[name] = this;
   }
@@ -63,7 +63,7 @@ class Scale {
   final ScalePattern pattern;
   final PitchClass tonic;
 
-  Scale({ScalePattern this.pattern, PitchClass this.tonic});
+  Scale({this.pattern, this.tonic});
 
   List<Interval> get intervals => pattern.intervals;
 
@@ -97,7 +97,7 @@ class Scale {
 //     return scale
 }
 
-final List ScalePatternSpecs = [
+final List scalePatternSpecs = [
   {
     'name': 'Diatonic Major',
     'intervals': [0, 2, 4, 5, 7, 9, 11],
@@ -194,7 +194,7 @@ final List ScalePatternSpecs = [
 // #   major: 'I ii iii IV V vi vii°'.split(/\s/).map parseChordNumeral
 // #   minor: 'i ii° ♭III iv v ♭VI ♭VII'.split(/\s/).map parseChordNumeral
 
-final List<String> ScaleDegreeNames = [
+final List<String> scaleDegreeNames = [
   '1',
   '♭2',
   '2',
