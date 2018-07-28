@@ -92,14 +92,13 @@ void definePitchClassTests() {
       });
 
       test('should throw a FormatException', () {
-        expect(()=>PitchClass.parse('H'), throwsFormatException);
-        expect(()=>PitchClass.parse('CC'), throwsFormatException);
-        expect(()=>PitchClass.parse('C^'), throwsFormatException);
-        expect(()=>PitchClass.parse('C+'), throwsFormatException);
-        expect(()=>PitchClass.parse('+C'), throwsFormatException);
+        expect(() => PitchClass.parse('H'), throwsFormatException);
+        expect(() => PitchClass.parse('CC'), throwsFormatException);
+        expect(() => PitchClass.parse('C^'), throwsFormatException);
+        expect(() => PitchClass.parse('C+'), throwsFormatException);
+        expect(() => PitchClass.parse('+C'), throwsFormatException);
       });
     });
-
 
     test('fromSemitones', () {
       expect(new PitchClass.fromSemitones(60).integer, equals(0));
@@ -171,16 +170,23 @@ void definePitchClassTests() {
 
     test('toPitch should return a pitch within the specified octave', () {
       expect(PitchClass.parse('C').toPitch(), equals(Pitch.parse('C0')));
-      expect(PitchClass.parse('D').toPitch(octave: -1), equals(Pitch.parse('D-1')));
-      expect(PitchClass.parse('D').toPitch(octave: 0), equals(Pitch.parse('D0')));
-      expect(PitchClass.parse('D').toPitch(octave: 1), equals(Pitch.parse('D1')));
-      expect(PitchClass.parse('D').toPitch(octave: 3), equals(Pitch.parse('D3')));
-      expect(PitchClass.parse('D').toPitch(octave: 5), equals(Pitch.parse('D5')));
+      expect(PitchClass.parse('D').toPitch(octave: -1),
+          equals(Pitch.parse('D-1')));
+      expect(
+          PitchClass.parse('D').toPitch(octave: 0), equals(Pitch.parse('D0')));
+      expect(
+          PitchClass.parse('D').toPitch(octave: 1), equals(Pitch.parse('D1')));
+      expect(
+          PitchClass.parse('D').toPitch(octave: 3), equals(Pitch.parse('D3')));
+      expect(
+          PitchClass.parse('D').toPitch(octave: 5), equals(Pitch.parse('D5')));
     });
 
     test('toPitchClass should return itself', () {
-      expect(PitchClass.parse('C').toPitchClass(), equals(PitchClass.parse('C')));
-      expect(PitchClass.parse('D').toPitchClass(), equals(PitchClass.parse('D')));
+      expect(
+          PitchClass.parse('C').toPitchClass(), equals(PitchClass.parse('C')));
+      expect(
+          PitchClass.parse('D').toPitchClass(), equals(PitchClass.parse('D')));
     });
   });
 }

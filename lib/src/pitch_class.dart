@@ -32,18 +32,19 @@ class PitchClass {
   String get inspect => {'integer': integer}.toString();
 
   Pitch toPitch({int octave: 0}) =>
-    new Pitch(chromaticIndex: integer, octave: octave);
+      new Pitch(chromaticIndex: integer, octave: octave);
 
   PitchClass toPitchClass() => this;
 
   factory PitchClass.fromSemitones(int integer) =>
-    new PitchClass(integer: integer);
+      new PitchClass(integer: integer);
 
   static final _PITCH_CLASS_PATTERN = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
 
   static PitchClass parse(String pitchClassName) {
     final match = _PITCH_CLASS_PATTERN.matchAsPrefix(pitchClassName);
-    if (match == null) throw new FormatException("$pitchClassName is not a pitch class name");
+    if (match == null)
+      throw new FormatException("$pitchClassName is not a pitch class name");
     String naturalName = match[1];
     String accidentals = match[2];
     int integer = NoteNames.indexOf(naturalName.toUpperCase());
@@ -51,11 +52,18 @@ class PitchClass {
     return new PitchClass(integer: integer);
   }
 
-  bool operator ==(PitchClass other) =>
-    integer == other.integer;
+  // bool operator ==(PitchClass other) => integer == other.integer;
+
+  // bool operator ==(PitchClass o) => identical(integer, o.integer);
+
+  @override
+  bool operator ==(dynamic other) {
+    final PitchClass typedOther = other;
+    return integer == typedOther.integer;
+  }
 
   int get hashCode => integer;
 
   PitchClass operator +(Interval interval) =>
-    new PitchClass(integer: integer + interval.semitones);
+      new PitchClass(integer: integer + interval.semitones);
 }

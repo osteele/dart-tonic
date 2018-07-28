@@ -43,7 +43,6 @@ void definePitchTests() {
     });
   });
 
-
   //
   // Functions
   //
@@ -123,7 +122,6 @@ void definePitchTests() {
     });
   });
 
-
   group('Pitch', () {
     group('parse', () {
       test('should read pitch names in scientific notation', () {
@@ -173,14 +171,13 @@ void definePitchTests() {
       });
 
       test('should throw FormatException', () {
-        expect(()=>Pitch.parse('H'), throwsFormatException);
-        expect(()=>Pitch.parse('CC'), throwsFormatException);
-        expect(()=>Pitch.parse('C^'), throwsFormatException);
-        expect(()=>Pitch.parse('C+'), throwsFormatException);
-        expect(()=>Pitch.parse('+C'), throwsFormatException);
+        expect(() => Pitch.parse('H'), throwsFormatException);
+        expect(() => Pitch.parse('CC'), throwsFormatException);
+        expect(() => Pitch.parse('C^'), throwsFormatException);
+        expect(() => Pitch.parse('C+'), throwsFormatException);
+        expect(() => Pitch.parse('+C'), throwsFormatException);
       });
     });
-
 
     test('fromMidiNumber should convert midi numbers into pitches', () {
       expect(new Pitch.fromMidiNumber(60), equals(Pitch.parse('C4')));

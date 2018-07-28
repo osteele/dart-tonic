@@ -55,16 +55,15 @@ void defineIntervalTests() {
     });
 
     test('parse should throw a FormatException', () {
-      expect(()=>Interval.parse('M1'), throwsFormatException);
-      expect(()=>Interval.parse('m1'), throwsFormatException);
-      expect(()=>Interval.parse('P2'), throwsFormatException);
-      expect(()=>Interval.parse('P1x'), throwsFormatException);
-      expect(()=>Interval.parse('x1'), throwsFormatException);
-      expect(()=>Interval.parse('1'), throwsFormatException);
-      expect(()=>Interval.parse('x1'), throwsFormatException);
-      expect(()=>Interval.parse('M8'), throwsFormatException);
+      expect(() => Interval.parse('M1'), throwsFormatException);
+      expect(() => Interval.parse('m1'), throwsFormatException);
+      expect(() => Interval.parse('P2'), throwsFormatException);
+      expect(() => Interval.parse('P1x'), throwsFormatException);
+      expect(() => Interval.parse('x1'), throwsFormatException);
+      expect(() => Interval.parse('1'), throwsFormatException);
+      expect(() => Interval.parse('x1'), throwsFormatException);
+      expect(() => Interval.parse('M8'), throwsFormatException);
     });
-
 
     test('constructor should default to Perfect or Major', () {
       expect(new Interval(number: 1), equals(Interval.P1));
@@ -213,9 +212,10 @@ void defineIntervalTests() {
       expect(Interval.P5 + Interval.M3, equals(Interval.M7));
     });
 
-    test('+Interval should throw an error when the quality is out of range', () {
-      expect(()=> Interval.d2 + Interval.m2, throwsArgumentError);
-      expect(()=> Interval.m2 + Interval.d2, throwsArgumentError);
+    test('+Interval should throw an error when the quality is out of range',
+        () {
+      expect(() => Interval.d2 + Interval.m2, throwsArgumentError);
+      expect(() => Interval.m2 + Interval.d2, throwsArgumentError);
     });
 
     test('-Interval should return an Interval', () {

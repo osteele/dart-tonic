@@ -1,15 +1,15 @@
 part of tonic;
 
-class Instrument {
+class InstrumentClass {
   final String name;
 
-  static final Map _byName = <String, Instrument>{};
+  static final Map _byName = <String, InstrumentClass>{};
 
-  Instrument({String this.name}) {
+  InstrumentClass({this.name}) {
     _byName[name] = this;
   }
 
-  static Instrument lookup(String name) {
+  static InstrumentClass lookup(String name) {
     _initialize();
     var instrument = _byName[name];
     if (instrument == null) throw new Exception("No instrument named $name");
@@ -18,7 +18,7 @@ class Instrument {
 
   bool get fretted => false;
 
-  static final FrettedInstrument Guitar = Instrument.lookup('Guitar');
+  static final FrettedInstrumentClass Guitar = InstrumentClass.lookup('Guitar');
 
   static bool _initialized = false;
 
@@ -26,25 +26,35 @@ class Instrument {
     if (_initialized) return;
     _initialized = true;
     for (var spec in _INSTRUMENT_SPECS) {
-      var stringPitches = spec['stringPitches'].split(new RegExp(r'\s+')).map(Pitch.parse).toList();
-      new FrettedInstrument(name: spec['name'], stringPitches: stringPitches);
+      // var stringPitches = spec['stringPitches']
+      //     .split(new RegExp(r'\s+'))
+      //     .map(Pitch.parse)
+      //     .toList();
+      String _spec = spec['stringPitches'];
+      _spec.split(new RegExp(r'\s+')).map(Pitch.parse).toList();
+      var stringPitches =
+          _spec.split(new RegExp(r'\s+')).map(Pitch.parse).toList();
+
+      new FrettedInstrumentClass(
+          name: spec['name'], stringPitches: stringPitches);
     }
   }
 }
 
-class FrettedInstrument extends Instrument {
+class FrettedInstrumentClass extends InstrumentClass {
   final List<Pitch> stringPitches;
 
-  FrettedInstrument({String name, List<Pitch> this.stringPitches})
-    : super(name: name);
+  FrettedInstrumentClass({String name, List<Pitch> this.stringPitches})
+      : super(name: name);
 
   bool get fretted => true;
 
   // Iterable<int> get stringIndices => [0, ..., stringPitches.length - 1];
-  Iterable<int> get stringIndices => new Iterable<int>.generate(stringPitches.length, (i) => i);
+  Iterable<int> get stringIndices =>
+      new Iterable<int>.generate(stringPitches.length, (i) => i);
 
   Pitch pitchAt({int stringIndex, int fretNumber}) =>
-    stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
+      stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
 
   // eachFingerPosition: (fn) ->
   //   for string in @stringNumbers
