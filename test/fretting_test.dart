@@ -5,7 +5,7 @@ import 'package:tonic/tonic.dart';
 void defineFrettingTests() {
   group('Fretting', () {
     var chord = Chord.parse('E Major');
-    var instrument = InstrumentClass.guitar;
+    var instrument = Instrument.guitar;
     var fretting =
         Fretting.fromFretString('0221x0', chord: chord, instrument: instrument);
 
@@ -85,7 +85,7 @@ void defineFrettingTests() {
 
   test('chordFrettings', () {
     var chord = Chord.parse('E Major');
-    var instrument = InstrumentClass.guitar;
+    var instrument = Instrument.guitar;
     var frettings = chordFrettings(chord, instrument);
     // print(orderedFrettings);
 
@@ -99,7 +99,7 @@ void defineFrettingTests() {
 
   test('bestFrettingFor', () {
     var chord = Chord.parse('E Major');
-    var instrument = InstrumentClass.guitar;
+    var instrument = Instrument.guitar;
     var fretting = bestFrettingFor(chord, instrument);
 
     expect(fretting, isNotNull);

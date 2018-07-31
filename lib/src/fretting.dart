@@ -4,7 +4,7 @@ part of tonic;
 class Fretting {
   final Chord chord;
   final List<FretPosition> positions; // sorted by string index
-  final FrettedInstrumentClass instrument;
+  final FrettedInstrument instrument;
 
   // caches:
   List<int> _stringFretList;
@@ -20,7 +20,7 @@ class Fretting {
   }
 
   static Fretting fromFretString(String fretString,
-      {FrettedInstrumentClass instrument, Chord chord}) {
+      {FrettedInstrument instrument, Chord chord}) {
     if (fretString.length != instrument.stringIndices.length) {
       throw new FormatException(
           "fretString wrong length for $instrument: $fretString");
@@ -162,7 +162,7 @@ class FretPosition {
 }
 
 Set<FretPosition> chordFrets(
-    Chord chord, FrettedInstrumentClass instrument, int highestFret) {
+    Chord chord, FrettedInstrument instrument, int highestFret) {
   var positions = new Set<FretPosition>();
   var semitoneSet = chord.pitches.map((pitch) => pitch.semitones % 12).toSet();
   eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
@@ -182,7 +182,7 @@ Set<FretPosition> chordFrets(
   return positions;
 }
 
-List<Fretting> chordFrettings(Chord chord, FrettedInstrumentClass instrument,
+List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
     {highestFret: 4}) {
   // var warn = false;
   int minPitchClasses = chord.intervals.length;
@@ -413,5 +413,5 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrumentClass instrument,
   return orderedFrettings;
 }
 
-Fretting bestFrettingFor(Chord chord, FrettedInstrumentClass instrument) =>
+Fretting bestFrettingFor(Chord chord, FrettedInstrument instrument) =>
     chordFrettings(chord, instrument)[0];

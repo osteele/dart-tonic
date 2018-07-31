@@ -1,15 +1,15 @@
 part of tonic;
 
-class InstrumentClass {
+class Instrument {
   final String name;
 
-  static final Map _byName = <String, InstrumentClass>{};
+  static final Map _byName = <String, Instrument>{};
 
-  InstrumentClass({this.name}) {
+  Instrument({this.name}) {
     _byName[name] = this;
   }
 
-  static InstrumentClass lookup(String name) {
+  static Instrument lookup(String name) {
     _initialize();
     var instrument = _byName[name];
     if (instrument == null) throw new Exception("No instrument named $name");
@@ -18,7 +18,7 @@ class InstrumentClass {
 
   bool get fretted => false;
 
-  static final FrettedInstrumentClass guitar = InstrumentClass.lookup('Guitar');
+  static final FrettedInstrument guitar = Instrument.lookup('Guitar');
 
   static bool _initialized = false;
 
@@ -35,16 +35,16 @@ class InstrumentClass {
       var stringPitches =
           _spec.split(new RegExp(r'\s+')).map(Pitch.parse).toList();
 
-      new FrettedInstrumentClass(
+      new FrettedInstrument(
           name: spec['name'], stringPitches: stringPitches);
     }
   }
 }
 
-class FrettedInstrumentClass extends InstrumentClass {
+class FrettedInstrument extends Instrument {
   final List<Pitch> stringPitches;
 
-  FrettedInstrumentClass({String name, this.stringPitches}) : super(name: name);
+  FrettedInstrument({String name, this.stringPitches}) : super(name: name);
 
   bool get fretted => true;
 

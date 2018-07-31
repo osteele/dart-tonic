@@ -26,14 +26,14 @@ const isChordPattern = const _IsChordPattern();
 
 class _IsInstrument extends TypeMatcher {
   const _IsInstrument() : super('Instrument');
-  bool matches(item, Map matchState) => item is InstrumentClass;
+  bool matches(item, Map matchState) => item is Instrument;
 }
 
 const isInstrument = const _IsInstrument();
 
 class _IsFrettedInstrument extends TypeMatcher {
   const _IsFrettedInstrument() : super('FrettedInstrument');
-  bool matches(item, Map matchState) => item is FrettedInstrumentClass;
+  bool matches(item, Map matchState) => item is FrettedInstrument;
 }
 
 const isFrettedInstrument = const _IsFrettedInstrument();

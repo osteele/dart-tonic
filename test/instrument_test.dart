@@ -6,12 +6,12 @@ import 'matchers.dart';
 void defineInstrumentTests() {
   group('Instrument', () {
     test('lookup should define a guitar', () {
-      expect(InstrumentClass.lookup('Guitar'), isInstrument);
+      expect(Instrument.lookup('Guitar'), isInstrument);
     });
   });
 
   group('Guitar', () {
-    var guitar = InstrumentClass.guitar;
+    var guitar = Instrument.guitar;
 
     test('is an Instrument', () {
       expect(guitar, isInstrument);
