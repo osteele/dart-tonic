@@ -4,3 +4,4 @@ pubspec.lock
 .packages
 .vscode/launch.json
 *.log
+*.iml
