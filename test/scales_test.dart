@@ -26,13 +26,13 @@ void defineScaleTests() {
 
     test('should contain seven intervals', () {
       expect(scalePattern.intervals, hasLength(7));
-      expect(scalePattern.intervals, contains(Interval.parse('P1')));
-      expect(scalePattern.intervals, contains(Interval.parse('M2')));
-      expect(scalePattern.intervals, contains(Interval.parse('M3')));
-      expect(scalePattern.intervals, contains(Interval.parse('P4')));
-      expect(scalePattern.intervals, contains(Interval.parse('P5')));
-      expect(scalePattern.intervals, contains(Interval.parse('M6')));
-      expect(scalePattern.intervals, contains(Interval.parse('M7')));
+      expect(scalePattern.intervals, contains(Interval.parse('iP1')));
+      expect(scalePattern.intervals, contains(Interval.parse('iM2')));
+      expect(scalePattern.intervals, contains(Interval.parse('iM3')));
+      expect(scalePattern.intervals, contains(Interval.parse('iP4')));
+      expect(scalePattern.intervals, contains(Interval.parse('iP5')));
+      expect(scalePattern.intervals, contains(Interval.parse('iM6')));
+      expect(scalePattern.intervals, contains(Interval.parse('iM7')));
     });
 
     test('should contain the modern modes', () {
@@ -45,13 +45,83 @@ void defineScaleTests() {
       expect(scalePattern.modes, contains('Aeolian'));
       expect(scalePattern.modes, contains('Locrian'));
 
-      expect(scalePattern.modes['Ionian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.P4, Interval.P5, Interval.M6, Interval.M7]));
-      expect(scalePattern.modes['Dorian'].intervals, equals([Interval.P1, Interval.M2, Interval.m3, Interval.P4, Interval.P5, Interval.M6, Interval.m7]));
-      expect(scalePattern.modes['Phrygian'].intervals, equals([Interval.P1, Interval.m2, Interval.m3, Interval.P4, Interval.P5, Interval.m6, Interval.m7]));
-      expect(scalePattern.modes['Lydian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.A4, Interval.P5, Interval.M6, Interval.M7]));
-      expect(scalePattern.modes['Mixolydian'].intervals, equals([Interval.P1, Interval.M2, Interval.M3, Interval.P4, Interval.P5, Interval.M6, Interval.m7]));
-      expect(scalePattern.modes['Aeolian'].intervals, equals([Interval.P1, Interval.M2, Interval.m3, Interval.P4, Interval.P5, Interval.m6, Interval.m7]));
-      expect(scalePattern.modes['Locrian'].intervals, equals([Interval.P1, Interval.m2, Interval.m3, Interval.P4, Interval.d5, Interval.m6, Interval.m7]));
+      expect(
+          scalePattern.modes['Ionian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.iM2,
+            Interval.iM3,
+            Interval.iP4,
+            Interval.iP5,
+            Interval.iM6,
+            Interval.iM7
+          ]));
+      expect(
+          scalePattern.modes['Dorian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.iM2,
+            Interval.im3,
+            Interval.iP4,
+            Interval.iP5,
+            Interval.iM6,
+            Interval.im7
+          ]));
+      expect(
+          scalePattern.modes['Phrygian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.im2,
+            Interval.im3,
+            Interval.iP4,
+            Interval.iP5,
+            Interval.im6,
+            Interval.im7
+          ]));
+      expect(
+          scalePattern.modes['Lydian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.iM2,
+            Interval.iM3,
+            Interval.a4,
+            Interval.iP5,
+            Interval.iM6,
+            Interval.iM7
+          ]));
+      expect(
+          scalePattern.modes['Mixolydian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.iM2,
+            Interval.iM3,
+            Interval.iP4,
+            Interval.iP5,
+            Interval.iM6,
+            Interval.im7
+          ]));
+      expect(
+          scalePattern.modes['Aeolian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.iM2,
+            Interval.im3,
+            Interval.iP4,
+            Interval.iP5,
+            Interval.im6,
+            Interval.im7
+          ]));
+      expect(
+          scalePattern.modes['Locrian'].intervals,
+          equals([
+            Interval.iP1,
+            Interval.im2,
+            Interval.im3,
+            Interval.iP4,
+            Interval.d5,
+            Interval.im6,
+            Interval.im7
+          ]));
     });
 
     group('at E', () {
@@ -73,20 +143,20 @@ void defineScaleTests() {
         expect(scale.pitchClasses, contains(PitchClass.parse('D♯')));
       });
 
-  //     test('should contain seven chords', () {
-  //       expect(chords, hasLength(7));
-  //       chords[0].should.be.an.instanceOf Chord
-  //     });
+      //     test('should contain seven chords', () {
+      //       expect(chords, hasLength(7));
+      //       chords[0].should.be.an.instanceOf Chord
+      //     });
 
-  //     test('should contain the correct chord sequence', () {
-  //       chords[0].name.should.equal 'E Major'
-  //       chords[1].name.should.equal 'F♯ Minor'
-  //       chords[2].name.should.equal 'G♯ Minor'
-  //       chords[3].name.should.equal 'A Major'
-  //       chords[4].name.should.equal 'B Major'
-  //       chords[5].name.should.equal 'C♯ Minor'
-  //       chords[6].name.should.equal 'D♯ Dim'
-  //     });
+      //     test('should contain the correct chord sequence', () {
+      //       chords[0].name.should.equal 'E Major'
+      //       chords[1].name.should.equal 'F♯ Minor'
+      //       chords[2].name.should.equal 'G♯ Minor'
+      //       chords[3].name.should.equal 'A Major'
+      //       chords[4].name.should.equal 'B Major'
+      //       chords[5].name.should.equal 'C♯ Minor'
+      //       chords[6].name.should.equal 'D♯ Dim'
+      //     });
     });
   });
 
@@ -104,7 +174,7 @@ void defineScaleTests() {
   //     # Chord.fromRomanNumeral('I', scale)
   //     Chord.fromRomanNumeral('I', scale).should.eql Chord.fromString('E4 Major'), 'I'
   //     Chord.fromRomanNumeral('II', scale).should.eql Chord.fromString('F♯4 Major'), 'II'
-  //     Chord.fromRomanNumeral('IV', scale).should.eql Chord.fromString('A4 Major'), 'IV'
+  //     Chord.fromRomanNumeral('IV', scale).should.eql Chord.fromString('a4 Major'), 'IV'
   //     Chord.fromRomanNumeral('V', scale).should.eql Chord.fromString('B4 Major'), 'V'
   //     Chord.fromRomanNumeral('VI', scale).should.eql Chord.fromString('C♯5 Major'), 'VI'
   //   });
@@ -117,7 +187,7 @@ void defineScaleTests() {
 
   //   test('should create diminished chords', () {
   //     Chord.fromRomanNumeral('vii°', scale).should.eql Chord.fromString('D♯5°'), 'vi°'
-  //     Chord.fromRomanNumeral('iv°', scale).should.eql Chord.fromString('A4°'), 'iv°'
+  //     Chord.fromRomanNumeral('iv°', scale).should.eql Chord.fromString('a4°'), 'iv°'
   //   });
 
   //   // test('should create inversions', () {
@@ -125,7 +195,6 @@ void defineScaleTests() {
   //   //   # Chord.fromRomanNumeral('ic', scale).should.eql Chord.fromString('F♯4 Minor'), 'ii'
   //   //   # Chord.fromRomanNumeral('id', scale).should.eql Chord.fromString('C♯5 Minor'), 'vi'
   // });
-
 
   // group('Chord.progression', () {
   //   test('should do its stuff', () {
