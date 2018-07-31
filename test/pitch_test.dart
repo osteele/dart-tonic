@@ -253,10 +253,10 @@ void definePitchTests() {
 
     test('- Pitch should return an Interval', () {
       expect(Pitch.parse('C4') - Pitch.parse('C4'), Interval.P1);
-      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.a1);
+      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.A1);
       expect(Pitch.parse('D♭4') - Pitch.parse('C4'), Interval.m2);
       expect(Pitch.parse('D4') - Pitch.parse('C4'), Interval.M2);
-      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.a2);
+      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.A2);
       expect(Pitch.parse('C5') - Pitch.parse('C4'), Interval.P8);
 
       expect(Pitch.parse('C4') - Pitch.parse('B3'), Interval.m2);

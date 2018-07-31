@@ -27,10 +27,10 @@ main() {
   print(Interval.parse('M3'));
   print(Interval.m3.semitones); // => 3
   print(Interval.M3.semitones); // => 4
-  print(Interval.a3.semitones); // => 5
+  print(Interval.A3.semitones); // => 5
   print(Interval.d4.semitones); // => 4
   print(Interval.P4.semitones); // => 5
-  print(Interval.a4.semitones); // => 6
+  print(Interval.A4.semitones); // => 6
   print(Interval.M3.number); // => 3
   print(Interval.M3.qualityName); // => "M"
 
@@ -41,14 +41,14 @@ main() {
   print(Interval.M3 + Interval.M3); // => A5
 
   print(Pitch.parse('C4') + Interval.M3); // => E4
-  print(Pitch.parse('C4') + Interval.a3); // => E♯4
+  print(Pitch.parse('C4') + Interval.A3); // => E♯4
   print(Pitch.parse('C4') + Interval.d4); // => F♭4
   print(Pitch.parse('C4') + Interval.P4); // => F4
 
   print(Pitch.parse('C4') - Pitch.parse('C4')); // => P1
   print(Pitch.parse('D4') - Pitch.parse('C4')); // => M2
   print(Pitch.parse('E4') - Pitch.parse('C4')); // => iM3
-  print(Pitch.parse('E♯4') - Pitch.parse('C4')); // => a3
+  print(Pitch.parse('E♯4') - Pitch.parse('C4')); // => A3
   print(Pitch.parse('F♭4') - Pitch.parse('C4')); // => d4
   print(Pitch.parse('F4') - Pitch.parse('C4')); // => iP4
 
@@ -71,7 +71,7 @@ main() {
 
   var scale = scalePattern.at(PitchClass.parse('E4'));
   print(scale.intervals); // => [P1, M2, iM3, iP4, iP5, M6, M7]
-  print(scale.pitchClasses); // => [E4, F♯4, G♯4, a4, B4, C♯5, D♯5]
+  print(scale.pitchClasses); // => [E4, F♯4, G♯4, A4, B4, C♯5, D♯5]
 
   var chord = Chord.parse('E Major');
   var instrument = Instrument.guitar;

@@ -87,7 +87,7 @@ void defineScaleTests() {
             Interval.P1,
             Interval.M2,
             Interval.M3,
-            Interval.a4,
+            Interval.A4,
             Interval.P5,
             Interval.M6,
             Interval.M7
@@ -177,7 +177,7 @@ void defineScaleTests() {
   //     # Chord.fromRomanNumeral('I', scale)
   //     Chord.fromRomanNumeral('I', scale).should.eql Chord.fromString('E4 Major'), 'I'
   //     Chord.fromRomanNumeral('II', scale).should.eql Chord.fromString('F♯4 Major'), 'II'
-  //     Chord.fromRomanNumeral('IV', scale).should.eql Chord.fromString('a4 Major'), 'IV'
+  //     Chord.fromRomanNumeral('IV', scale).should.eql Chord.fromString('A4 Major'), 'IV'
   //     Chord.fromRomanNumeral('V', scale).should.eql Chord.fromString('B4 Major'), 'V'
   //     Chord.fromRomanNumeral('VI', scale).should.eql Chord.fromString('C♯5 Major'), 'VI'
   //   });
@@ -190,7 +190,7 @@ void defineScaleTests() {
 
   //   test('should create diminished chords', () {
   //     Chord.fromRomanNumeral('vii°', scale).should.eql Chord.fromString('D♯5°'), 'vi°'
-  //     Chord.fromRomanNumeral('iv°', scale).should.eql Chord.fromString('a4°'), 'iv°'
+  //     Chord.fromRomanNumeral('iv°', scale).should.eql Chord.fromString('A4°'), 'iv°'
   //   });
 
   //   // test('should create inversions', () {

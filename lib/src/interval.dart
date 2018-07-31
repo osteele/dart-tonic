@@ -156,13 +156,13 @@ class Interval {
   static final Interval M7 = Interval.parse('M7');
   static final Interval P8 = Interval.parse('P8');
 
-  static final Interval a1 = Interval.P1.augmented;
-  static final Interval a2 = Interval.M2.augmented;
-  static final Interval a3 = Interval.M3.augmented;
-  static final Interval a4 = Interval.P4.augmented;
-  static final Interval a5 = Interval.P5.augmented;
-  static final Interval a6 = Interval.M6.augmented;
-  static final Interval a7 = Interval.M7.augmented;
+  static final Interval A1 = Interval.P1.augmented;
+  static final Interval A2 = Interval.M2.augmented;
+  static final Interval A3 = Interval.M3.augmented;
+  static final Interval A4 = Interval.P4.augmented;
+  static final Interval A5 = Interval.P5.augmented;
+  static final Interval A6 = Interval.M6.augmented;
+  static final Interval A7 = Interval.M7.augmented;
 
   static final Interval d2 = Interval.m2.diminished;
   static final Interval d3 = Interval.m3.diminished;
