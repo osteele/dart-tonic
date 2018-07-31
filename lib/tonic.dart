@@ -10,9 +10,3 @@ part 'src/scale.dart';
 part 'src/chord.dart';
 part 'src/instrument.dart';
 part 'src/fretting.dart';
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}

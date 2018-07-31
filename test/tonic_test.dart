@@ -23,15 +23,11 @@ import 'pitch_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('my first unit test', () {
-    var answer = 42;
-    expect(answer, 42);
-  });
-  // defineIntervalTests();
-  // definePitchClassTests();
-  // definePitchTests();
-  // defineScaleTests();
-  // defineChordTests();
-  // defineInstrumentTests();
-  // defineFrettingTests();
+  defineIntervalTests();
+  definePitchClassTests();
+  definePitchTests();
+  defineScaleTests();
+  defineChordTests();
+  defineInstrumentTests();
+  defineFrettingTests();
 }
