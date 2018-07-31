@@ -58,7 +58,7 @@ class ChordPattern {
   static void _initializeChords() {
     if (_chordsInitialized) return;
     _chordsInitialized = true;
-    for (var spec in ChordPatternSpecs) {
+    for (var spec in chordPatternSpecs) {
       var fullName = spec['name'];
       var abbrs = spec['abbrs'];
       var intervals = spec['intervals'].split('').map((c) {
@@ -122,7 +122,7 @@ class Chord {
   }
 }
 
-final List ChordPatternSpecs = [
+final List chordPatternSpecs = [
   {"name": 'Major', "abbrs": ['', 'M'], "intervals": '047'},
   {"name": 'Minor', "abbrs": ['m'], "intervals": '037'},
   {"name": 'Augmented', "abbrs": ['+', 'aug'], "intervals": '048'},
