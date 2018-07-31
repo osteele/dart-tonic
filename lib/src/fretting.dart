@@ -184,9 +184,9 @@ Set<FretPosition> chordFrets(
 
 List<Fretting> chordFrettings(Chord chord, FrettedInstrumentClass instrument,
     {highestFret: 4}) {
-  var warn = false;
+  // var warn = false;
   int minPitchClasses = chord.intervals.length;
-  print(warn);
+  // print(warn);
 
   //
   // Generate
