@@ -24,7 +24,7 @@ main() {
 
   banner("Intervals");
   print(Interval.M3);
-  print(Interval.parse('iM3'));
+  print(Interval.parse('M3'));
   print(Interval.m3.semitones); // => 3
   print(Interval.M3.semitones); // => 4
   print(Interval.a3.semitones); // => 5
@@ -74,7 +74,7 @@ main() {
   print(scale.pitchClasses); // => [E4, F♯4, G♯4, a4, B4, C♯5, D♯5]
 
   var chord = Chord.parse('E Major');
-  var instrument = InstrumentClass.guitar;
+  var instrument = Instrument.guitar;
   print(bestFrettingFor(chord, instrument)); // => 022100
 }
 
