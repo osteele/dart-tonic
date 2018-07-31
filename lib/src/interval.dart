@@ -142,35 +142,35 @@ class Interval {
       new Interval.fromSemitones(semitones - other.semitones % 12,
           number: (number - other.number) % 7 + 1);
 
-  static final Interval iP1 = Interval.parse('P1');
-  static final Interval im2 = Interval.parse('m2');
-  static final Interval iM2 = Interval.parse('M2');
-  static final Interval im3 = Interval.parse('m3');
-  static final Interval iM3 = Interval.parse('M3');
-  static final Interval iP4 = Interval.parse('P4');
-  static final Interval iTT = Interval.parse('TT');
-  static final Interval iP5 = Interval.parse('P5');
-  static final Interval im6 = Interval.parse('m6');
-  static final Interval iM6 = Interval.parse('M6');
-  static final Interval im7 = Interval.parse('m7');
-  static final Interval iM7 = Interval.parse('M7');
-  static final Interval iP8 = Interval.parse('P8');
+  static final Interval P1 = Interval.parse('P1');
+  static final Interval m2 = Interval.parse('m2');
+  static final Interval M2 = Interval.parse('M2');
+  static final Interval m3 = Interval.parse('m3');
+  static final Interval M3 = Interval.parse('M3');
+  static final Interval P4 = Interval.parse('P4');
+  static final Interval TT = Interval.parse('TT');
+  static final Interval P5 = Interval.parse('P5');
+  static final Interval m6 = Interval.parse('m6');
+  static final Interval M6 = Interval.parse('M6');
+  static final Interval m7 = Interval.parse('m7');
+  static final Interval M7 = Interval.parse('M7');
+  static final Interval P8 = Interval.parse('P8');
 
-  static final Interval a1 = Interval.iP1.augmented;
-  static final Interval a2 = Interval.iM2.augmented;
-  static final Interval a3 = Interval.iM3.augmented;
-  static final Interval a4 = Interval.iP4.augmented;
-  static final Interval a5 = Interval.iP5.augmented;
-  static final Interval a6 = Interval.iM6.augmented;
-  static final Interval a7 = Interval.iM7.augmented;
+  static final Interval a1 = Interval.P1.augmented;
+  static final Interval a2 = Interval.M2.augmented;
+  static final Interval a3 = Interval.M3.augmented;
+  static final Interval a4 = Interval.P4.augmented;
+  static final Interval a5 = Interval.P5.augmented;
+  static final Interval a6 = Interval.M6.augmented;
+  static final Interval a7 = Interval.M7.augmented;
 
-  static final Interval d2 = Interval.im2.diminished;
-  static final Interval d3 = Interval.im3.diminished;
-  static final Interval d4 = Interval.iP4.diminished;
-  static final Interval d5 = Interval.iP5.diminished;
-  static final Interval d6 = Interval.im6.diminished;
-  static final Interval d7 = Interval.im7.diminished;
-  static final Interval d8 = Interval.iP8.diminished;
+  static final Interval d2 = Interval.m2.diminished;
+  static final Interval d3 = Interval.m3.diminished;
+  static final Interval d4 = Interval.P4.diminished;
+  static final Interval d5 = Interval.P5.diminished;
+  static final Interval d6 = Interval.m6.diminished;
+  static final Interval d7 = Interval.m7.diminished;
+  static final Interval d8 = Interval.P8.diminished;
 }
 
 // final List Intervals = intervalNames.map((name, semitones) =>

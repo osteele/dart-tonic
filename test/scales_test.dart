@@ -26,13 +26,13 @@ void defineScaleTests() {
 
     test('should contain seven intervals', () {
       expect(scalePattern.intervals, hasLength(7));
-      expect(scalePattern.intervals, contains(Interval.parse('iP1')));
-      expect(scalePattern.intervals, contains(Interval.parse('iM2')));
-      expect(scalePattern.intervals, contains(Interval.parse('iM3')));
-      expect(scalePattern.intervals, contains(Interval.parse('iP4')));
-      expect(scalePattern.intervals, contains(Interval.parse('iP5')));
-      expect(scalePattern.intervals, contains(Interval.parse('iM6')));
-      expect(scalePattern.intervals, contains(Interval.parse('iM7')));
+      expect(scalePattern.intervals, contains(Interval.parse('P1')));
+      expect(scalePattern.intervals, contains(Interval.parse('M2')));
+      expect(scalePattern.intervals, contains(Interval.parse('M3')));
+      expect(scalePattern.intervals, contains(Interval.parse('P4')));
+      expect(scalePattern.intervals, contains(Interval.parse('P5')));
+      expect(scalePattern.intervals, contains(Interval.parse('M6')));
+      expect(scalePattern.intervals, contains(Interval.parse('M7')));
     });
 
     test('should contain the modern modes', () {
@@ -48,79 +48,79 @@ void defineScaleTests() {
       expect(
           scalePattern.modes['Ionian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.iM2,
-            Interval.iM3,
-            Interval.iP4,
-            Interval.iP5,
-            Interval.iM6,
-            Interval.iM7
+            Interval.P1,
+            Interval.M2,
+            Interval.M3,
+            Interval.P4,
+            Interval.P5,
+            Interval.M6,
+            Interval.M7
           ]));
       expect(
           scalePattern.modes['Dorian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.iM2,
-            Interval.im3,
-            Interval.iP4,
-            Interval.iP5,
-            Interval.iM6,
-            Interval.im7
+            Interval.P1,
+            Interval.M2,
+            Interval.m3,
+            Interval.P4,
+            Interval.P5,
+            Interval.M6,
+            Interval.m7
           ]));
       expect(
           scalePattern.modes['Phrygian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.im2,
-            Interval.im3,
-            Interval.iP4,
-            Interval.iP5,
-            Interval.im6,
-            Interval.im7
+            Interval.P1,
+            Interval.m2,
+            Interval.m3,
+            Interval.P4,
+            Interval.P5,
+            Interval.m6,
+            Interval.m7
           ]));
       expect(
           scalePattern.modes['Lydian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.iM2,
-            Interval.iM3,
+            Interval.P1,
+            Interval.M2,
+            Interval.M3,
             Interval.a4,
-            Interval.iP5,
-            Interval.iM6,
-            Interval.iM7
+            Interval.P5,
+            Interval.M6,
+            Interval.M7
           ]));
       expect(
           scalePattern.modes['Mixolydian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.iM2,
-            Interval.iM3,
-            Interval.iP4,
-            Interval.iP5,
-            Interval.iM6,
-            Interval.im7
+            Interval.P1,
+            Interval.M2,
+            Interval.M3,
+            Interval.P4,
+            Interval.P5,
+            Interval.M6,
+            Interval.m7
           ]));
       expect(
           scalePattern.modes['Aeolian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.iM2,
-            Interval.im3,
-            Interval.iP4,
-            Interval.iP5,
-            Interval.im6,
-            Interval.im7
+            Interval.P1,
+            Interval.M2,
+            Interval.m3,
+            Interval.P4,
+            Interval.P5,
+            Interval.m6,
+            Interval.m7
           ]));
       expect(
           scalePattern.modes['Locrian'].intervals,
           equals([
-            Interval.iP1,
-            Interval.im2,
-            Interval.im3,
-            Interval.iP4,
+            Interval.P1,
+            Interval.m2,
+            Interval.m3,
+            Interval.P4,
             Interval.d5,
-            Interval.im6,
-            Interval.im7
+            Interval.m6,
+            Interval.m7
           ]));
     });
 

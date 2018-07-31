@@ -141,31 +141,31 @@ void definePitchClassTests() {
     });
 
     test('+ Interval should return a PitchClass', () {
-      expect((PitchClass.parse('C') + Interval.iP1).toString(), equals('C'));
-      expect((PitchClass.parse('C') + Interval.im2).toString(), equals('C♯'));
-      expect((PitchClass.parse('C') + Interval.iM2).toString(), equals('D'));
-      expect((PitchClass.parse('C') + Interval.im3).toString(), equals('D♯'));
-      expect((PitchClass.parse('C') + Interval.iM3).toString(), equals('E'));
-      expect((PitchClass.parse('C') + Interval.iP4).toString(), equals('F'));
-      expect((PitchClass.parse('C') + Interval.iTT).toString(), equals('F♯'));
-      expect((PitchClass.parse('C') + Interval.iP5).toString(), equals('G'));
-      expect((PitchClass.parse('C') + Interval.im6).toString(), equals('G♯'));
-      expect((PitchClass.parse('C') + Interval.iM6).toString(), equals('A'));
-      expect((PitchClass.parse('C') + Interval.im7).toString(), equals('A♯'));
-      expect((PitchClass.parse('C') + Interval.iM7).toString(), equals('B'));
+      expect((PitchClass.parse('C') + Interval.P1).toString(), equals('C'));
+      expect((PitchClass.parse('C') + Interval.m2).toString(), equals('C♯'));
+      expect((PitchClass.parse('C') + Interval.M2).toString(), equals('D'));
+      expect((PitchClass.parse('C') + Interval.m3).toString(), equals('D♯'));
+      expect((PitchClass.parse('C') + Interval.M3).toString(), equals('E'));
+      expect((PitchClass.parse('C') + Interval.P4).toString(), equals('F'));
+      expect((PitchClass.parse('C') + Interval.TT).toString(), equals('F♯'));
+      expect((PitchClass.parse('C') + Interval.P5).toString(), equals('G'));
+      expect((PitchClass.parse('C') + Interval.m6).toString(), equals('G♯'));
+      expect((PitchClass.parse('C') + Interval.M6).toString(), equals('A'));
+      expect((PitchClass.parse('C') + Interval.m7).toString(), equals('A♯'));
+      expect((PitchClass.parse('C') + Interval.M7).toString(), equals('B'));
 
-      expect((PitchClass.parse('D') + Interval.iP1).toString(), equals('D'));
-      expect((PitchClass.parse('D') + Interval.im2).toString(), equals('D♯'));
-      expect((PitchClass.parse('D') + Interval.iM2).toString(), equals('E'));
-      expect((PitchClass.parse('D') + Interval.im3).toString(), equals('F'));
-      expect((PitchClass.parse('D') + Interval.iM3).toString(), equals('F♯'));
-      expect((PitchClass.parse('D') + Interval.iP4).toString(), equals('G'));
-      expect((PitchClass.parse('D') + Interval.iTT).toString(), equals('G♯'));
-      expect((PitchClass.parse('D') + Interval.iP5).toString(), equals('A'));
-      expect((PitchClass.parse('D') + Interval.im6).toString(), equals('A♯'));
-      expect((PitchClass.parse('D') + Interval.iM6).toString(), equals('B'));
-      expect((PitchClass.parse('D') + Interval.im7).toString(), equals('C'));
-      expect((PitchClass.parse('D') + Interval.iM7).toString(), equals('C♯'));
+      expect((PitchClass.parse('D') + Interval.P1).toString(), equals('D'));
+      expect((PitchClass.parse('D') + Interval.m2).toString(), equals('D♯'));
+      expect((PitchClass.parse('D') + Interval.M2).toString(), equals('E'));
+      expect((PitchClass.parse('D') + Interval.m3).toString(), equals('F'));
+      expect((PitchClass.parse('D') + Interval.M3).toString(), equals('F♯'));
+      expect((PitchClass.parse('D') + Interval.P4).toString(), equals('G'));
+      expect((PitchClass.parse('D') + Interval.TT).toString(), equals('G♯'));
+      expect((PitchClass.parse('D') + Interval.P5).toString(), equals('A'));
+      expect((PitchClass.parse('D') + Interval.m6).toString(), equals('A♯'));
+      expect((PitchClass.parse('D') + Interval.M6).toString(), equals('B'));
+      expect((PitchClass.parse('D') + Interval.m7).toString(), equals('C'));
+      expect((PitchClass.parse('D') + Interval.M7).toString(), equals('C♯'));
     });
 
     test('toPitch should return a pitch within the specified octave', () {

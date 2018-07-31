@@ -23,27 +23,27 @@ main() {
   print(new Pitch.fromMidiNumber(60)); // => C4
 
   banner("Intervals");
-  print(Interval.iM3);
+  print(Interval.M3);
   print(Interval.parse('iM3'));
-  print(Interval.im3.semitones); // => 3
-  print(Interval.iM3.semitones); // => 4
+  print(Interval.m3.semitones); // => 3
+  print(Interval.M3.semitones); // => 4
   print(Interval.a3.semitones); // => 5
   print(Interval.d4.semitones); // => 4
-  print(Interval.iP4.semitones); // => 5
+  print(Interval.P4.semitones); // => 5
   print(Interval.a4.semitones); // => 6
-  print(Interval.iM3.number); // => 3
-  print(Interval.iM3.qualityName); // => "M"
+  print(Interval.M3.number); // => 3
+  print(Interval.M3.qualityName); // => "M"
 
   banner("Interval arithmetic");
-  print(Interval.iM3 + Interval.im3); // => iP5
-  print(Interval.im3 + Interval.iM3); // => iP5
-  print(Interval.im3 + Interval.im3); // => d5
-  print(Interval.iM3 + Interval.iM3); // => A5
+  print(Interval.M3 + Interval.m3); // => iP5
+  print(Interval.m3 + Interval.M3); // => iP5
+  print(Interval.m3 + Interval.m3); // => d5
+  print(Interval.M3 + Interval.M3); // => A5
 
-  print(Pitch.parse('C4') + Interval.iM3); // => E4
+  print(Pitch.parse('C4') + Interval.M3); // => E4
   print(Pitch.parse('C4') + Interval.a3); // => E♯4
   print(Pitch.parse('C4') + Interval.d4); // => F♭4
-  print(Pitch.parse('C4') + Interval.iP4); // => F4
+  print(Pitch.parse('C4') + Interval.P4); // => F4
 
   print(Pitch.parse('C4') - Pitch.parse('C4')); // => P1
   print(Pitch.parse('D4') - Pitch.parse('C4')); // => M2
@@ -56,11 +56,11 @@ main() {
   print(Chord.parse('E Major'));
   print(ChordPattern.parse('Dominant 7th')); // => Dom 7th
   print(ChordPattern
-      .fromIntervals([Interval.iP1, Interval.iM3, Interval.iP5])); // => Major
+      .fromIntervals([Interval.P1, Interval.M3, Interval.P5])); // => Major
   print(ChordPattern
-      .fromIntervals([Interval.iP1, Interval.im3, Interval.iP5])); // => Minor
+      .fromIntervals([Interval.P1, Interval.m3, Interval.P5])); // => Minor
   print(ChordPattern.fromIntervals(
-      [Interval.iP1, Interval.im3, Interval.iP5, Interval.im7])); // => Min 7th
+      [Interval.P1, Interval.m3, Interval.P5, Interval.m7])); // => Min 7th
 
   banner("Scales");
   var scalePattern = ScalePattern.findByName('Diatonic Major');

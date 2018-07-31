@@ -48,35 +48,35 @@ void defineChordTests() {
     group('fromIntervals', () {
       test('should index chord classes by interval sequence', () {
         expect(
-            ChordPattern.fromIntervals([Interval.iP1, Interval.iM3, Interval.iP5]),
+            ChordPattern.fromIntervals([Interval.P1, Interval.M3, Interval.P5]),
             equals(ChordPattern.parse('Major')));
         expect(
-            ChordPattern.fromIntervals([Interval.iP1, Interval.im3, Interval.iP5]),
+            ChordPattern.fromIntervals([Interval.P1, Interval.m3, Interval.P5]),
             equals(ChordPattern.parse('Minor')));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.iP1, Interval.im3, Interval.iP5, Interval.im7]),
+                [Interval.P1, Interval.m3, Interval.P5, Interval.m7]),
             equals(ChordPattern.parse('Minor 7th')));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.iP1, Interval.im3, Interval.iP5, Interval.iM7]),
+                [Interval.P1, Interval.m3, Interval.P5, Interval.M7]),
             equals(ChordPattern.parse('Minor-Major 7th')));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.iP1, Interval.iM3, Interval.iP5, Interval.im7]),
+                [Interval.P1, Interval.M3, Interval.P5, Interval.m7]),
             equals(ChordPattern.parse('Dominant 7th')));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.iP1, Interval.iM3, Interval.iP5, Interval.iM7]),
+                [Interval.P1, Interval.M3, Interval.P5, Interval.M7]),
             equals(ChordPattern.parse('Major 7th')));
       });
 
       test('should recognize inversions', () {
         expect(
-            ChordPattern.fromIntervals([Interval.im3, Interval.iP1, Interval.iP5]),
+            ChordPattern.fromIntervals([Interval.m3, Interval.P1, Interval.P5]),
             equals(ChordPattern.parse('Minor')));
         expect(
-            ChordPattern.fromIntervals([Interval.im3, Interval.iP5, Interval.iP1]),
+            ChordPattern.fromIntervals([Interval.m3, Interval.P5, Interval.P1]),
             equals(ChordPattern.parse('Minor')));
       });
     });
@@ -228,7 +228,7 @@ void defineChordTests() {
 
     test('should contain three intervals', () {
       expect(chordPattern.intervals,
-          equals([Interval.iP1, Interval.iM3, Interval.iP5]));
+          equals([Interval.P1, Interval.M3, Interval.P5]));
     });
 
     group('at E4', () {
@@ -252,7 +252,7 @@ void defineChordTests() {
 
       test('should contain three intervals', () {
         expect(
-            chord.intervals, equals([Interval.iP1, Interval.iM3, Interval.iP5]));
+            chord.intervals, equals([Interval.P1, Interval.M3, Interval.P5]));
       });
 
       test('should contain three pitches', () {
@@ -282,7 +282,7 @@ void defineChordTests() {
 
       test('should contain three intervals', () {
         expect(
-            chord.intervals, equals([Interval.iP1, Interval.iM3, Interval.iP5]));
+            chord.intervals, equals([Interval.P1, Interval.M3, Interval.P5]));
       });
 
       test('should contain three pitches', () {
@@ -308,7 +308,7 @@ void defineChordTests() {
 
       test('should contain three intervals', () {
         expect(
-            chord.intervals, equals([Interval.iP1, Interval.im3, Interval.iP5]));
+            chord.intervals, equals([Interval.P1, Interval.m3, Interval.P5]));
       });
 
       test('should contain three pitches', () {
