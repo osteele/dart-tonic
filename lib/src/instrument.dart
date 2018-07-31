@@ -35,8 +35,7 @@ class Instrument {
       var stringPitches =
           _spec.split(new RegExp(r'\s+')).map(Pitch.parse).toList();
 
-      new FrettedInstrument(
-          name: spec['name'], stringPitches: stringPitches);
+      new FrettedInstrument(name: spec['name'], stringPitches: stringPitches);
     }
   }
 }
