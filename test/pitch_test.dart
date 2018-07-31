@@ -1,4 +1,7 @@
-part of tonic_test;
+// part of tonic_test;
+import 'package:test/test.dart';
+import 'tonic_test.dart';
+import 'package:tonic/tonic.dart';
 
 void definePitchTests() {
   group('flatNoteNames', () {

@@ -1,4 +1,6 @@
-part of tonic_test;
+// part of tonic_test;
+import 'package:test/test.dart';
+import 'package:tonic/tonic.dart';
 
 void defineFrettingTests() {
   group('Fretting', () {

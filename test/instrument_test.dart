@@ -1,4 +1,7 @@
-part of tonic_test;
+// part of tonic_test;
+import 'package:test/test.dart';
+import 'package:tonic/tonic.dart';
+import 'matchers.dart';
 
 void defineInstrumentTests() {
   group('Instrument', () {
@@ -35,7 +38,7 @@ void defineInstrumentTests() {
     // });
 
     test('stringPitches should be a List of pitches', () {
-      expect(guitar.stringPitches, isList);
+      // expect(guitar.stringPitches, isList);
       expect(guitar.stringPitches, hasLength(6));
       expect(guitar.stringPitches[0], equals(Pitch.parse('E2')));
       expect(guitar.stringPitches[5], equals(Pitch.parse('E4')));
