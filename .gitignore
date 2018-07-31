@@ -1,2 +1,5 @@
 packages
 pubspec.lock
+.DS_Store
+.packages
+.vscode/launch.json
