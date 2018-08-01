@@ -40,7 +40,7 @@ class ScalePattern {
               intervals: intervals)
           : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
-      _eachWithIndex(modeNames, (modeName, index) {
+      eachWithIndex(modeNames, (modeName, index) {
         List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         var root = modeIntervals[0];

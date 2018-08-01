@@ -16,7 +16,7 @@ class Fretting {
 
   Fretting({this.instrument, this.chord, Iterable<FretPosition> positions})
       : this.positions = List<FretPosition>.from(
-            _sortedBy(positions, (pos) => pos.stringIndex, reverse: true)) {
+            sortedBy(positions, (pos) => pos.stringIndex, reverse: true)) {
     assert(chord != null);
     assert(instrument != null);
     assert(positions.length ==
@@ -166,7 +166,7 @@ Set<FretPosition> chordFrets(
     Chord chord, FrettedInstrument instrument, int highestFret) {
   var positions = new Set<FretPosition>();
   var semitoneSet = chord.pitches.map((pitch) => pitch.semitones % 12).toSet();
-  _eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
+  eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
     for (var fretNumber = 0; fretNumber <= highestFret; fretNumber++) {
       var semitones = instrument
           .pitchAt(stringIndex: stringIndex, fretNumber: fretNumber)
