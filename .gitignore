@@ -1,7 +1,20 @@
-packages
-pubspec.lock
-.DS_Store
+# Files and directories created by (Dart) pub
+.dart_tool/
 .packages
-.vscode/launch.json
+build/
+pubspec.lock
+
+# Directory created by dartdoc
+doc/api/
+
 *.log
+
+# macOS
+.DS_Store
+
+# Android Studio
 *.iml
+.idea
+
+# Visual Studio Code
+.vscode/
