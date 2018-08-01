@@ -7,7 +7,7 @@ It also computes chord diagrams; this functionality is in progress.
 
 ## Installing via Pub
 
-Add this to your p
+Add the following to your `pubspec.yaml`, and run `pub get`.
 
 ```yaml
 dependencies:
@@ -92,11 +92,11 @@ dependencies:
   }
 ```
 
-More examples can be found in the tests in test/*_test.dart.
+More examples can be found in the tests in `test/*_test.dart`.
 
 ## MIT License
 
-Copyright (c) 2014 Oliver Steele
+Copyright (c) 2014–2018 Oliver Steele
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
