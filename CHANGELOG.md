@@ -1,7 +1,7 @@
-## [0.0.2] - Bug Fixes
+## [0.0.2] - Dart 2 / Flutter compatibility
 
-* Updated for Flutter and Dart 2 Compatibility.
+* Updated for Flutter and Dart 2 compatibility.
 
-## [0.0.1] - TODO: Add release date
+## [0.0.1] - Initial release
 
-* TODO: Describe initial release.
+* Initial release.
