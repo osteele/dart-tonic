@@ -119,87 +119,65 @@ void main() {
     group('fromPitches', () {
       test('should find the chord from an array of pitches', () {
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C♯4'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C♯4'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C4'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C4'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Minor')));
       });
 
       test('should recognize pitches spread across multiple otaves', () {
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C♯4'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C♯4'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C♯5'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C♯5'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C♯4'),
-              Pitch.parse('E5')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C♯4'), Pitch.parse('E5')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C4'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C4'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Minor')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C5'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C5'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Minor')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C4'),
-              Pitch.parse('E5')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C4'), Pitch.parse('E5')])
+                .pattern,
             equals(ChordPattern.parse('Minor')));
       });
 
       test('should recognize inversions', () {
         expect(
-            Chord.fromPitches([
-              Pitch.parse('A3'),
-              Pitch.parse('C♯4'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('A3'), Pitch.parse('C♯4'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('C♯4'),
-              Pitch.parse('A3'),
-              Pitch.parse('E4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('C♯4'), Pitch.parse('A3'), Pitch.parse('E4')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
         expect(
-            Chord.fromPitches([
-              Pitch.parse('E4'),
-              Pitch.parse('A3'),
-              Pitch.parse('C♯4')
-            ]).pattern,
+            Chord.fromPitches(
+                    [Pitch.parse('E4'), Pitch.parse('A3'), Pitch.parse('C♯4')])
+                .pattern,
             equals(ChordPattern.parse('Major')));
       });
     });

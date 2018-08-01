@@ -104,12 +104,19 @@ pub run test
 00:05 +120: All tests passed!
 ```
 
-Dart analyzer should run without issues:
+`dartanalyzer` should run without issues:
 
 ```shell
 $ dartanalyzer lib test
 Analyzing lib, test...
 No issues found!
+```
+
+`dartfmt` should come up empty:
+
+```shell
+❯ dartfmt -n .
+
 ```
 
 ## License

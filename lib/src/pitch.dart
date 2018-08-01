@@ -224,7 +224,7 @@ class Pitch {
 
   String get accidentalsString => accidentalsToString(accidentalSemitones);
 
-  String toString() => "$letterName$accidentalsString${octave-1}";
+  String toString() => "$letterName$accidentalsString${octave - 1}";
 
   String get inspect => {
         'letter': letterName,

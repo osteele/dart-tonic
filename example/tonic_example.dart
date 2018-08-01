@@ -55,10 +55,10 @@ main() {
   banner("Chords");
   print(Chord.parse('E Major'));
   print(ChordPattern.parse('Dominant 7th')); // => Dom 7th
-  print(ChordPattern
-      .fromIntervals([Interval.P1, Interval.M3, Interval.P5])); // => Major
-  print(ChordPattern
-      .fromIntervals([Interval.P1, Interval.m3, Interval.P5])); // => Minor
+  print(ChordPattern.fromIntervals(
+      [Interval.P1, Interval.M3, Interval.P5])); // => Major
+  print(ChordPattern.fromIntervals(
+      [Interval.P1, Interval.m3, Interval.P5])); // => Minor
   print(ChordPattern.fromIntervals(
       [Interval.P1, Interval.m3, Interval.P5, Interval.m7])); // => Min 7th
 

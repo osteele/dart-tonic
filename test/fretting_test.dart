@@ -43,36 +43,36 @@ void main() {
 
     test('fretstring', () {
       expect(
-          Fretting
-              .fromFretString('0221x0', chord: chord, instrument: instrument)
+          Fretting.fromFretString('0221x0',
+                  chord: chord, instrument: instrument)
               .fretString,
           equals('0221x0'));
       expect(
-          Fretting
-              .fromFretString('x221x0', chord: chord, instrument: instrument)
+          Fretting.fromFretString('x221x0',
+                  chord: chord, instrument: instrument)
               .fretString,
           equals('x221x0'));
       expect(
-          Fretting
-              .fromFretString('0221xx', chord: chord, instrument: instrument)
+          Fretting.fromFretString('0221xx',
+                  chord: chord, instrument: instrument)
               .fretString,
           equals('0221xx'));
     });
 
     test('inversionIndex', () {
       expect(
-          Fretting
-              .fromFretString('022100', chord: chord, instrument: instrument)
+          Fretting.fromFretString('022100',
+                  chord: chord, instrument: instrument)
               .inversionIndex,
           0);
       expect(
-          Fretting
-              .fromFretString('422100', chord: chord, instrument: instrument)
+          Fretting.fromFretString('422100',
+                  chord: chord, instrument: instrument)
               .inversionIndex,
           1);
       expect(
-          Fretting
-              .fromFretString('722100', chord: chord, instrument: instrument)
+          Fretting.fromFretString('722100',
+                  chord: chord, instrument: instrument)
               .inversionIndex,
           2);
     });
