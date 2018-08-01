@@ -6,7 +6,7 @@ version: 0.0.2
 authors:
 - Oliver Steele <steele@osteele.com>
 - Rody Davis <rody.davis.jr@gmail.com>
-homepage: http://github.com/AppleEducate/dart-tonic
+homepage: http://github.com/osteele/dart-tonic
 
 dependencies:
   flutter:
