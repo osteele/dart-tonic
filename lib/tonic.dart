@@ -1,7 +1,5 @@
 library tonic;
 
-import 'package:collection/collection.dart';
-
 part 'src/utils.dart';
 part 'interval.dart';
 part 'pitch_class.dart';
