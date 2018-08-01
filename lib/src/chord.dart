@@ -70,13 +70,13 @@ class ChordPattern {
     for (var spec in chordPatternSpecs) {
       var fullName = spec['name'];
       var abbrs = spec['abbrs'];
-      var intervals = spec['intervals'].split('').map((c) {
+      var intervals = List<Interval>.from(spec['intervals'].split('').map((c) {
         var semitones = {'t': 10, 'e': 11}[c];
         if (semitones == null) {
           semitones = int.parse(c);
         }
         return new Interval.fromSemitones(semitones);
-      }).toList();
+      }));
       var name = fullName
           .replaceAll(new RegExp(r'Major(?!$)'), 'Maj')
           .replaceAll(new RegExp(r'Minor(?!$)'), 'Min')

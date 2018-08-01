@@ -11,8 +11,8 @@ class Fretting {
   String _fretString;
 
   Fretting({this.instrument, this.chord, Iterable<FretPosition> positions})
-      : this.positions =
-            sortedBy(positions, (pos) => pos.stringIndex, reverse: true) {
+      : this.positions = List<FretPosition>.from(
+            sortedBy(positions, (pos) => pos.stringIndex, reverse: true)) {
     assert(chord != null);
     assert(instrument != null);
     assert(positions.length ==
@@ -26,9 +26,8 @@ class Fretting {
           "fretString wrong length for $instrument: $fretString");
     }
 
-    List<String> _fretString = fretString.split('');
-    List<Iterable<int>> _stringIndices =
-        Iterable.castFrom(instrument.stringIndices);
+    Iterable<String> _fretString = fretString.split('');
+    Iterable<int> _stringIndices = instrument.stringIndices;
 
     var _positions = IterableZip([_fretString, _stringIndices]);
 
@@ -365,7 +364,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   //   {name: 'low finger count', key: reverseSortKey(getFingerCount)}
   // ];
 
-  Function compareBy(Function f, {bool reverse: false}) =>
+  Function compareBy<T>(int Function(T) f, {bool reverse: false}) =>
       reverse ? (a, b) => f(a) - f(b) : (a, b) => f(b) - f(a);
 
   List<Fretting> sortFrettings(Iterable<Fretting> frettingSet) {

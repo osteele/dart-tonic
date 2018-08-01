@@ -94,6 +94,12 @@ dependencies:
 
 More examples can be found in the tests in `test/*_test.dart`.
 
+## Contributing
+
+The current tests should pass:
+
+`pub run test test/tonic_test.dart`
+
 ## MIT License
 
 Copyright (c) 2014–2018 Oliver Steele

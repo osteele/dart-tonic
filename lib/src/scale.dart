@@ -27,8 +27,9 @@ class ScalePattern {
       var scaleName = spec['name'];
       var parentName = spec['parent'];
       var modeNames = spec['modeNames'];
+      List<int> intervalValues = spec['intervals'];
       var intervals =
-          spec['intervals'].map((n) => new Interval.fromSemitones(n)).toList();
+          intervalValues.map((n) => new Interval.fromSemitones(n)).toList();
       var scale = parentName != null
           ? new Mode(
               name: scaleName,
@@ -37,7 +38,7 @@ class ScalePattern {
           : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
       eachWithIndex(modeNames, (modeName, index) {
-        var modeIntervals = new List.from(intervals.skip(index));
+        List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         var root = modeIntervals[0];
         modeIntervals =
@@ -53,7 +54,7 @@ class ScalePattern {
 class Mode extends ScalePattern {
   final ScalePattern parent;
 
-  Mode({String name, this.parent, intervals})
+  Mode({String name, this.parent, List<Interval> intervals})
       : super(name: name, intervals: intervals) {
     parent.modes[name] = this;
   }
