@@ -365,14 +365,12 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   List<Fretting> sortFrettings(Iterable<Fretting> frettingSet) {
     List<Fretting> frettingList = frettingSet.toList();
     // number of open strings:
-    insertionSort(frettingList,
-        compare: compareBy(
+    frettingList.sort(compareBy(
             (f) => f.positions.where((pos) => pos.fretNumber == 0).length));
     // number of sounded strings:
-    insertionSort(frettingList, compare: compareBy((f) => f.positions.length));
+    frettingList.sort(compareBy((f) => f.positions.length));
     // root position:
-    insertionSort(frettingList,
-        compare: compareBy((f) => f.inversionIndex, reverse: true));
+    frettingList.sort(compareBy((f) => f.inversionIndex, reverse: true));
     return frettingList;
   }
 

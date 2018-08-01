@@ -13,6 +13,6 @@ List sortedBy(Iterable items, int sortKey(item), {bool reverse: false}) {
   var comparator = reverse
       ? (a, b) => sortKey(a) - sortKey(b)
       : (a, b) => sortKey(b) - sortKey(a);
-  insertionSort(list, compare: comparator);
+  list.sort(comparator);
   return list;
 }
