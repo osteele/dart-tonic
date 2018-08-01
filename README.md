@@ -1,5 +1,7 @@
 # Dart
 
+[![Build Status](https://travis-ci.org/osteele/dart-tonic.svg?branch=master)](https://travis-ci.org/osteele/dart-tonic)
+
 Tonic is a [Dart](https://www.dartlang.org) package that models components of music theory.
 
 It also computes chord diagrams; this functionality is in progress.
