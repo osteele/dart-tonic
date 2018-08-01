@@ -1,5 +1,7 @@
 part of tonic;
 
+/// The canonical abbreviated names of pitch intervals (e.g. P1, P4), indexed by
+/// their half-step counts minus one.
 final List<String> intervalNames = [
   'P1',
   'm2',
@@ -16,6 +18,8 @@ final List<String> intervalNames = [
   'P8'
 ];
 
+/// The canonical long names of pitch intervals (e.g. Unicon, Perfect 4th),
+/// indexed by one less than their half-step counts.
 final List<String> longIntervalNames = [
   'Unison',
   'Minor 2nd',
@@ -32,14 +36,13 @@ final List<String> longIntervalNames = [
   'Octave'
 ];
 
-// The interval class (number in [0...12]) between two pitch class numbers
+/// The interval class (an integer 0 < x < 12) between two pitch class numbers.
 int intervalClassDifference(int pca, int pcb) => normalizePitchClass(pcb - pca);
 
-// An Interval is the signed distance between two notes.
-// Intervals that represent the same semitone span *and* accidental are interned.
-// Thus, two instance of M3 are ===, but sharp P4 and flat P5 are distinct from
-// each other and from TT.
-
+/// An Interval is the signed distance between two notes.
+/// Intervals that represent the same semitone span *and* accidental are interned.
+/// Thus, two instance of M3 are ===, but sharp P4 and flat P5 are distinct from
+/// each other and from TT.
 // FIXME these are interval classes, not intervals
 class Interval {
   final int number;

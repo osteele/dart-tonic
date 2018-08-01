@@ -1,5 +1,8 @@
 part of tonic;
 
+/// A scale pattern is a named set of intervals (or scale degrees) independent
+/// of root (or tonic). For example, there is a Major scale pattern, that is
+/// realized at particular roots as C Major, D Major, etc.
 class ScalePattern {
   final String name;
   final List<Interval> intervals;
@@ -23,7 +26,7 @@ class ScalePattern {
   static void _initializeBuiltinPatterns() {
     if (_builtinPatternsInitialized) return;
     _builtinPatternsInitialized = true;
-    for (var spec in scalePatternSpecs) {
+    for (var spec in _scalePatternSpecs) {
       var scaleName = spec['name'];
       var parentName = spec['parent'];
       var modeNames = spec['modeNames'];
@@ -37,7 +40,7 @@ class ScalePattern {
               intervals: intervals)
           : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
-      eachWithIndex(modeNames, (modeName, index) {
+      _eachWithIndex(modeNames, (modeName, index) {
         List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         var root = modeIntervals[0];
@@ -60,6 +63,8 @@ class Mode extends ScalePattern {
   }
 }
 
+/// A scale is a set of musical notes. Equivalently, it is a scale pattern
+/// and a tonic.
 class Scale {
   final ScalePattern pattern;
   final PitchClass tonic;
@@ -98,7 +103,7 @@ class Scale {
 //     return scale
 }
 
-final List scalePatternSpecs = [
+final List _scalePatternSpecs = [
   {
     'name': 'Diatonic Major',
     'intervals': [0, 2, 4, 5, 7, 9, 11],

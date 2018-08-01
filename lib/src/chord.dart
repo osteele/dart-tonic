@@ -8,8 +8,9 @@ class NotFoundException implements Exception {
   String toString() => "NotFoundException: $message";
 }
 
-// An instance of ChordPattern represents the intervals of the chord,
-// without the root. For example, Dom7. It represents the quality, suspensions, and additions.
+/// An instance of ChordPattern represents the intervals of the chord,
+/// without the root; for example, Dom7. A ChordPattern represents the quality,
+/// suspensions, and additions.
 class ChordPattern {
   final String name;
   final String fullName;
@@ -67,7 +68,7 @@ class ChordPattern {
   static void _initializeChords() {
     if (_chordsInitialized) return;
     _chordsInitialized = true;
-    for (var spec in chordPatternSpecs) {
+    for (var spec in _chordPatternSpecs) {
       var fullName = spec['name'];
       var abbrs = spec['abbrs'];
       var intervals = List<Interval>.from(spec['intervals'].split('').map((c) {
@@ -91,6 +92,8 @@ class ChordPattern {
   Chord at(Pitch root) => new Chord(pattern: this, root: root);
 }
 
+/// A Chord is a set of pitches. It can also be considered as a root, and a set
+/// of intervals.
 class Chord {
   ChordPattern pattern;
   Pitch root;
@@ -136,7 +139,7 @@ class Chord {
   }
 }
 
-final List chordPatternSpecs = [
+final List _chordPatternSpecs = [
   {
     "name": 'Major',
     "abbrs": ['', 'M'],

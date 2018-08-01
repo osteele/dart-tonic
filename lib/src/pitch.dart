@@ -1,5 +1,7 @@
 part of tonic;
 
+/// Note names (e.g. C, C♯), indexed by half-steps above C. Notes that require
+/// accidentals use sharps (♯).
 final List<String> sharpNoteNames = [
   'C',
   'C♯',
@@ -15,6 +17,8 @@ final List<String> sharpNoteNames = [
   'B'
 ];
 
+/// Note names (e.g. C, D♭), indexed by half-steps above C. Notes that require
+/// accidentals use flats (♭).
 final List<String> flatNoteNames = [
   'C',
   'D♭',
@@ -30,8 +34,12 @@ final List<String> flatNoteNames = [
   'B'
 ];
 
+/// Note names (e.g. C, C♯), indexed by half-steps above C. This has the same
+/// value as sharpNoteNames.
 final List<String> noteNames = sharpNoteNames;
 
+/// A map from the string representation of an accidental (♯, ♭, 𝄪, 𝄫) to
+/// the number of half-steps that the accidental adds to a pitch.
 final Map<String, int> accidentalValues = {
   '#': 1,
   '♯': 1,
@@ -89,6 +97,8 @@ final Pattern _helmholtzPitchNamePattern =
 final RegExp _scientificPitchNamePattern =
     new RegExp(r"^([A-Ga-g])([#♯b♭𝄪𝄫]*)(-?\d+)$");
 
+/// A musical pitch, represented as a pair of the number of diatonic semitones
+/// C, and the number of accidental semitones above this diatonic value.
 class Pitch {
   final int diatonicSemitones;
   final int accidentalSemitones;

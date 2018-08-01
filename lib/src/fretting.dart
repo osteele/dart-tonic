@@ -1,6 +1,10 @@
 part of tonic;
 
-// These are "frettings" and not "voicings" because they also include barre information.
+/// A Fretting is a map of fingers to sets of frets, that voice a chord on a fretted
+/// instrument.
+///
+/// These are "frettings" and not "voicings" because they also include barre
+/// information.
 class Fretting {
   final Chord chord;
   final List<FretPosition> positions; // sorted by string index
@@ -12,7 +16,7 @@ class Fretting {
 
   Fretting({this.instrument, this.chord, Iterable<FretPosition> positions})
       : this.positions = List<FretPosition>.from(
-            sortedBy(positions, (pos) => pos.stringIndex, reverse: true)) {
+            _sortedBy(positions, (pos) => pos.stringIndex, reverse: true)) {
     assert(chord != null);
     assert(instrument != null);
     assert(positions.length ==
@@ -132,10 +136,8 @@ class Fretting {
 //   barres = findBarres(instrument, fretArray)
 //   return powerset(barres)
 
-//
-// Frettings
-//
-
+/// A FretPosition represents the a fret on a specific string of a fretted
+/// instrument.
 class FretPosition {
   final int stringIndex;
   final int fretNumber;
@@ -164,7 +166,7 @@ Set<FretPosition> chordFrets(
     Chord chord, FrettedInstrument instrument, int highestFret) {
   var positions = new Set<FretPosition>();
   var semitoneSet = chord.pitches.map((pitch) => pitch.semitones % 12).toSet();
-  eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
+  _eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
     for (var fretNumber = 0; fretNumber <= highestFret; fretNumber++) {
       var semitones = instrument
           .pitchAt(stringIndex: stringIndex, fretNumber: fretNumber)
@@ -183,14 +185,7 @@ Set<FretPosition> chordFrets(
 
 List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
     {highestFret: 4}) {
-  // var warn = false;
   int minPitchClasses = chord.intervals.length;
-  // print(warn);
-
-  //
-  // Generate
-  //
-
   Map<int, Set<FretPosition>> partitionFretsByString() {
     Set<FretPosition> positions = chordFrets(chord, instrument, highestFret);
     Map<int, Set<FretPosition>> partitions = new Map.fromIterable(

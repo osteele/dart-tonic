@@ -1,5 +1,7 @@
 part of tonic;
 
+/// A musical instrument. This is the superclass for FrettedInstrument,
+/// and is used as a factory/dictionary of instruments.
 class Instrument {
   final String name;
 
@@ -35,6 +37,7 @@ class Instrument {
   }
 }
 
+/// A fretted instrument. Instances of this are used to compute chord frettings.
 class FrettedInstrument extends Instrument {
   final List<Pitch> stringPitches;
 
@@ -42,10 +45,11 @@ class FrettedInstrument extends Instrument {
 
   bool get fretted => true;
 
-  // Iterable<int> get stringIndices => [0, ..., stringPitches.length - 1];
+  /// The indices, starting at 0, of the strings.
   Iterable<int> get stringIndices =>
       new Iterable<int>.generate(stringPitches.length, (i) => i);
 
+  /// The pitch of a given fret on a give (0-based) string.
   Pitch pitchAt({int stringIndex, int fretNumber}) =>
       stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
 
@@ -55,6 +59,7 @@ class FrettedInstrument extends Instrument {
   //       fn string: string, fret: fret
 }
 
+/// This is used internal to create fretted instruments.
 final _instrumentSpecs = [
   {
     'name': 'Guitar',

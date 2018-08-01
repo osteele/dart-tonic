@@ -13,6 +13,8 @@ String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
   return name;
 }
 
+/// A pitch class represents a set of pitches separated by an integral number
+/// of octaves. For example, C is a single pitch class.
 class PitchClass {
   final int integer;
 
