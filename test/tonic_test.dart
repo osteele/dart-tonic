@@ -3,10 +3,10 @@ library tonic_test;
 import 'chord_test.dart';
 import 'fretting_test.dart';
 import 'instrument_test.dart';
-import 'scales_test.dart';
-import 'pitch_class_test.dart';
 import 'interval_test.dart';
+import 'pitch_class_test.dart';
 import 'pitch_test.dart';
+import 'scales_test.dart';
 
 // import 'package:unittest/unittest.dart';
 // import 'package:tonic/tonic.dart';
@@ -19,8 +19,6 @@ import 'pitch_test.dart';
 // part 'chord_test.dart';
 // part 'instrument_test.dart';
 // part 'fretting_test.dart';
-
-import 'package:test/test.dart';
 
 void main() {
   defineIntervalTests();

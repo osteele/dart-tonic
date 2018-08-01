@@ -53,8 +53,6 @@ class Interval {
 
   static final List<int> _semitonesByNumber = [0, 2, 4, 5, 7, 9, 11, 12];
   static bool _numberIsPerfect(int number) => [1, 4, 5, 8].indexOf(number) >= 0;
-  static String _defaultQualityForNumber(int number) =>
-      _numberIsPerfect(number) ? 'P' : 'M';
 
   factory Interval({int number, String qualityName}) {
     assert(number != null);
