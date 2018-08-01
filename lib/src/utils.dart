@@ -10,7 +10,9 @@ void eachWithIndex(List list, Function fn) {
 
 List sortedBy(Iterable items, int sortKey(item), {bool reverse: false}) {
   var list = new List.from(items);
-  var comparator = reverse ? (a, b) => sortKey(a) - sortKey(b) : (a, b) => sortKey(b) - sortKey(a);
+  var comparator = reverse
+      ? (a, b) => sortKey(a) - sortKey(b)
+      : (a, b) => sortKey(b) - sortKey(a);
   insertionSort(list, compare: comparator);
   return list;
 }

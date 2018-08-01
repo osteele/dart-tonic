@@ -1,4 +1,6 @@
-part of tonic_test;
+// part of tonic_test;
+import 'package:test/test.dart';
+import 'package:tonic/tonic.dart';
 
 void defineIntervalTests() {
   group('intervalClassDifference', () {
@@ -11,29 +13,29 @@ void defineIntervalTests() {
 
   group('IntervalNames', () {
     test('should contain 13 intervals', () {
-      expect(IntervalNames, hasLength(13));
+      expect(intervalNames, hasLength(13));
     });
 
     test('should start with P1', () {
-      expect(IntervalNames[0], equals('P1'));
+      expect(intervalNames[0], equals('P1'));
     });
 
     test('should end with P8', () {
-      expect(IntervalNames[12], equals('P8'));
+      expect(intervalNames[12], equals('P8'));
     });
   });
 
   group('LongIntervalNames', () {
     test('should contain 13 intervals', () {
-      expect(LongIntervalNames, hasLength(13));
+      expect(longIntervalNames, hasLength(13));
     });
 
     test('should start with Unison', () {
-      expect(LongIntervalNames[0], equals('Unison'));
+      expect(longIntervalNames[0], equals('Unison'));
     });
 
     test('should end with Octave', () {
-      expect(LongIntervalNames[12], equals('Octave'));
+      expect(longIntervalNames[12], equals('Octave'));
     });
   });
 
@@ -55,16 +57,15 @@ void defineIntervalTests() {
     });
 
     test('parse should throw a FormatException', () {
-      expect(()=>Interval.parse('M1'), throwsFormatException);
-      expect(()=>Interval.parse('m1'), throwsFormatException);
-      expect(()=>Interval.parse('P2'), throwsFormatException);
-      expect(()=>Interval.parse('P1x'), throwsFormatException);
-      expect(()=>Interval.parse('x1'), throwsFormatException);
-      expect(()=>Interval.parse('1'), throwsFormatException);
-      expect(()=>Interval.parse('x1'), throwsFormatException);
-      expect(()=>Interval.parse('M8'), throwsFormatException);
+      expect(() => Interval.parse('M1'), throwsFormatException);
+      expect(() => Interval.parse('m1'), throwsFormatException);
+      expect(() => Interval.parse('P2'), throwsFormatException);
+      expect(() => Interval.parse('P1x'), throwsFormatException);
+      expect(() => Interval.parse('x1'), throwsFormatException);
+      expect(() => Interval.parse('1'), throwsFormatException);
+      expect(() => Interval.parse('x1'), throwsFormatException);
+      expect(() => Interval.parse('M8'), throwsFormatException);
     });
-
 
     test('constructor should default to Perfect or Major', () {
       expect(new Interval(number: 1), equals(Interval.P1));
@@ -213,9 +214,10 @@ void defineIntervalTests() {
       expect(Interval.P5 + Interval.M3, equals(Interval.M7));
     });
 
-    test('+Interval should throw an error when the quality is out of range', () {
-      expect(()=> Interval.d2 + Interval.m2, throwsArgumentError);
-      expect(()=> Interval.m2 + Interval.d2, throwsArgumentError);
+    test('+Interval should throw an error when the quality is out of range',
+        () {
+      expect(() => Interval.d2 + Interval.m2, throwsArgumentError);
+      expect(() => Interval.m2 + Interval.d2, throwsArgumentError);
     });
 
     test('-Interval should return an Interval', () {

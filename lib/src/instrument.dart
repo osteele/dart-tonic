@@ -5,7 +5,7 @@ class Instrument {
 
   static final Map _byName = <String, Instrument>{};
 
-  Instrument({String this.name}) {
+  Instrument({this.name}) {
     _byName[name] = this;
   }
 
@@ -18,15 +18,18 @@ class Instrument {
 
   bool get fretted => false;
 
-  static final FrettedInstrument Guitar = Instrument.lookup('Guitar');
+  static final FrettedInstrument guitar = Instrument.lookup('Guitar');
 
   static bool _initialized = false;
 
   static _initialize() {
     if (_initialized) return;
     _initialized = true;
-    for (var spec in _INSTRUMENT_SPECS) {
-      var stringPitches = spec['stringPitches'].split(new RegExp(r'\s+')).map(Pitch.parse).toList();
+    for (var spec in _instrumentSpecs) {
+      var stringPitches = (spec['stringPitches'] as String)
+          .split(new RegExp(r'\s+'))
+          .map(Pitch.parse)
+          .toList();
       new FrettedInstrument(name: spec['name'], stringPitches: stringPitches);
     }
   }
@@ -35,16 +38,16 @@ class Instrument {
 class FrettedInstrument extends Instrument {
   final List<Pitch> stringPitches;
 
-  FrettedInstrument({String name, List<Pitch> this.stringPitches})
-    : super(name: name);
+  FrettedInstrument({String name, this.stringPitches}) : super(name: name);
 
   bool get fretted => true;
 
   // Iterable<int> get stringIndices => [0, ..., stringPitches.length - 1];
-  Iterable<int> get stringIndices => new Iterable<int>.generate(stringPitches.length, (i) => i);
+  Iterable<int> get stringIndices =>
+      new Iterable<int>.generate(stringPitches.length, (i) => i);
 
   Pitch pitchAt({int stringIndex, int fretNumber}) =>
-    stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
+      stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
 
   // eachFingerPosition: (fn) ->
   //   for string in @stringNumbers
@@ -52,7 +55,7 @@ class FrettedInstrument extends Instrument {
   //       fn string: string, fret: fret
 }
 
-final _INSTRUMENT_SPECS = [
+final _instrumentSpecs = [
   {
     'name': 'Guitar',
     // TODO: factor into Tuning model http://en.wikipedia.org/wiki/Stringed_instrument_tunings

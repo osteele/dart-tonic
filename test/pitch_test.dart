@@ -1,48 +1,49 @@
-part of tonic_test;
+// part of tonic_test;
+import 'package:test/test.dart';
+import 'package:tonic/tonic.dart';
 
 void definePitchTests() {
-  group('FlatNoteNames', () {
+  group('flatNoteNames', () {
     test('should contain 12 pitches', () {
-      expect(FlatNoteNames, hasLength(12));
+      expect(flatNoteNames, hasLength(12));
     });
 
     test('should start with C', () {
-      expect(FlatNoteNames[0], equals('C'));
+      expect(flatNoteNames[0], equals('C'));
     });
 
     test('should contain five flats', () {
-      expect(FlatNoteNames[1], equals('D♭'));
-      expect(FlatNoteNames[3], equals('E♭'));
-      expect(FlatNoteNames[6], equals('G♭'));
-      expect(FlatNoteNames[8], equals('A♭'));
-      expect(FlatNoteNames[10], equals('B♭'));
+      expect(flatNoteNames[1], equals('D♭'));
+      expect(flatNoteNames[3], equals('E♭'));
+      expect(flatNoteNames[6], equals('G♭'));
+      expect(flatNoteNames[8], equals('A♭'));
+      expect(flatNoteNames[10], equals('B♭'));
     });
   });
 
-  group('SharpNoteNames', () {
+  group('sharpNoteNames', () {
     test('should contain 12 pitches', () {
-      expect(SharpNoteNames, hasLength(12));
+      expect(sharpNoteNames, hasLength(12));
     });
 
     test('should start with C', () {
-      expect(SharpNoteNames[0], equals('C'));
+      expect(sharpNoteNames[0], equals('C'));
     });
 
     test('should contain five flats', () {
-      expect(SharpNoteNames[1], equals('C♯'));
-      expect(SharpNoteNames[3], equals('D♯'));
-      expect(SharpNoteNames[6], equals('F♯'));
-      expect(SharpNoteNames[8], equals('G♯'));
-      expect(SharpNoteNames[10], equals('A♯'));
+      expect(sharpNoteNames[1], equals('C♯'));
+      expect(sharpNoteNames[3], equals('D♯'));
+      expect(sharpNoteNames[6], equals('F♯'));
+      expect(sharpNoteNames[8], equals('G♯'));
+      expect(sharpNoteNames[10], equals('A♯'));
     });
   });
 
   group('NoteNames', () {
-    test('should equal SharpNoteNames', () {
-      expect(NoteNames, equals(SharpNoteNames));
+    test('should equal sharpNoteNames', () {
+      expect(noteNames, equals(sharpNoteNames));
     });
   });
-
 
   //
   // Functions
@@ -123,7 +124,6 @@ void definePitchTests() {
     });
   });
 
-
   group('Pitch', () {
     group('parse', () {
       test('should read pitch names in scientific notation', () {
@@ -173,14 +173,13 @@ void definePitchTests() {
       });
 
       test('should throw FormatException', () {
-        expect(()=>Pitch.parse('H'), throwsFormatException);
-        expect(()=>Pitch.parse('CC'), throwsFormatException);
-        expect(()=>Pitch.parse('C^'), throwsFormatException);
-        expect(()=>Pitch.parse('C+'), throwsFormatException);
-        expect(()=>Pitch.parse('+C'), throwsFormatException);
+        expect(() => Pitch.parse('H'), throwsFormatException);
+        expect(() => Pitch.parse('CC'), throwsFormatException);
+        expect(() => Pitch.parse('C^'), throwsFormatException);
+        expect(() => Pitch.parse('C+'), throwsFormatException);
+        expect(() => Pitch.parse('+C'), throwsFormatException);
       });
     });
-
 
     test('fromMidiNumber should convert midi numbers into pitches', () {
       expect(new Pitch.fromMidiNumber(60), equals(Pitch.parse('C4')));
