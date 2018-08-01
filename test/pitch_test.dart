@@ -1,8 +1,7 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 
-void definePitchTests() {
+void main() {
   group('flatNoteNames', () {
     test('should contain 12 pitches', () {
       expect(flatNoteNames, hasLength(12));

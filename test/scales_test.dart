@@ -1,8 +1,7 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 
-void defineScaleTests() {
+void main() {
   group('ScalePattern', () {
     test('should contains various blues and diatonic scales', () {
       expect(ScalePattern.findByName('Diatonic Major'), isNotNull);

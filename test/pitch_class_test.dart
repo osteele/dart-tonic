@@ -1,8 +1,7 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 
-void definePitchClassTests() {
+void main() {
   group('pitchClassToString', () {
     test('should return natural names', () {
       expect(pitchClassToString(0), equals('C'));

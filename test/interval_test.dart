@@ -1,8 +1,7 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 
-void defineIntervalTests() {
+void main() {
   group('intervalClassDifference', () {
     test('should return an integer in [0...12]', () {
       expect(intervalClassDifference(0, 5), equals(5));

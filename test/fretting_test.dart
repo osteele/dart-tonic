@@ -1,8 +1,7 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 
-void defineFrettingTests() {
+void main() {
   group('Fretting', () {
     var chord = Chord.parse('E Major');
     var instrument = Instrument.guitar;

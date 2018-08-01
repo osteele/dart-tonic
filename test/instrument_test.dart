@@ -1,9 +1,8 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 import 'matchers.dart';
 
-void defineInstrumentTests() {
+void main() {
   group('Instrument', () {
     test('lookup should define a guitar', () {
       expect(Instrument.lookup('Guitar'), isInstrument);

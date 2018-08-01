@@ -1,9 +1,8 @@
-// part of tonic_test;
 import 'package:test/test.dart';
 import 'package:tonic/tonic.dart';
 import 'matchers.dart';
 
-void defineChordTests() {
+void main() {
   group('ChordPattern', () {
     group('parse', () {
       test('should recognize chord names', () {
