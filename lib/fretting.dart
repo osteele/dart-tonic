@@ -366,7 +366,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
     List<Fretting> frettingList = frettingSet.toList();
     // number of open strings:
     frettingList.sort(compareBy(
-            (f) => f.positions.where((pos) => pos.fretNumber == 0).length));
+        (f) => f.positions.where((pos) => pos.fretNumber == 0).length));
     // number of sounded strings:
     frettingList.sort(compareBy((f) => f.positions.length));
     // root position:
