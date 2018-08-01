@@ -35,8 +35,8 @@ main() {
   print(Interval.M3.qualityName); // => "M"
 
   banner("Interval arithmetic");
-  print(Interval.M3 + Interval.m3); // => iP5
-  print(Interval.m3 + Interval.M3); // => iP5
+  print(Interval.M3 + Interval.m3); // => P5
+  print(Interval.m3 + Interval.M3); // => P5
   print(Interval.m3 + Interval.m3); // => d5
   print(Interval.M3 + Interval.M3); // => A5
 
@@ -64,13 +64,13 @@ main() {
 
   banner("Scales");
   var scalePattern = ScalePattern.findByName('Diatonic Major');
-  print(scalePattern.intervals); // => [P1, M2, iM3, iP4, iP5, M6, M7]
+  print(scalePattern.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
   print(scalePattern.modes);
   print(scalePattern
-      .modes['Dorian'].intervals); // => [P1, M2, im3, iP4, iP5, M6, im7]
+      .modes['Dorian'].intervals); // => [P1, M2, m3, P4, P5, M6, m7]
 
   var scale = scalePattern.at(PitchClass.parse('E4'));
-  print(scale.intervals); // => [P1, M2, iM3, iP4, iP5, M6, M7]
+  print(scale.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
   print(scale.pitchClasses); // => [E4, F♯4, G♯4, A4, B4, C♯5, D♯5]
 
   var chord = Chord.parse('E Major');
