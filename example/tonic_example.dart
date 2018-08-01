@@ -47,10 +47,10 @@ main() {
 
   print(Pitch.parse('C4') - Pitch.parse('C4')); // => P1
   print(Pitch.parse('D4') - Pitch.parse('C4')); // => M2
-  print(Pitch.parse('E4') - Pitch.parse('C4')); // => iM3
+  print(Pitch.parse('E4') - Pitch.parse('C4')); // => M3
   print(Pitch.parse('E♯4') - Pitch.parse('C4')); // => A3
   print(Pitch.parse('F♭4') - Pitch.parse('C4')); // => d4
-  print(Pitch.parse('F4') - Pitch.parse('C4')); // => iP4
+  print(Pitch.parse('F4') - Pitch.parse('C4')); // => P4
 
   banner("Chords");
   print(Chord.parse('E Major'));

@@ -26,15 +26,10 @@ class Instrument {
     if (_initialized) return;
     _initialized = true;
     for (var spec in _instrumentSpecs) {
-      // var stringPitches = spec['stringPitches']
-      //     .split(new RegExp(r'\s+'))
-      //     .map(Pitch.parse)
-      //     .toList();
-      String _spec = spec['stringPitches'];
-      _spec.split(new RegExp(r'\s+')).map(Pitch.parse).toList();
-      var stringPitches =
-          _spec.split(new RegExp(r'\s+')).map(Pitch.parse).toList();
-
+      var stringPitches = (spec['stringPitches'] as String)
+          .split(new RegExp(r'\s+'))
+          .map(Pitch.parse)
+          .toList();
       new FrettedInstrument(name: spec['name'], stringPitches: stringPitches);
     }
   }
