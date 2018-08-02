@@ -9,6 +9,9 @@ It also computes chord diagrams; this functionality is in progress.
 
 ## Installing via Pub
 
+The current version of this package requires Dart 2.0. Use [version
+0.1.1](https://github.com/osteele/dart-tonic/tree/v0.0.1) with Dart 1.x.
+
 Add the following to your `pubspec.yaml`, and run `pub get`.
 
 ```yaml
@@ -79,47 +82,23 @@ dependencies:
     print(ChordPattern.fromIntervals([Interval.P1, Interval.m3, Interval.P5, Interval.m7])); // => Min 7th
 
     // Scales
-    var scalePattern = ScalePattern.findByName('Diatonic Major');
+    final scalePattern = ScalePattern.findByName('Diatonic Major');
     print(scalePattern.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
     print(scalePattern.modes);
     print(scalePattern.modes['Dorian'].intervals); // => [P1, M2, m3, P4, P5, M6, m7]
 
-    var scale = scalePattern.at(Pitch.parse('E4'));
+    final scale = scalePattern.at(Pitch.parse('E4'));
     print(scale.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
     print(scale.pitchClasses); // => [E4, F♯4, G♯4, A4, B4, C♯5, D♯5]
 
-    var chord = Chord.parse('E Major');
-    var instrument = Instrument.Guitar;
+    // Instruments and fret fingerings
+    final chord = Chord.parse('E Major');
+    final instrument = Instrument.Guitar;
     print(bestFrettingFor(chord, instrument)); // => 022100
   }
 ```
 
 More examples can be found in the tests in `test/*_test.dart`.
-
-## Contributing
-
-The test suite should pass:
-
-```shell
-$ pub run test
-pub run test
-00:05 +120: All tests passed!
-```
-
-`dartanalyzer` should run without issues:
-
-```shell
-$ dartanalyzer lib test
-Analyzing lib, test...
-No issues found!
-```
-
-`dartfmt` should come up empty:
-
-```shell
-❯ dartfmt -n .
-
-```
 
 ## License
 

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+dartanalyzer --fatal-warnings .
+dartfmt -w .
+pub run test
