@@ -30,21 +30,21 @@ class Fretting {
           "fretString wrong length for $instrument: $fretString");
     }
 
-    Iterable<String> _fretString = fretString.split('');
-    Iterable<int> _stringIndices = instrument.stringIndices;
+    final Iterable<String> _fretString = fretString.split('');
+    final Iterable<int> _stringIndices = instrument.stringIndices;
 
-    var _positions = IterableZip([_fretString, _stringIndices]);
+    final _positions = IterableZip([_fretString, _stringIndices]);
 
-    Iterable<FretPosition> positions = _positions.map((item) {
-      String char = item[0];
-      int stringIndex = item[1];
+    final Iterable<FretPosition> positions = _positions.map((item) {
+      final String char = item[0];
+      final int stringIndex = item[1];
       if (char == 'x') return null;
-      var fretNumber = char.runes.first - 48;
+      final fretNumber = char.runes.first - 48;
       if (!(0 <= fretNumber && fretNumber <= 9)) {
         throw new FormatException(
             "Invalid character $char in fretString $fretString");
       }
-      var semitones = instrument
+      final semitones = instrument
           .pitchAt(stringIndex: stringIndex, fretNumber: fretNumber)
           .semitones;
       return new FretPosition(
@@ -164,15 +164,16 @@ class FretPosition {
 
 Set<FretPosition> chordFrets(
     Chord chord, FrettedInstrument instrument, int highestFret) {
-  var positions = new Set<FretPosition>();
-  var semitoneSet = chord.pitches.map((pitch) => pitch.semitones % 12).toSet();
+  final positions = new Set<FretPosition>();
+  final semitoneSet =
+      chord.pitches.map((pitch) => pitch.semitones % 12).toSet();
   eachWithIndex(instrument.stringPitches, (Pitch pitch, int stringIndex) {
     for (var fretNumber = 0; fretNumber <= highestFret; fretNumber++) {
-      var semitones = instrument
+      final semitones = instrument
           .pitchAt(stringIndex: stringIndex, fretNumber: fretNumber)
           .semitones;
       if (semitoneSet.contains(semitones % 12)) {
-        var position = new FretPosition(
+        final position = new FretPosition(
             stringIndex: stringIndex,
             fretNumber: fretNumber,
             semitones: semitones);
@@ -185,23 +186,24 @@ Set<FretPosition> chordFrets(
 
 List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
     {highestFret: 4}) {
-  int minPitchClasses = chord.intervals.length;
+  final int minPitchClasses = chord.intervals.length;
   Map<int, Set<FretPosition>> partitionFretsByString() {
-    Set<FretPosition> positions = chordFrets(chord, instrument, highestFret);
-    Map<int, Set<FretPosition>> partitions = new Map.fromIterable(
+    final Set<FretPosition> positions =
+        chordFrets(chord, instrument, highestFret);
+    final Map<int, Set<FretPosition>> partitions = new Map.fromIterable(
         instrument.stringIndices,
         key: (index) => index,
         value: (_) => new Set<FretPosition>());
-    for (var position in positions) {
+    for (final position in positions) {
       partitions[position.stringIndex].add(position);
     }
     return partitions;
   }
 
   // collectFrettingPositions(fretCandidatesPerString) {
-  //   var stringCount = fretCandidatesPerString.length;
-  //   var positionSet = [];
-  //   var fretArray = [];
+  //   final stringCount = fretCandidatesPerString.length;
+  //   final positionSet = [];
+  //   final fretArray = [];
   //   void fill(s) {
   //     if (s == stringCount) {
   //       positionSet.push fretArray.slice()
@@ -217,8 +219,8 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
 
   // // actually tests pitch classes, not pitches
   // containsAllChordPitches(fretArray) {
-  //   var trace = fretArray.join('') == '022100'
-  //   var pitchClasses = []
+  //   final trace = fretArray.join('') == '022100'
+  //   final pitchClasses = []
   //   for fret, string in fretArray
   //     continue unless typeof(fret) is 'number'
   //     pitchClass = instrument.pitchAt({fret, string}).toPitchClass().semitones
@@ -233,13 +235,13 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   // }
 
   Set<Fretting> generateFrettings() {
-    var frettings = new Set<Fretting>();
-    var stringFrets = partitionFretsByString();
+    final frettings = new Set<Fretting>();
+    final stringFrets = partitionFretsByString();
 
     void collect(Iterable<int> unprocessedStringIndices,
         Set<FretPosition> collectedPositions) {
       if (unprocessedStringIndices.isEmpty) {
-        int pitchClassCount = collectedPositions
+        final int pitchClassCount = collectedPositions
             .map((position) => position.semitones % 12)
             .toSet()
             .length;
@@ -250,11 +252,12 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
               positions: collectedPositions));
         }
       } else {
-        int stringIndex = unprocessedStringIndices.first;
-        Iterable<int> futureStringIndices = unprocessedStringIndices.skip(1);
+        final int stringIndex = unprocessedStringIndices.first;
+        final Iterable<int> futureStringIndices =
+            unprocessedStringIndices.skip(1);
         collect(futureStringIndices, collectedPositions);
-        for (var position in stringFrets[stringIndex]) {
-          Set<FretPosition> clone = new Set.from(collectedPositions);
+        for (final position in stringFrets[stringIndex]) {
+          final Set<FretPosition> clone = new Set.from(collectedPositions);
           clone.add(position);
           collect(futureStringIndices, clone);
         }
@@ -263,7 +266,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
 
     collect(instrument.stringIndices, new Set<FretPosition>());
 
-    //   var fretArrays = collectFrettingPositions(fretsPerString());
+    //   final fretArrays = collectFrettingPositions(fretsPerString());
     //   fretArrays = fretArrays.filter(containsAllChordPitches);
     //   fretArrays = fretArrays.filter(maximumFretDistance);
     //   for fretArray in fretArrays
@@ -278,7 +281,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
     return frettings;
   }
 
-  // var chordNoteCount = chord.pitches.length;
+  // final chordNoteCount = chord.pitches.length;
 
   //
   // Filters
@@ -287,7 +290,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   // // really counts distinct pitch classes, not distinct pitches
   // countDistinctNotes(fingering) {
   //   // _.chain(fingering.positions).pluck('intervalClass').uniq().value().length
-  //   var intervalClasses = []
+  //   final intervalClasses = []
   //   for {intervalClass} in fingering.positions
   //     intervalClasses.push intervalClass unless intervalClass in intervalClasses
   //   return intervalClasses.length;
@@ -303,7 +306,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   //   fingering.fretstring.match(/x$/);
 
   // getFingerCount(fingering) {
-  //   var n = (pos for pos in fingering.positions when pos.fret > 0).length;
+  //   final n = (pos for pos in fingering.positions when pos.fret > 0).length;
   //   n -= barre.fingerReplacementCount - 1 for barre in fingering.barres;
   //   return n;
   // }
@@ -313,7 +316,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
 
   // // Construct the filter set
 
-  // var filters = [];
+  // final filters = [];
   // // filters.push name: 'has all chord notes', select: hasAllNotes
 
   // if (options.filter) {
@@ -352,7 +355,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   // reverseSortKey = (fn) -> (a) -> -fn(a)
 
   // // ordered list of preferences, from most to least important
-  // var preferences = [
+  // final preferences = [
   //   {name: 'root position', key: isRootPosition}
   //   {name: 'high note count', key: highNoteCount}
   //   {name: 'avoid barres', key: reverseSortKey((fingering) -> fingering.barres.length)}
@@ -363,7 +366,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
       reverse ? (a, b) => f(a) - f(b) : (a, b) => f(b) - f(a);
 
   List<Fretting> sortFrettings(Iterable<Fretting> frettingSet) {
-    List<Fretting> frettingList = frettingSet.toList();
+    final List<Fretting> frettingList = frettingSet.toList();
     // number of open strings:
     frettingList.sort(compareBy(
         (f) => f.positions.where((pos) => pos.fretNumber == 0).length));
@@ -378,11 +381,11 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   // Generate, filter, and sort
   //
 
-  var frettings = generateFrettings();
+  final frettings = generateFrettings();
   // frettings = filterFrettings(frettings);
-  var orderedFrettings = sortFrettings(frettings);
+  final orderedFrettings = sortFrettings(frettings);
 
-  // var properties = {
+  // final properties = {
   //   'root': isRootPosition
   //   'barres': (f) -> f.barres.length
   //   'fingers': getFingerCount

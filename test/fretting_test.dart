@@ -3,9 +3,9 @@ import 'package:tonic/tonic.dart';
 
 void main() {
   group('Fretting', () {
-    var chord = Chord.parse('E Major');
-    var instrument = Instrument.guitar;
-    var fretting =
+    final chord = Chord.parse('E Major');
+    final instrument = Instrument.guitar;
+    final fretting =
         Fretting.fromFretString('0221x0', chord: chord, instrument: instrument);
 
     test('chord', () {
@@ -83,9 +83,9 @@ void main() {
   }, skip: "broken w/ change from insertionSort -> sort?");
 
   test('chordFrettings', () {
-    var chord = Chord.parse('E Major');
-    var instrument = Instrument.guitar;
-    var frettings = chordFrettings(chord, instrument);
+    final chord = Chord.parse('E Major');
+    final instrument = Instrument.guitar;
+    final frettings = chordFrettings(chord, instrument);
     // print(orderedFrettings);
 
     expect(frettings.length, inInclusiveRange(10, 250));
@@ -98,9 +98,9 @@ void main() {
   });
 
   test('bestFrettingFor', () {
-    var chord = Chord.parse('E Major');
-    var instrument = Instrument.guitar;
-    var fretting = bestFrettingFor(chord, instrument);
+    final chord = Chord.parse('E Major');
+    final instrument = Instrument.guitar;
+    final fretting = bestFrettingFor(chord, instrument);
 
     expect(fretting, isNotNull);
     // FIXME: broken w/ change from insertionSort -> sort?

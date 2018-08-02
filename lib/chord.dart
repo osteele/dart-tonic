@@ -24,7 +24,7 @@ class ChordPattern {
   ChordPattern({this.name, this.fullName, this.abbrs, this.intervals}) {
     _byName[name] = this;
     _byName[fullName] = this;
-    for (var abbr in abbrs) {
+    for (final abbr in abbrs) {
       _byName[abbr] = this;
     }
     _byIntervals[_intervalSetKey(intervals)] = this;
@@ -32,7 +32,7 @@ class ChordPattern {
 
   static ChordPattern fromIntervals(Iterable<Interval> intervals) {
     _initializeChords();
-    var chord = _byIntervals[_intervalSetKey(intervals)];
+    final chord = _byIntervals[_intervalSetKey(intervals)];
     if (chord == null)
       throw new NotFoundException("unknown chord interval pattern $intervals");
     return chord;
@@ -40,14 +40,14 @@ class ChordPattern {
 
   static String _intervalSetKey(Iterable<Interval> intervals) {
     // TODO remove the % to recognize additions
-    var key = intervals.map((interval) => interval.semitones % 12).toList();
+    final key = intervals.map((interval) => interval.semitones % 12).toList();
     key.sort();
     return key.join(',');
   }
 
   static ChordPattern parse(String name) {
     _initializeChords();
-    var chord = _byName[name];
+    final chord = _byName[name];
     if (chord == null)
       throw new FormatException("$name is not a ChordPattern name");
     return chord;
@@ -68,17 +68,18 @@ class ChordPattern {
   static void _initializeChords() {
     if (_chordsInitialized) return;
     _chordsInitialized = true;
-    for (var spec in _chordPatternSpecs) {
-      var fullName = spec['name'];
-      var abbrs = spec['abbrs'];
-      var intervals = List<Interval>.from(spec['intervals'].split('').map((c) {
+    for (final spec in _chordPatternSpecs) {
+      final fullName = spec['name'];
+      final abbrs = spec['abbrs'];
+      final intervals =
+          List<Interval>.from(spec['intervals'].split('').map((c) {
         var semitones = {'t': 10, 'e': 11}[c];
         if (semitones == null) {
           semitones = int.parse(c);
         }
         return new Interval.fromSemitones(semitones);
       }));
-      var name = fullName
+      final name = fullName
           .replaceAll(new RegExp(r'Major(?!$)'), 'Maj')
           .replaceAll(new RegExp(r'Minor(?!$)'), 'Min')
           .replaceAll(new RegExp(r'Dominant'), 'Dom')
@@ -105,18 +106,18 @@ class Chord {
   Chord({this.pattern, this.root});
 
   static Chord parse(String chordName) {
-    var match = _cordNamePattern.matchAsPrefix(chordName);
+    final match = _cordNamePattern.matchAsPrefix(chordName);
     if (match == null)
       throw new FormatException("invalid Chord name: $chordName");
-    var chordClass = ChordPattern.parse(match[2]);
+    final chordClass = ChordPattern.parse(match[2]);
     return chordClass.at(Pitch.parse(match[1]));
   }
 
   static Chord fromPitches(List<Pitch> pitches) {
-    for (var root in pitches) {
-      var intervals = pitches.map((pitch) => pitch - root).toSet();
+    for (final root in pitches) {
+      final intervals = pitches.map((pitch) => pitch - root).toSet();
       try {
-        var chord = ChordPattern.fromIntervals(intervals).at(root);
+        final chord = ChordPattern.fromIntervals(intervals).at(root);
         chord._pitches = pitches;
         return chord;
       } on NotFoundException {}

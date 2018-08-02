@@ -17,7 +17,7 @@ class ScalePattern {
 
   static ScalePattern findByName(String name) {
     _initializeBuiltinPatterns();
-    var scalePattern = _byName[name];
+    final scalePattern = _byName[name];
     if (scalePattern == null)
       throw new FormatException("$name is not a ScalePattern name");
     return scalePattern;
@@ -26,14 +26,14 @@ class ScalePattern {
   static void _initializeBuiltinPatterns() {
     if (_builtinPatternsInitialized) return;
     _builtinPatternsInitialized = true;
-    for (var spec in _scalePatternSpecs) {
-      var scaleName = spec['name'];
-      var parentName = spec['parent'];
+    for (final spec in _scalePatternSpecs) {
+      final scaleName = spec['name'];
+      final parentName = spec['parent'];
       var modeNames = spec['modeNames'];
-      List<int> intervalValues = spec['intervals'];
-      var intervals =
+      final List<int> intervalValues = spec['intervals'];
+      final intervals =
           intervalValues.map((n) => new Interval.fromSemitones(n)).toList();
-      var scale = parentName != null
+      final scale = parentName != null
           ? new Mode(
               name: scaleName,
               parent: ScalePattern.findByName(parentName),
@@ -43,7 +43,7 @@ class ScalePattern {
       eachWithIndex(modeNames, (modeName, index) {
         List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
-        var root = modeIntervals[0];
+        final root = modeIntervals[0];
         modeIntervals =
             modeIntervals.map((interval) => interval - root).toList();
         new Mode(name: modeName, parent: scale, intervals: modeIntervals);

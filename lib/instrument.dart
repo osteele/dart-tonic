@@ -13,7 +13,7 @@ class Instrument {
 
   static Instrument lookup(String name) {
     _initialize();
-    var instrument = _byName[name];
+    final instrument = _byName[name];
     if (instrument == null) throw new Exception("No instrument named $name");
     return instrument;
   }
@@ -27,8 +27,8 @@ class Instrument {
   static _initialize() {
     if (_initialized) return;
     _initialized = true;
-    for (var spec in _instrumentSpecs) {
-      var stringPitches = (spec['stringPitches'] as String)
+    for (final spec in _instrumentSpecs) {
+      final stringPitches = (spec['stringPitches'] as String)
           .split(new RegExp(r'\s+'))
           .map(Pitch.parse)
           .toList();

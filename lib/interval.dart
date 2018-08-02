@@ -64,9 +64,9 @@ class Interval {
     if (semitones == null)
       throw new ArgumentError("invalid interval number: $number");
     if (qualityName == null) qualityName = intervalNames[semitones][0];
-    var key = "$qualityName$number";
+    final key = "$qualityName$number";
     if (_cache.containsKey(key)) return _cache[key];
-    var qualitySemitones = _numberIsPerfect(number)
+    final qualitySemitones = _numberIsPerfect(number)
         ? "dPA".indexOf(qualityName) - 1
         : "dmMA".indexOf(qualityName) - 2;
     if (qualitySemitones == null)
@@ -83,12 +83,12 @@ class Interval {
     var interval = Interval.parse(intervalNames[semitones]);
     if (number != null) {
       interval = new Interval(number: number);
-      var qs = _numberIsPerfect(number) ? "dPA" : "dmMA";
-      var i = semitones - interval.semitones + (qs.length ~/ 2);
+      final qs = _numberIsPerfect(number) ? "dPA" : "dmMA";
+      final i = semitones - interval.semitones + (qs.length ~/ 2);
       if (!(0 <= i && i < qs.length))
         throw new ArgumentError(
             "can't qualify $interval to $semitones semitone(s)");
-      var q = qs[i];
+      final q = qs[i];
       interval = new Interval(number: number, qualityName: q);
     }
     return interval;
@@ -119,7 +119,7 @@ class Interval {
     if (name == "TT") {
       name = "d5";
     }
-    var match = _intervalNameParsePattern.matchAsPrefix(name);
+    final match = _intervalNameParsePattern.matchAsPrefix(name);
     assert(match != null);
     return new Interval(number: int.parse(match[2]), qualityName: match[1]);
   }

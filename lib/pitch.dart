@@ -52,8 +52,8 @@ final Map<String, int> accidentalValues = {
 int parseAccidentals(String accidentals) {
   int semitones = 0;
   accidentals.runes.forEach((int rune) {
-    var glyph = new String.fromCharCode(rune);
-    int value = accidentalValues[glyph];
+    final glyph = new String.fromCharCode(rune);
+    final int value = accidentalValues[glyph];
     if (value == null)
       throw new ArgumentError("not an accidental: $glyph in $accidentals");
     semitones += value;
@@ -68,7 +68,7 @@ String accidentalsToString(int semitones) {
 }
 
 int diatonicFloor(int semitones) {
-  int pitchClassNumber = semitones % 12;
+  final int pitchClassNumber = semitones % 12;
   if (flatNoteNames[pitchClassNumber].length > 1) {
     semitones += 1;
   }
@@ -83,9 +83,9 @@ int name2midi(String midiNoteName) {
   final match = midiNamePattern.matchAsPrefix(midiNoteName);
   if (match == null)
     throw new FormatException("$midiNoteName is not a midi note name");
-  String naturalName = match[1];
-  String accidentals = match[2];
-  String octaveName = match[3];
+  final String naturalName = match[1];
+  final String accidentals = match[2];
+  final String octaveName = match[3];
   int pitch = noteNames.indexOf(naturalName.toUpperCase());
   pitch += parseAccidentals(accidentals);
   pitch += 12 * (int.parse(octaveName) + 1);
@@ -132,7 +132,7 @@ class Pitch {
       accidentalSemitones += 1;
       chromaticIndex -= 1;
     }
-    var key = "$octave:$chromaticIndex:$accidentalSemitones";
+    final key = "$octave:$chromaticIndex:$accidentalSemitones";
     if (_interned.containsKey(key)) return _interned[key];
     return _interned[key] = new Pitch._internal(
         chromaticIndex: chromaticIndex,
@@ -150,15 +150,15 @@ class Pitch {
           : parseHelmholtzNotation(pitchName);
 
   static Pitch parseScientificNotation(String pitchName) {
-    var match = _scientificPitchNamePattern.matchAsPrefix(pitchName);
+    final match = _scientificPitchNamePattern.matchAsPrefix(pitchName);
     if (match == null)
       throw new FormatException("not in scientific notation: $pitchName");
-    String naturalName = match[1];
-    String accidentals = match[2];
-    String octaveName = match[3];
-    int pitch = noteNames.indexOf(naturalName.toUpperCase());
-    int accidentalSemitones = parseAccidentals(accidentals);
-    int octave = int.parse(octaveName);
+    final String naturalName = match[1];
+    final String accidentals = match[2];
+    final String octaveName = match[3];
+    final int pitch = noteNames.indexOf(naturalName.toUpperCase());
+    final int accidentalSemitones = parseAccidentals(accidentals);
+    final int octave = int.parse(octaveName);
     return new Pitch(
         chromaticIndex: pitch,
         accidentalSemitones: accidentalSemitones,
@@ -166,15 +166,15 @@ class Pitch {
   }
 
   static Pitch parseHelmholtzNotation(String pitchName) {
-    var match = _helmholtzPitchNamePattern.matchAsPrefix(pitchName);
+    final match = _helmholtzPitchNamePattern.matchAsPrefix(pitchName);
     if (match == null)
       throw new FormatException("not in Helmholtz notation: $pitchName");
-    String naturalName = match[1];
-    String accidentals = match[2];
-    String commas = match[3];
-    String apostrophes = match[4];
-    int pitch = noteNames.indexOf(naturalName.toUpperCase());
-    int accidentalSemitones = parseAccidentals(accidentals);
+    final String naturalName = match[1];
+    final String accidentals = match[2];
+    final String commas = match[3];
+    final String apostrophes = match[4];
+    final int pitch = noteNames.indexOf(naturalName.toUpperCase());
+    final int accidentalSemitones = parseAccidentals(accidentals);
     int octave = 3 + apostrophes.length - commas.length;
     if (naturalName == naturalName.toUpperCase()) {
       octave -= 1;
@@ -204,10 +204,10 @@ class Pitch {
 
   Pitch operator +(Interval interval) {
     var diatonicIndex = letterIndex + interval.number - 1;
-    var octave = this.octave + diatonicIndex ~/ 7;
+    final octave = this.octave + diatonicIndex ~/ 7;
     diatonicIndex %= 7;
-    var semitones = [0, 2, 4, 5, 7, 9, 11][diatonicIndex] + 12 * octave;
-    var accidentals = midiNumber + interval.semitones - semitones;
+    final semitones = [0, 2, 4, 5, 7, 9, 11][diatonicIndex] + 12 * octave;
+    final accidentals = midiNumber + interval.semitones - semitones;
     return new Pitch(
         chromaticIndex: semitones, accidentalSemitones: accidentals);
   }

@@ -3,7 +3,7 @@ import 'package:tonic/tonic.dart';
 
 void main() {
   group('ScalePattern', () {
-    test('should contains various blues and diatonic scales', () {
+    test('should contains finalious blues and diatonic scales', () {
       expect(ScalePattern.findByName('Diatonic Major'), isNotNull);
       expect(ScalePattern.findByName('Natural Minor'), isNotNull);
       expect(ScalePattern.findByName('Major Pentatonic'), isNotNull);
@@ -19,7 +19,7 @@ void main() {
   });
 
   group('Diatonic Major Scale', () {
-    var scalePattern = ScalePattern.findByName('Diatonic Major');
+    final scalePattern = ScalePattern.findByName('Diatonic Major');
 
     test('should exist', () {
       expect(scalePattern, isNotNull);
@@ -126,7 +126,7 @@ void main() {
     });
 
     group('at E', () {
-      var scale = scalePattern.at(PitchClass.parse('E'));
+      final scale = scalePattern.at(PitchClass.parse('E'));
       // chords = scale.chords()
 
       test('should contain a tonic pitch', () {
@@ -163,7 +163,7 @@ void main() {
 
   // group('Natural Minor scale pattern', () {
   //   test('is a mode of the Major Pentatonic', () {
-  //     var scale = ScalePattern.findByName('Natural Minor');
+  //     final scale = ScalePattern.findByName('Natural Minor');
   //     expect(scale, isMode);
   //   });
   // });

@@ -10,7 +10,7 @@ void main() {
   });
 
   group('Guitar', () {
-    var guitar = Instrument.guitar;
+    final guitar = Instrument.guitar;
 
     test('is an Instrument', () {
       expect(guitar, isInstrument);

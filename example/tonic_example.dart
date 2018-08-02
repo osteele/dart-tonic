@@ -63,18 +63,18 @@ main() {
       [Interval.P1, Interval.m3, Interval.P5, Interval.m7])); // => Min 7th
 
   banner("Scales");
-  var scalePattern = ScalePattern.findByName('Diatonic Major');
+  final scalePattern = ScalePattern.findByName('Diatonic Major');
   print(scalePattern.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
   print(scalePattern.modes);
   print(scalePattern
       .modes['Dorian'].intervals); // => [P1, M2, m3, P4, P5, M6, m7]
 
-  var scale = scalePattern.at(PitchClass.parse('E4'));
+  final scale = scalePattern.at(PitchClass.parse('E4'));
   print(scale.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
   print(scale.pitchClasses); // => [E4, F♯4, G♯4, A4, B4, C♯5, D♯5]
 
-  var chord = Chord.parse('E Major');
-  var instrument = Instrument.guitar;
+  final chord = Chord.parse('E Major');
+  final instrument = Instrument.guitar;
   print(bestFrettingFor(chord, instrument)); // => 022100
 }
 

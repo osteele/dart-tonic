@@ -184,7 +184,7 @@ void main() {
   });
 
   group('Major Chord Pattern', () {
-    var chordPattern = ChordPattern.parse('Major');
+    final chordPattern = ChordPattern.parse('Major');
 
     test('should be a ChordPattern', () {
       expect(chordPattern, isChordPattern);
@@ -212,7 +212,7 @@ void main() {
     });
 
     group('at E4', () {
-      var chord = chordPattern.at(Pitch.parse('E4'));
+      final chord = chordPattern.at(Pitch.parse('E4'));
 
       test('should have a root', () {
         expect(chord.root, equals(Pitch.parse('E4')));
@@ -242,7 +242,7 @@ void main() {
     });
 
     group('at C4', () {
-      var chord = chordPattern.at(Pitch.parse('C4'));
+      final chord = chordPattern.at(Pitch.parse('C4'));
 
       test('should have a root', () {
         expect(chord.root, equals(Pitch.parse('C4')));
@@ -273,10 +273,10 @@ void main() {
   });
 
   group('Minor Chord', () {
-    var chordPattern = ChordPattern.parse('Minor');
+    final chordPattern = ChordPattern.parse('Minor');
 
     group('at C4', () {
-      var chord = chordPattern.at(Pitch.parse('C4'));
+      final chord = chordPattern.at(Pitch.parse('C4'));
 
       test('should have a root', () {
         expect(chord.root, equals(Pitch.parse('C4')));

@@ -5,9 +5,9 @@ int normalizePitchClass(int pitchClass) => pitchClass % 12;
 final pitchToPitchClass = normalizePitchClass;
 
 String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
-  int pitchClass = pitchToPitchClass(pitch);
-  String flatName = flatNoteNames[pitchClass];
-  String sharpName = sharpNoteNames[pitchClass];
+  final int pitchClass = pitchToPitchClass(pitch);
+  final String flatName = flatNoteNames[pitchClass];
+  final String sharpName = sharpNoteNames[pitchClass];
   String name = sharp ? sharpName : flatName;
   if (flat && sharp && flatName != sharpName) name = "$flatName/\n$sharpName";
   return name;
@@ -22,7 +22,7 @@ class PitchClass {
 
   factory PitchClass({int integer}) {
     integer %= 12;
-    var key = integer;
+    final key = integer;
     if (_interned.containsKey(key)) return _interned[key];
     return _interned[key] = new PitchClass._internal(integer);
   }
@@ -47,8 +47,8 @@ class PitchClass {
     final match = _pitchClassPattern.matchAsPrefix(pitchClassName);
     if (match == null)
       throw new FormatException("$pitchClassName is not a pitch class name");
-    String naturalName = match[1];
-    String accidentals = match[2];
+    final String naturalName = match[1];
+    final String accidentals = match[2];
     int integer = noteNames.indexOf(naturalName.toUpperCase());
     integer += parseAccidentals(accidentals);
     return new PitchClass(integer: integer);
