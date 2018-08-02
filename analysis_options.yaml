@@ -1,0 +1,58 @@
+linter:
+  rules:
+    - avoid_empty_else
+    - cancel_subscriptions
+    - close_sinks
+    - comment_references
+    - control_flow_in_finally
+    - empty_statements
+    - hash_and_equals
+    - invariant_booleans
+    - iterable_contains_unrelated_type
+    - list_remove_unrelated_type
+    - literal_only_boolean_expressions
+    - test_types_in_equals
+    - throw_in_finally
+    - unrelated_type_equality_checks
+    - valid_regexps
+
+    - avoid_init_to_null
+    - avoid_return_types_on_setters
+    - await_only_futures
+    - camel_case_types
+    - constant_identifier_names
+    - empty_constructor_bodies
+    - implementation_imports
+    - library_names
+    - library_prefixes
+    - one_member_abstracts
+    - only_throw_errors
+    - overridden_fields
+    - package_api_docs
+    - package_prefixed_library_names
+    - prefer_final_fields
+    - prefer_final_locals
+    - prefer_is_not_empty
+    - slash_for_doc_comments
+    - sort_constructor_first
+    - sort_unnamed_constructors_first
+    - super_goes_last
+    - type_init_formals
+    - unawaited_futures
+    - unnecessary_brace_in_string_interps
+    - unnecessary_getters_setters
+
+    # TODO:
+    # - empty_catches
+    # - parameter_assignments
+    # - public_member_api_docs
+    # - type_annotate_public_apis
+
+    # Consider:
+    # - always_declare_return_types
+    # - always_specify_types
+    # - cascade_invocations
+
+    # Intentionally disabled:
+    # - annotate_overrides
+    # - non_constant_identifier_names
