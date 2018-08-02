@@ -368,12 +368,14 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   List<Fretting> sortFrettings(Iterable<Fretting> frettingSet) {
     final List<Fretting> frettingList = frettingSet.toList();
     // number of open strings:
-    frettingList.sort(compareBy(
-        (f) => f.positions.where((pos) => pos.fretNumber == 0).length));
+    insertionSort(frettingList,
+        compare: compareBy(
+            (f) => f.positions.where((pos) => pos.fretNumber == 0).length));
     // number of sounded strings:
-    frettingList.sort(compareBy((f) => f.positions.length));
+    insertionSort(frettingList, compare: compareBy((f) => f.positions.length));
     // root position:
-    frettingList.sort(compareBy((f) => f.inversionIndex, reverse: true));
+    insertionSort(frettingList,
+        compare: compareBy((f) => f.inversionIndex, reverse: true));
     return frettingList;
   }
 
