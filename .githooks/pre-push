@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+dartfmt -n --set-exit-if-changed .
+dartanalyzer --fatal-infos --fatal-warnings .
+pub run test

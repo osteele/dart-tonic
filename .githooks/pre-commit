@@ -2,6 +2,6 @@
 
 set -e
 
-dartanalyzer --fatal-warnings .
 dartfmt -w .
+dartanalyzer --fatal-infos --fatal-warnings .
 pub run test
