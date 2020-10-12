@@ -195,6 +195,20 @@ void main() {
       expect(new Pitch.fromMidiNumber(61).toString(), equals('C♯4'));
     });
 
+    test('helmholtzName should return helmholtz notation', () {
+      expect(Pitch.parse('C0').helmholtzName, equals("C,,"));
+      expect(Pitch.parse('C1').helmholtzName, equals("C,"));
+      expect(Pitch.parse('C2').helmholtzName, equals("C"));
+      expect(Pitch.parse('C3').helmholtzName, equals("c"));
+      expect(Pitch.parse('C4').helmholtzName, equals("c'"));
+      expect(Pitch.parse('C5').helmholtzName, equals("c''"));
+      expect(Pitch.parse('C6').helmholtzName, equals("c'''"));
+      expect(Pitch.parse('C7').helmholtzName, equals("c''''"));
+      expect(Pitch.parse('C8').helmholtzName, equals("c'''''"));
+      expect(Pitch.parse('G5').helmholtzName, equals("g''"));
+      expect(Pitch.parse('C♯4').helmholtzName, equals("c♯'"));
+    });
+
     test('toPitch should return itself', () {
       expect(Pitch.parse('C4').toPitch(), equals(Pitch.parse('C4')));
     });
