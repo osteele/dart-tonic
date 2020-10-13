@@ -45,6 +45,7 @@ main() {
   print(Pitch.parse('C4').octave); // => 5
   print(Pitch.parse('C4').midiNumber); // => 60
   print(new Pitch.fromMidiNumber(60)); // => C4
+  print(new Pitch.fromMidiNumber(60).helmholtzName); // => c'
 
   // Intervals
   print(Interval.M3);
