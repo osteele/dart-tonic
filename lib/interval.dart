@@ -143,34 +143,85 @@ class Interval {
       new Interval.fromSemitones(semitones - other.semitones % 12,
           number: (number - other.number) % 7 + 1);
 
+  /// The perfect unison interval
   static final Interval P1 = Interval.parse('P1');
+
+  /// The minor 2nd interval
   static final Interval m2 = Interval.parse('m2');
+
+  /// The major 2nd interval
   static final Interval M2 = Interval.parse('M2');
+
+  /// The minor 3rd interval
   static final Interval m3 = Interval.parse('m3');
+
+  /// The major 3rd interval
   static final Interval M3 = Interval.parse('M3');
+
+  /// The perfect 4th interval
   static final Interval P4 = Interval.parse('P4');
+
+  /// The tritone interval
   static final Interval TT = Interval.parse('TT');
+
+  /// The perfect 4th interval
   static final Interval P5 = Interval.parse('P5');
+
+  /// The minor 6th interval
   static final Interval m6 = Interval.parse('m6');
+
+  /// The major 6th interval
   static final Interval M6 = Interval.parse('M6');
+
+  /// The minor 7th interval
   static final Interval m7 = Interval.parse('m7');
+
+  /// The major 7th interval
   static final Interval M7 = Interval.parse('M7');
+
+  /// The perfect octave interval
   static final Interval P8 = Interval.parse('P8');
 
+  /// The augmented unison interval
   static final Interval A1 = Interval.P1.augmented;
+
+  /// The augmented 2nd interval
   static final Interval A2 = Interval.M2.augmented;
+
+  /// The augmented 3rd interval
   static final Interval A3 = Interval.M3.augmented;
+
+  /// The augmented 4th interval
   static final Interval A4 = Interval.P4.augmented;
+
+  /// The augmented 5th interval
   static final Interval A5 = Interval.P5.augmented;
+
+  /// The augmented 6th interval
   static final Interval A6 = Interval.M6.augmented;
+
+  /// The augmented 7th interval
   static final Interval A7 = Interval.M7.augmented;
 
+  /// The diminished 2nd interval
   static final Interval d2 = Interval.m2.diminished;
+
+  /// The diminished 3rd interval
   static final Interval d3 = Interval.m3.diminished;
+
+  /// The diminished 4th interval
   static final Interval d4 = Interval.P4.diminished;
+
+  /// The diminished 5th interval
   static final Interval d5 = Interval.P5.diminished;
+
+  /// The diminished 6th interval
   static final Interval d6 = Interval.m6.diminished;
+
+  /// The diminished 7th interval
   static final Interval d7 = Interval.m7.diminished;
+
+  /// The diminished octave interval
   static final Interval d8 = Interval.P8.diminished;
 }
 
