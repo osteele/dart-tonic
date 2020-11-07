@@ -236,6 +236,31 @@ class Pitch {
 
   String toString() => "$letterName$accidentalsString${octave - 1}";
 
+  String get helmholtzName {
+    String helmholtzLetter = '';
+    String helmholtzCommas = '';
+    String helmholtzApostrophes = '';
+
+    switch (octave - 1) {
+      case 0:
+      case 1:
+      case 2:
+        helmholtzLetter = letterName;
+        helmholtzCommas = "," * (3 - octave);
+        break;
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+        helmholtzLetter = letterName.toLowerCase();
+        helmholtzApostrophes = "'" * (octave - 4);
+        break;
+    }
+    return "$helmholtzLetter$accidentalsString$helmholtzCommas$helmholtzApostrophes";
+  }
+
   String get inspect => {
         'letter': letterName,
         'diatonicSemitones': diatonicSemitones,
