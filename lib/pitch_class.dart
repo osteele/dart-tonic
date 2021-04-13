@@ -20,10 +20,10 @@ class PitchClass {
 
   static final Map<int, PitchClass> _interned = <int, PitchClass>{};
 
-  factory PitchClass({int integer}) {
+  factory PitchClass({required int integer}) {
     integer %= 12;
     final key = integer;
-    if (_interned.containsKey(key)) return _interned[key];
+    if (_interned.containsKey(key)) return _interned[key]!;
     return _interned[key] = new PitchClass._internal(integer);
   }
 
@@ -47,8 +47,8 @@ class PitchClass {
     final match = _pitchClassPattern.matchAsPrefix(pitchClassName);
     if (match == null)
       throw new FormatException("$pitchClassName is not a pitch class name");
-    final String naturalName = match[1];
-    final String accidentals = match[2];
+    final String naturalName = match[1]!;
+    final String accidentals = match[2]!;
     int integer = noteNames.indexOf(naturalName.toUpperCase());
     integer += parseAccidentals(accidentals);
     return new PitchClass(integer: integer);

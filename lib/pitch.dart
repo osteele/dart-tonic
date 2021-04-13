@@ -53,7 +53,7 @@ int parseAccidentals(String accidentals) {
   int semitones = 0;
   accidentals.runes.forEach((int rune) {
     final glyph = new String.fromCharCode(rune);
-    final int value = accidentalValues[glyph];
+    final int? value = accidentalValues[glyph];
     if (value == null)
       throw new ArgumentError("not an accidental: $glyph in $accidentals");
     semitones += value;
@@ -83,9 +83,9 @@ int name2midi(String midiNoteName) {
   final match = midiNamePattern.matchAsPrefix(midiNoteName);
   if (match == null)
     throw new FormatException("$midiNoteName is not a midi note name");
-  final String naturalName = match[1];
-  final String accidentals = match[2];
-  final String octaveName = match[3];
+  final String naturalName = match[1]!;
+  final String accidentals = match[2]!;
+  final String octaveName = match[3]!;
   int pitch = noteNames.indexOf(naturalName.toUpperCase());
   pitch += parseAccidentals(accidentals);
   pitch += 12 * (int.parse(octaveName) + 1);
@@ -125,7 +125,7 @@ class Pitch {
 
   // chromaticIndex is in semitones but must index a diatonic pitch
   factory Pitch(
-      {int chromaticIndex, int accidentalSemitones: 0, int octave: -1}) {
+      {required int chromaticIndex, int accidentalSemitones: 0, int octave: -1}) {
     octave += chromaticIndex ~/ 12;
     chromaticIndex = chromaticIndex % 12;
     if (noteNames[chromaticIndex].length > 1) {
@@ -133,15 +133,18 @@ class Pitch {
       chromaticIndex -= 1;
     }
     final key = "$octave:$chromaticIndex:$accidentalSemitones";
-    if (_interned.containsKey(key)) return _interned[key];
+    if (_interned.containsKey(key)) return _interned[key]!;
     return _interned[key] = new Pitch._internal(
         chromaticIndex: chromaticIndex,
         accidentalSemitones: accidentalSemitones,
         octave: octave);
   }
 
-  Pitch._internal(
-      {int chromaticIndex, this.accidentalSemitones: 0, int octave: -1})
+  Pitch._internal({
+    required int chromaticIndex, 
+    this.accidentalSemitones: 0, 
+    int octave: -1,
+  })
       : diatonicSemitones = chromaticIndex + 12 * (octave + 1);
 
   static Pitch parse(String pitchName) =>
@@ -153,9 +156,9 @@ class Pitch {
     final match = _scientificPitchNamePattern.matchAsPrefix(pitchName);
     if (match == null)
       throw new FormatException("not in scientific notation: $pitchName");
-    final String naturalName = match[1];
-    final String accidentals = match[2];
-    final String octaveName = match[3];
+    final String naturalName = match[1]!;
+    final String accidentals = match[2]!;
+    final String octaveName = match[3]!;
     final int pitch = noteNames.indexOf(naturalName.toUpperCase());
     final int accidentalSemitones = parseAccidentals(accidentals);
     final int octave = int.parse(octaveName);
@@ -169,10 +172,10 @@ class Pitch {
     final match = _helmholtzPitchNamePattern.matchAsPrefix(pitchName);
     if (match == null)
       throw new FormatException("not in Helmholtz notation: $pitchName");
-    final String naturalName = match[1];
-    final String accidentals = match[2];
-    final String commas = match[3];
-    final String apostrophes = match[4];
+    final String naturalName = match[1]!;
+    final String accidentals = match[2]!;
+    final String commas = match[3]!;
+    final String apostrophes = match[4]!;
     final int pitch = noteNames.indexOf(naturalName.toUpperCase());
     final int accidentalSemitones = parseAccidentals(accidentals);
     int octave = 3 + apostrophes.length - commas.length;

@@ -11,7 +11,7 @@ class ScalePattern {
   static final Map<String, ScalePattern> _byName = <String, ScalePattern>{};
   static bool _builtinPatternsInitialized = false;
 
-  ScalePattern({this.name, this.intervals}) {
+  ScalePattern({required this.name, required this.intervals}) {
     _byName[name] = this;
   }
 
@@ -29,7 +29,7 @@ class ScalePattern {
     for (final spec in _scalePatternSpecs) {
       final scaleName = spec['name'];
       final parentName = spec['parent'];
-      var modeNames = spec['modeNames'];
+      List<String>? modeNames = spec['modeNames'];
       final List<int> intervalValues = spec['intervals'];
       final intervals =
           intervalValues.map((n) => new Interval.fromSemitones(n)).toList();
@@ -40,7 +40,7 @@ class ScalePattern {
               intervals: intervals)
           : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
-      eachWithIndex(modeNames, (modeName, index) {
+      eachWithIndex(modeNames, (String modeName, index) {
         List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         final root = modeIntervals[0];
@@ -57,7 +57,11 @@ class ScalePattern {
 class Mode extends ScalePattern {
   final ScalePattern parent;
 
-  Mode({String name, this.parent, List<Interval> intervals})
+  Mode({
+    required String name, 
+    required this.parent, 
+    required List<Interval> intervals,
+  })
       : super(name: name, intervals: intervals) {
     parent.modes[name] = this;
   }
@@ -69,7 +73,7 @@ class Scale {
   final ScalePattern pattern;
   final PitchClass tonic;
 
-  Scale({this.pattern, this.tonic});
+  Scale({required this.pattern, required this.tonic});
 
   List<Interval> get intervals => pattern.intervals;
 

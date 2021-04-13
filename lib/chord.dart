@@ -21,7 +21,12 @@ class ChordPattern {
   static final Map<String, ChordPattern> _byIntervals =
       <String, ChordPattern>{};
 
-  ChordPattern({this.name, this.fullName, this.abbrs, this.intervals}) {
+  ChordPattern({
+    required this.name, 
+    required this.fullName, 
+    required this.abbrs, 
+    required this.intervals,
+  }) {
     _byName[name] = this;
     _byName[fullName] = this;
     for (final abbr in abbrs) {
@@ -98,19 +103,19 @@ class ChordPattern {
 class Chord {
   ChordPattern pattern;
   Pitch root;
-  List<Pitch> _pitches;
+  List<Pitch>? _pitches;
 
   static final Pattern _cordNamePattern =
       new RegExp(r"^([a-gA-G],*'*[#b♯♭𝄪𝄫]*(?:\d*))\s*(.*)$");
 
-  Chord({this.pattern, this.root});
+  Chord({required this.pattern, required this.root});
 
   static Chord parse(String chordName) {
     final match = _cordNamePattern.matchAsPrefix(chordName);
     if (match == null)
       throw new FormatException("invalid Chord name: $chordName");
-    final chordClass = ChordPattern.parse(match[2]);
-    return chordClass.at(Pitch.parse(match[1]));
+    final chordClass = ChordPattern.parse(match[2]!);
+    return chordClass.at(Pitch.parse(match[1]!));
   }
 
   static Chord fromPitches(List<Pitch> pitches) {
@@ -136,7 +141,7 @@ class Chord {
     if (_pitches == null) {
       _pitches = intervals.map((interval) => root + interval).toList();
     }
-    return _pitches;
+    return _pitches!;
   }
 }
 

@@ -68,7 +68,7 @@ main() {
   print(scalePattern.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
   print(scalePattern.modes);
   print(scalePattern
-      .modes['Dorian'].intervals); // => [P1, M2, m3, P4, P5, M6, m7]
+      .modes['Dorian']!.intervals); // => [P1, M2, m3, P4, P5, M6, m7]
 
   final scale = scalePattern.at(PitchClass.parse('E4'));
   print(scale.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
