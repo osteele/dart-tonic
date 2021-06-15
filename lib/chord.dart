@@ -12,22 +12,22 @@ class NotFoundException implements Exception {
 /// without the root; for example, Dom7. A ChordPattern represents the quality,
 /// suspensions, and additions.
 class ChordPattern {
-  final String name;
-  final String fullName;
-  final List<String> abbrs;
-  final List<Interval> intervals;
+  final String? name;
+  final String? fullName;
+  final List<String>? abbrs;
+  final List<Interval>? intervals;
 
-  static final Map<String, ChordPattern> _byName = <String, ChordPattern>{};
+  static final Map<String?, ChordPattern> _byName = <String?, ChordPattern>{};
   static final Map<String, ChordPattern> _byIntervals =
       <String, ChordPattern>{};
 
   ChordPattern({this.name, this.fullName, this.abbrs, this.intervals}) {
     _byName[name] = this;
     _byName[fullName] = this;
-    for (final abbr in abbrs) {
+    for (final abbr in abbrs!) {
       _byName[abbr] = this;
     }
-    _byIntervals[_intervalSetKey(intervals)] = this;
+    _byIntervals[_intervalSetKey(intervals!)] = this;
   }
 
   static ChordPattern fromIntervals(Iterable<Interval> intervals) {
@@ -45,7 +45,7 @@ class ChordPattern {
     return key.join(',');
   }
 
-  static ChordPattern parse(String name) {
+  static ChordPattern parse(String? name) {
     _initializeChords();
     final chord = _byName[name];
     if (chord == null)
@@ -53,8 +53,8 @@ class ChordPattern {
     return chord;
   }
 
-  String get abbr => abbrs[0];
-  String toString() => name;
+  String get abbr => abbrs![0];
+  String toString() => name!;
 
   String get inspect => {
         'name': name,
@@ -96,9 +96,9 @@ class ChordPattern {
 /// A Chord is a set of pitches. It can also be considered as a root, and a set
 /// of intervals.
 class Chord {
-  ChordPattern pattern;
-  Pitch root;
-  List<Pitch> _pitches;
+  ChordPattern? pattern;
+  Pitch? root;
+  List<Pitch>? _pitches;
 
   static final Pattern _cordNamePattern =
       new RegExp(r"^([a-gA-G],*'*[#b♯♭𝄪𝄫]*(?:\d*))\s*(.*)$");
@@ -110,7 +110,7 @@ class Chord {
     if (match == null)
       throw new FormatException("invalid Chord name: $chordName");
     final chordClass = ChordPattern.parse(match[2]);
-    return chordClass.at(Pitch.parse(match[1]));
+    return chordClass.at(Pitch.parse(match[1]!));
   }
 
   static Chord fromPitches(List<Pitch> pitches) {
@@ -126,15 +126,15 @@ class Chord {
   }
 
   String get name => "$root $pattern";
-  String get fullName => "$root ${pattern.fullName}";
-  String get abbr => pattern.abbr == "" ? "$root" : "$root ${pattern.abbr}";
-  List<Interval> get intervals => pattern.intervals;
+  String get fullName => "$root ${pattern!.fullName}";
+  String get abbr => pattern!.abbr == "" ? "$root" : "$root ${pattern!.abbr}";
+  List<Interval>? get intervals => pattern!.intervals;
 
   String toString() => name;
 
-  List<Pitch> get pitches {
+  List<Pitch>? get pitches {
     if (_pitches == null) {
-      _pitches = intervals.map((interval) => root + interval).toList();
+      _pitches = intervals!.map((interval) => root! + interval).toList();
     }
     return _pitches;
   }

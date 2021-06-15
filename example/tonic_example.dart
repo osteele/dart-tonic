@@ -28,10 +28,10 @@ main() {
   print(Interval.parse('M3'));
   print(Interval.m3.semitones); // => 3
   print(Interval.M3.semitones); // => 4
-  print(Interval.A3.semitones); // => 5
-  print(Interval.d4.semitones); // => 4
+  print(Interval.A3!.semitones); // => 5
+  print(Interval.d4!.semitones); // => 4
   print(Interval.P4.semitones); // => 5
-  print(Interval.A4.semitones); // => 6
+  print(Interval.A4!.semitones); // => 6
   print(Interval.M3.number); // => 3
   print(Interval.M3.qualityName); // => "M"
 
@@ -42,8 +42,8 @@ main() {
   print(Interval.M3 + Interval.M3); // => A5
 
   print(Pitch.parse('C4') + Interval.M3); // => E4
-  print(Pitch.parse('C4') + Interval.A3); // => E♯4
-  print(Pitch.parse('C4') + Interval.d4); // => F♭4
+  print(Pitch.parse('C4') + Interval.A3!); // => E♯4
+  print(Pitch.parse('C4') + Interval.d4!); // => F♭4
   print(Pitch.parse('C4') + Interval.P4); // => F4
 
   print(Pitch.parse('C4') - Pitch.parse('C4')); // => P1
@@ -68,7 +68,7 @@ main() {
   print(scalePattern.intervals); // => [P1, M2, M3, P4, P5, M6, M7]
   print(scalePattern.modes);
   print(scalePattern
-      .modes['Dorian'].intervals); // => [P1, M2, m3, P4, P5, M6, m7]
+      .modes['Dorian']!.intervals); // => [P1, M2, m3, P4, P5, M6, m7]
 
   final scale = scalePattern.at(PitchClass.parse('E4'));
   print(scale.intervals); // => [P1, M2, M3, P4, P5, M6, M7]

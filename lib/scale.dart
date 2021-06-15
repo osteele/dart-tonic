@@ -4,11 +4,11 @@ part of tonic;
 /// of root (or tonic). For example, there is a Major scale pattern, that is
 /// realized at particular roots as C Major, D Major, etc.
 class ScalePattern {
-  final String name;
-  final List<Interval> intervals;
-  final Map<String, Mode> modes = <String, Mode>{};
+  final String? name;
+  final List<Interval>? intervals;
+  final Map<String?, Mode> modes = <String?, Mode>{};
 
-  static final Map<String, ScalePattern> _byName = <String, ScalePattern>{};
+  static final Map<String?, ScalePattern> _byName = <String?, ScalePattern>{};
   static bool _builtinPatternsInitialized = false;
 
   ScalePattern({this.name, this.intervals}) {
@@ -40,7 +40,7 @@ class ScalePattern {
               intervals: intervals)
           : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
-      eachWithIndex(modeNames, (modeName, index) {
+      eachWithIndex(modeNames, (dynamic modeName, index) {
         List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         final root = modeIntervals[0];
@@ -55,26 +55,26 @@ class ScalePattern {
 }
 
 class Mode extends ScalePattern {
-  final ScalePattern parent;
+  final ScalePattern? parent;
 
-  Mode({String name, this.parent, List<Interval> intervals})
+  Mode({String? name, this.parent, List<Interval>? intervals})
       : super(name: name, intervals: intervals) {
-    parent.modes[name] = this;
+    parent!.modes[name] = this;
   }
 }
 
 /// A scale is a set of musical notes. Equivalently, it is a scale pattern
 /// and a tonic.
 class Scale {
-  final ScalePattern pattern;
-  final PitchClass tonic;
+  final ScalePattern? pattern;
+  final PitchClass? tonic;
 
   Scale({this.pattern, this.tonic});
 
-  List<Interval> get intervals => pattern.intervals;
+  List<Interval>? get intervals => pattern!.intervals;
 
   List<PitchClass> get pitchClasses =>
-      intervals.map((interval) => tonic + interval).toList();
+      intervals!.map((interval) => tonic! + interval).toList();
 
   // : intervals = (new Interval(semitones) for semitones in @pitchClasses)
   // @pitches = (@tonic.add(interval) for interval in @intervals) if @tonic?

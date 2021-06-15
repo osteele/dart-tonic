@@ -39,8 +39,8 @@ void main() {
     test('stringPitches should be a List of pitches', () {
       // expect(guitar.stringPitches, isList);
       expect(guitar.stringPitches, hasLength(6));
-      expect(guitar.stringPitches[0], equals(Pitch.parse('E2')));
-      expect(guitar.stringPitches[5], equals(Pitch.parse('E4')));
+      expect(guitar.stringPitches![0], equals(Pitch.parse('E2')));
+      expect(guitar.stringPitches![5], equals(Pitch.parse('E4')));
     });
 
     test('stringIndices should be a List of integers', () {

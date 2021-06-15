@@ -171,23 +171,23 @@ void main() {
     });
 
     test('should define the augmented intervals', () {
-      expect(Interval.A1.semitones, equals(1));
-      expect(Interval.A2.semitones, equals(3));
-      expect(Interval.A3.semitones, equals(5));
-      expect(Interval.A4.semitones, equals(6));
-      expect(Interval.A5.semitones, equals(8));
-      expect(Interval.A6.semitones, equals(10));
-      expect(Interval.A7.semitones, equals(12));
+      expect(Interval.A1!.semitones, equals(1));
+      expect(Interval.A2!.semitones, equals(3));
+      expect(Interval.A3!.semitones, equals(5));
+      expect(Interval.A4!.semitones, equals(6));
+      expect(Interval.A5!.semitones, equals(8));
+      expect(Interval.A6!.semitones, equals(10));
+      expect(Interval.A7!.semitones, equals(12));
     });
 
     test('should define the diminished intervals', () {
-      expect(Interval.d2.semitones, equals(0));
-      expect(Interval.d3.semitones, equals(2));
-      expect(Interval.d4.semitones, equals(4));
-      expect(Interval.d5.semitones, equals(6));
-      expect(Interval.d6.semitones, equals(7));
-      expect(Interval.d7.semitones, equals(9));
-      expect(Interval.d8.semitones, equals(11));
+      expect(Interval.d2!.semitones, equals(0));
+      expect(Interval.d3!.semitones, equals(2));
+      expect(Interval.d4!.semitones, equals(4));
+      expect(Interval.d5!.semitones, equals(6));
+      expect(Interval.d6!.semitones, equals(7));
+      expect(Interval.d7!.semitones, equals(9));
+      expect(Interval.d8!.semitones, equals(11));
     });
 
     test('+Interval should return an Interval', () {
@@ -197,14 +197,14 @@ void main() {
       expect(Interval.m2 + Interval.M2, equals(Interval.m3));
       expect(Interval.M2 + Interval.m2, equals(Interval.m3));
       expect(Interval.M2 + Interval.M2, equals(Interval.M3));
-      expect(Interval.d2 + Interval.M2, equals(Interval.d3));
-      expect(Interval.M2 + Interval.d2, equals(Interval.d3));
-      expect(Interval.M2 + Interval.A2, equals(Interval.A3));
-      expect(Interval.A2 + Interval.M2, equals(Interval.A3));
-      expect(Interval.M2 + Interval.d2, equals(Interval.d3));
-      expect(Interval.A2 + Interval.d2, equals(Interval.m3));
-      expect(Interval.M2 + Interval.A4, equals(Interval.A5));
-      expect(Interval.M2 + Interval.d5, equals(Interval.m6));
+      expect(Interval.d2! + Interval.M2, equals(Interval.d3));
+      expect(Interval.M2 + Interval.d2!, equals(Interval.d3));
+      expect(Interval.M2 + Interval.A2!, equals(Interval.A3));
+      expect(Interval.A2! + Interval.M2, equals(Interval.A3));
+      expect(Interval.M2 + Interval.d2!, equals(Interval.d3));
+      expect(Interval.A2! + Interval.d2!, equals(Interval.m3));
+      expect(Interval.M2 + Interval.A4!, equals(Interval.A5));
+      expect(Interval.M2 + Interval.d5!, equals(Interval.m6));
       expect(Interval.M3 + Interval.m3, equals(Interval.P5));
       expect(Interval.m3 + Interval.M3, equals(Interval.P5));
       expect(Interval.m3 + Interval.m3, equals(Interval.d5));
@@ -215,17 +215,17 @@ void main() {
 
     test('+Interval should throw an error when the quality is out of range',
         () {
-      expect(() => Interval.d2 + Interval.m2, throwsArgumentError);
-      expect(() => Interval.m2 + Interval.d2, throwsArgumentError);
+      expect(() => Interval.d2! + Interval.m2, throwsArgumentError);
+      expect(() => Interval.m2 + Interval.d2!, throwsArgumentError);
     });
 
     test('-Interval should return an Interval', () {
       expect(Interval.P5 - Interval.M3, Interval.m3);
       expect(Interval.P5 - Interval.m3, Interval.M3);
-      expect(Interval.A5 - Interval.m3, Interval.A3);
-      expect(Interval.A5 - Interval.M3, Interval.M3);
-      expect(Interval.d5 - Interval.m3, Interval.m3);
-      expect(Interval.d5 - Interval.M3, Interval.d3);
+      expect(Interval.A5! - Interval.m3, Interval.A3);
+      expect(Interval.A5! - Interval.M3, Interval.M3);
+      expect(Interval.d5! - Interval.m3, Interval.m3);
+      expect(Interval.d5! - Interval.M3, Interval.d3);
       expect(Interval.M7 - Interval.M3, Interval.P5);
       expect(Interval.M7 - Interval.m3, Interval.A5);
     });

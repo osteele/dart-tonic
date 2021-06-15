@@ -49,15 +49,15 @@ class Interval {
   // final int semitones;
   final String qualityName;
   final int qualitySemitones;
-  Interval _augmented;
-  Interval _diminished;
+  Interval? _augmented;
+  Interval? _diminished;
 
   static final Map<String, Interval> _cache = <String, Interval>{};
 
   static final List<int> _semitonesByNumber = [0, 2, 4, 5, 7, 9, 11, 12];
   static bool _numberIsPerfect(int number) => [1, 4, 5, 8].indexOf(number) >= 0;
 
-  factory Interval({int number, String qualityName}) {
+  factory Interval({required int number, String? qualityName}) {
     assert(number != null);
     assert(1 <= number && number <= 8);
     var semitones = _semitonesByNumber[number - 1];
@@ -65,7 +65,7 @@ class Interval {
       throw new ArgumentError("invalid interval number: $number");
     if (qualityName == null) qualityName = intervalNames[semitones][0];
     final key = "$qualityName$number";
-    if (_cache.containsKey(key)) return _cache[key];
+    if (_cache.containsKey(key)) return _cache[key]!;
     final qualitySemitones = _numberIsPerfect(number)
         ? "dPA".indexOf(qualityName) - 1
         : "dmMA".indexOf(qualityName) - 2;
@@ -78,7 +78,7 @@ class Interval {
 
   Interval._internal(this.number, this.qualityName, this.qualitySemitones);
 
-  factory Interval.fromSemitones(semitones, {int number}) {
+  factory Interval.fromSemitones(semitones, {int? number}) {
     if (semitones < 0 || 12 < semitones) semitones %= 12;
     var interval = Interval.parse(intervalNames[semitones]);
     if (number != null) {
@@ -97,14 +97,14 @@ class Interval {
   int get diatonicSemitones => _semitonesByNumber[number - 1];
   int get semitones => diatonicSemitones + qualitySemitones;
 
-  Interval get augmented => _augmented != null
+  Interval? get augmented => _augmented != null
       ? _augmented
       : "mMP".indexOf(qualityName) >= 0
           ? _augmented = new Interval(number: number, qualityName: 'A')
           : throw new ArgumentError("can't augment $this");
 
   // TODO error if quality is not mMP
-  Interval get diminished => _diminished != null
+  Interval? get diminished => _diminished != null
       ? _diminished
       : _diminished = new Interval(number: number, qualityName: 'd');
 
@@ -119,9 +119,9 @@ class Interval {
     if (name == "TT") {
       name = "d5";
     }
-    final match = _intervalNameParsePattern.matchAsPrefix(name);
+    final match = _intervalNameParsePattern.matchAsPrefix(name)!;
     assert(match != null);
-    return new Interval(number: int.parse(match[2]), qualityName: match[1]);
+    return new Interval(number: int.parse(match[2]!), qualityName: match[1]);
   }
 
   String toString() => "$qualityName$number";
@@ -183,46 +183,46 @@ class Interval {
   static final Interval P8 = Interval.parse('P8');
 
   /// The augmented unison interval
-  static final Interval A1 = Interval.P1.augmented;
+  static final Interval? A1 = Interval.P1.augmented;
 
   /// The augmented 2nd interval
-  static final Interval A2 = Interval.M2.augmented;
+  static final Interval? A2 = Interval.M2.augmented;
 
   /// The augmented 3rd interval
-  static final Interval A3 = Interval.M3.augmented;
+  static final Interval? A3 = Interval.M3.augmented;
 
   /// The augmented 4th interval
-  static final Interval A4 = Interval.P4.augmented;
+  static final Interval? A4 = Interval.P4.augmented;
 
   /// The augmented 5th interval
-  static final Interval A5 = Interval.P5.augmented;
+  static final Interval? A5 = Interval.P5.augmented;
 
   /// The augmented 6th interval
-  static final Interval A6 = Interval.M6.augmented;
+  static final Interval? A6 = Interval.M6.augmented;
 
   /// The augmented 7th interval
-  static final Interval A7 = Interval.M7.augmented;
+  static final Interval? A7 = Interval.M7.augmented;
 
   /// The diminished 2nd interval
-  static final Interval d2 = Interval.m2.diminished;
+  static final Interval? d2 = Interval.m2.diminished;
 
   /// The diminished 3rd interval
-  static final Interval d3 = Interval.m3.diminished;
+  static final Interval? d3 = Interval.m3.diminished;
 
   /// The diminished 4th interval
-  static final Interval d4 = Interval.P4.diminished;
+  static final Interval? d4 = Interval.P4.diminished;
 
   /// The diminished 5th interval
-  static final Interval d5 = Interval.P5.diminished;
+  static final Interval? d5 = Interval.P5.diminished;
 
   /// The diminished 6th interval
-  static final Interval d6 = Interval.m6.diminished;
+  static final Interval? d6 = Interval.m6.diminished;
 
   /// The diminished 7th interval
-  static final Interval d7 = Interval.m7.diminished;
+  static final Interval? d7 = Interval.m7.diminished;
 
   /// The diminished octave interval
-  static final Interval d8 = Interval.P8.diminished;
+  static final Interval? d8 = Interval.P8.diminished;
 }
 
 // final List Intervals = intervalNames.map((name, semitones) =>

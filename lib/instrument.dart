@@ -3,9 +3,9 @@ part of tonic;
 /// A musical instrument. This is the superclass for FrettedInstrument,
 /// and is used as a factory/dictionary of instruments.
 class Instrument {
-  final String name;
+  final String? name;
 
-  static final Map _byName = <String, Instrument>{};
+  static final Map _byName = <String?, Instrument>{};
 
   Instrument({this.name}) {
     _byName[name] = this;
@@ -20,7 +20,7 @@ class Instrument {
 
   bool get fretted => false;
 
-  static final FrettedInstrument guitar = Instrument.lookup('Guitar');
+  static final FrettedInstrument guitar = Instrument.lookup('Guitar') as FrettedInstrument;
 
   static bool _initialized = false;
 
@@ -32,26 +32,26 @@ class Instrument {
           .split(new RegExp(r'\s+'))
           .map(Pitch.parse)
           .toList();
-      new FrettedInstrument(name: spec['name'], stringPitches: stringPitches);
+      new FrettedInstrument(name: spec['name'] as String?, stringPitches: stringPitches);
     }
   }
 }
 
 /// A fretted instrument. Instances of this are used to compute chord frettings.
 class FrettedInstrument extends Instrument {
-  final List<Pitch> stringPitches;
+  final List<Pitch>? stringPitches;
 
-  FrettedInstrument({String name, this.stringPitches}) : super(name: name);
+  FrettedInstrument({String? name, this.stringPitches}) : super(name: name);
 
   bool get fretted => true;
 
   /// The indices, starting at 0, of the strings.
   Iterable<int> get stringIndices =>
-      new Iterable<int>.generate(stringPitches.length, (i) => i);
+      new Iterable<int>.generate(stringPitches!.length, (i) => i);
 
   /// The pitch of a given fret on a give (0-based) string.
-  Pitch pitchAt({int stringIndex, int fretNumber}) =>
-      stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
+  Pitch pitchAt({required int stringIndex, required int fretNumber}) =>
+      stringPitches![stringIndex] + new Interval.fromSemitones(fretNumber);
 
   // eachFingerPosition: (fn) ->
   //   for string in @stringNumbers
