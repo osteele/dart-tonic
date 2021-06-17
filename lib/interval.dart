@@ -49,28 +49,36 @@ class Interval {
   // final int semitones;
   final String qualityName;
   final int qualitySemitones;
-  Interval _augmented;
-  Interval _diminished;
+  Interval? _augmented;
+  Interval? _diminished;
 
   static final Map<String, Interval> _cache = <String, Interval>{};
 
   static final List<int> _semitonesByNumber = [0, 2, 4, 5, 7, 9, 11, 12];
   static bool _numberIsPerfect(int number) => [1, 4, 5, 8].indexOf(number) >= 0;
 
-  factory Interval({int number, String qualityName}) {
-    assert(number != null);
+  factory Interval({required int number, String? qualityName}) {
     assert(1 <= number && number <= 8);
-    var semitones = _semitonesByNumber[number - 1];
-    if (semitones == null)
+    
+    late int semitones;
+
+    try {
+      semitones = _semitonesByNumber[number - 1];
+    } on RangeError {
       throw new ArgumentError("invalid interval number: $number");
+    }
+
     if (qualityName == null) qualityName = intervalNames[semitones][0];
     final key = "$qualityName$number";
-    if (_cache.containsKey(key)) return _cache[key];
+    if (_cache.containsKey(key)) return _cache[key]!;
+
     final qualitySemitones = _numberIsPerfect(number)
         ? "dPA".indexOf(qualityName) - 1
         : "dmMA".indexOf(qualityName) - 2;
-    if (qualitySemitones == null)
-      throw new ArgumentError("invalid interval quality: $qualityName");
+
+    // if (qualitySemitones < 0)
+    //   throw new ArgumentError("invalid interval quality: $qualityName");
+
     semitones += qualitySemitones;
     return _cache[key] =
         new Interval._internal(number, qualityName, qualitySemitones);
@@ -78,7 +86,7 @@ class Interval {
 
   Interval._internal(this.number, this.qualityName, this.qualitySemitones);
 
-  factory Interval.fromSemitones(semitones, {int number}) {
+  factory Interval.fromSemitones(semitones, {int? number}) {
     if (semitones < 0 || 12 < semitones) semitones %= 12;
     var interval = Interval.parse(intervalNames[semitones]);
     if (number != null) {
@@ -98,14 +106,14 @@ class Interval {
   int get semitones => diatonicSemitones + qualitySemitones;
 
   Interval get augmented => _augmented != null
-      ? _augmented
+      ? _augmented!
       : "mMP".indexOf(qualityName) >= 0
           ? _augmented = new Interval(number: number, qualityName: 'A')
           : throw new ArgumentError("can't augment $this");
 
   // TODO error if quality is not mMP
   Interval get diminished => _diminished != null
-      ? _diminished
+      ? _diminished!
       : _diminished = new Interval(number: number, qualityName: 'd');
 
   static final Pattern _intervalNamePattern =
@@ -121,7 +129,7 @@ class Interval {
     }
     final match = _intervalNameParsePattern.matchAsPrefix(name);
     assert(match != null);
-    return new Interval(number: int.parse(match[2]), qualityName: match[1]);
+    return new Interval(number: int.parse(match![2]!), qualityName: match[1]!);
   }
 
   String toString() => "$qualityName$number";

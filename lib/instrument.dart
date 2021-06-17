@@ -7,7 +7,7 @@ class Instrument {
 
   static final Map _byName = <String, Instrument>{};
 
-  Instrument({this.name}) {
+  Instrument({required this.name}) {
     _byName[name] = this;
   }
 
@@ -20,7 +20,8 @@ class Instrument {
 
   bool get fretted => false;
 
-  static final FrettedInstrument guitar = Instrument.lookup('Guitar');
+  static final FrettedInstrument guitar = 
+    Instrument.lookup('Guitar') as FrettedInstrument;
 
   static bool _initialized = false;
 
@@ -32,7 +33,10 @@ class Instrument {
           .split(new RegExp(r'\s+'))
           .map(Pitch.parse)
           .toList();
-      new FrettedInstrument(name: spec['name'], stringPitches: stringPitches);
+      new FrettedInstrument(
+        name: spec['name'] as String, 
+        stringPitches: stringPitches,
+      );
     }
   }
 }
@@ -41,7 +45,7 @@ class Instrument {
 class FrettedInstrument extends Instrument {
   final List<Pitch> stringPitches;
 
-  FrettedInstrument({String name, this.stringPitches}) : super(name: name);
+  FrettedInstrument({required String name, required this.stringPitches}) : super(name: name);
 
   bool get fretted => true;
 
@@ -50,7 +54,7 @@ class FrettedInstrument extends Instrument {
       new Iterable<int>.generate(stringPitches.length, (i) => i);
 
   /// The pitch of a given fret on a give (0-based) string.
-  Pitch pitchAt({int stringIndex, int fretNumber}) =>
+  Pitch pitchAt({required int stringIndex, required int fretNumber}) =>
       stringPitches[stringIndex] + new Interval.fromSemitones(fretNumber);
 
   // eachFingerPosition: (fn) ->
