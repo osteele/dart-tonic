@@ -2,6 +2,6 @@
 
 set -e
 
-dartfmt -n --set-exit-if-changed .
-dartanalyzer --fatal-infos --fatal-warnings .
-pub run test
+dart format --output=none --set-exit-if-changed .
+dart analyze --fatal-infos --fatal-warnings
+dart test

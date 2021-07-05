@@ -1,8 +1,10 @@
+# Contributing
+
 Want to contribute? Great! Please follow this checklist:
 
-1. Code must pass analysis by `dartanalyzer --fatal-warnings .`
-2. Code must be formatted by `dartfmt -w .`
-3. The test suite must pass ``pub run test`
+1. Code must pass analysis by `dart analyzer --fatal-infos --fatal-warnings`
+2. Code must be formatted by `dart format .`
+3. The test suite must pass `dart test`
 4. New and changed code should be accompanied by test cases.
 
 Check the first three by running `.githooks/pre-push` from the command line.

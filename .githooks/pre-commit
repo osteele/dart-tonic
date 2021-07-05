@@ -2,6 +2,6 @@
 
 set -e
 
-dartfmt -w .
-dartanalyzer --fatal-infos --fatal-warnings .
-pub run test
+dart format .
+dart analyze --fatal-infos --fatal-warnings
+dart test
