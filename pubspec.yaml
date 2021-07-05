@@ -1,14 +1,12 @@
 name: tonic
-version: 0.2.3
+version: 0.2.4
 
 description: >
   Classes and methods for representing and manipulating concepts from music theory:
   Pitch, PitchClass, Interval, Scale, Chord.
-authors:
-  - Oliver Steele <steele@osteele.com>
-  - Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/osteele/dart-tonic
-? documentation
+repository: https://github.com/osteele/dart-tonic
+documentation: https://pub.dev/documentation/tonic/latest/
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

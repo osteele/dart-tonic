@@ -1,5 +1,11 @@
 # Changes
 
+## [0.2.4] - Null safety
+
+* Support for null safety (@canastro and @PatrickWulfe)
+* add get helmholtzName to Pitch class (@schilken)
+* Added comments to interval static fields (@miechoo)
+
 ## [0.0.2] - Dart 2 / Flutter compatibility
 
 * Updated for Flutter and Dart 2 compatibility.
