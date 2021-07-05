@@ -67,7 +67,7 @@ class FrettedInstrument extends Instrument {
 final _instrumentSpecs = [
   {
     'name': 'Guitar',
-    // TODO: factor into Tuning model http://en.wikipedia.org/wiki/Stringed_instrument_tunings
+    // TODO: factor into Tuning model https://en.wikipedia.org/wiki/Stringed_instrument_tunings
     'stringPitches': 'E2 A2 D3 G3 B3 E4',
     'fretted': true,
     'fretCount': 12,
