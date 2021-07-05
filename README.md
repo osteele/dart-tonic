@@ -1,6 +1,6 @@
 # Tonic
 
-[![Build Status](https://travis-ci.org/osteele/dart-tonic.svg?branch=master)](https://travis-ci.org/osteele/dart-tonic)
+[![Dart badge][dart-svg]][dart-url]
 [![pub package](https://img.shields.io/pub/v/tonic.svg)](https://pub.dartlang.org/packages/tonic)
 
 Tonic is a [Flutter](https://flutter.io)-compatible
@@ -114,3 +114,6 @@ More examples can be found in the tests in `test/*_test.dart`.
 ## License
 
 MIT
+
+[dart-url]: https://github.com/osteele/dart-tonic/actions?query=workflow%3A%22Build+Status%22
+[dart-svg]: https://github.com/osteele/dart-tonic/actions/workflows/dart.yml/badge.svg
