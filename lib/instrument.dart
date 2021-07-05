@@ -20,8 +20,8 @@ class Instrument {
 
   bool get fretted => false;
 
-  static final FrettedInstrument guitar = 
-    Instrument.lookup('Guitar') as FrettedInstrument;
+  static final FrettedInstrument guitar =
+      Instrument.lookup('Guitar') as FrettedInstrument;
 
   static bool _initialized = false;
 
@@ -34,7 +34,7 @@ class Instrument {
           .map(Pitch.parse)
           .toList();
       new FrettedInstrument(
-        name: spec['name'] as String, 
+        name: spec['name'] as String,
         stringPitches: stringPitches,
       );
     }
@@ -45,7 +45,8 @@ class Instrument {
 class FrettedInstrument extends Instrument {
   final List<Pitch> stringPitches;
 
-  FrettedInstrument({required String name, required this.stringPitches}) : super(name: name);
+  FrettedInstrument({required String name, required this.stringPitches})
+      : super(name: name);
 
   bool get fretted => true;
 

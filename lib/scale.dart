@@ -58,11 +58,10 @@ class Mode extends ScalePattern {
   final ScalePattern parent;
 
   Mode({
-    required String name, 
-    required this.parent, 
+    required String name,
+    required this.parent,
     required List<Interval> intervals,
-  })
-      : super(name: name, intervals: intervals) {
+  }) : super(name: name, intervals: intervals) {
     parent.modes[name] = this;
   }
 }

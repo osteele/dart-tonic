@@ -125,7 +125,9 @@ class Pitch {
 
   // chromaticIndex is in semitones but must index a diatonic pitch
   factory Pitch(
-      {required int chromaticIndex, int accidentalSemitones: 0, int octave: -1}) {
+      {required int chromaticIndex,
+      int accidentalSemitones: 0,
+      int octave: -1}) {
     octave += chromaticIndex ~/ 12;
     chromaticIndex = chromaticIndex % 12;
     if (noteNames[chromaticIndex].length > 1) {
@@ -141,11 +143,10 @@ class Pitch {
   }
 
   Pitch._internal({
-    required int chromaticIndex, 
-    this.accidentalSemitones: 0, 
+    required int chromaticIndex,
+    this.accidentalSemitones: 0,
     int octave: -1,
-  })
-      : diatonicSemitones = chromaticIndex + 12 * (octave + 1);
+  }) : diatonicSemitones = chromaticIndex + 12 * (octave + 1);
 
   static Pitch parse(String pitchName) =>
       _scientificPitchNamePattern.hasMatch(pitchName)

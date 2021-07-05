@@ -59,7 +59,7 @@ class Interval {
 
   factory Interval({required int number, String? qualityName}) {
     assert(1 <= number && number <= 8);
-    
+
     late int semitones;
 
     try {

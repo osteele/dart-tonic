@@ -22,9 +22,9 @@ class ChordPattern {
       <String, ChordPattern>{};
 
   ChordPattern({
-    required this.name, 
-    required this.fullName, 
-    required this.abbrs, 
+    required this.name,
+    required this.fullName,
+    required this.abbrs,
     required this.intervals,
   }) {
     _byName[name] = this;
