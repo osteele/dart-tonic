@@ -78,7 +78,8 @@ class ChordPattern {
       final abbrs = spec['abbrs'];
       final intervals =
           List<Interval>.from(spec['intervals'].split('').map((c) {
-        var semitones = {'t': 10, 'e': 11}[c];
+        var semitones =
+            {'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}[c];
         if (semitones == null) {
           semitones = int.parse(c);
         }
@@ -179,12 +180,12 @@ final List _chordPatternSpecs = [
   {
     "name": 'Dominant 7th',
     "abbrs": ['7', 'dom7'],
-    "intervals": '047t'
+    "intervals": '047a'
   },
   {
     "name": 'Augmented 7th',
     "abbrs": ['+7', '7aug'],
-    "intervals": '048t'
+    "intervals": '048a'
   },
   {
     "name": 'Diminished 7th',
@@ -194,33 +195,33 @@ final List _chordPatternSpecs = [
   {
     "name": 'Major 7th',
     "abbrs": ['maj7'],
-    "intervals": '047e'
+    "intervals": '047b'
   },
   {
     "name": 'Minor 7th',
     "abbrs": ['min7'],
-    "intervals": '037t'
+    "intervals": '037a'
   },
   {
     "name": 'Dominant 7♭5',
     "abbrs": ['7♭5'],
-    "intervals": '046t'
+    "intervals": '046a'
   },
   // following is also half-diminished 7th
   {
     "name": 'Minor 7th ♭5',
     "abbrs": ['ø', 'Ø', 'm7♭5'],
-    "intervals": '036t'
+    "intervals": '036a'
   },
   {
     "name": 'Diminished Maj 7th',
     "abbrs": ['°Maj7'],
-    "intervals": '036e'
+    "intervals": '036b'
   },
   {
     "name": 'Minor-Major 7th',
     "abbrs": ['min/maj7', 'min(maj7)'],
-    "intervals": '037e'
+    "intervals": '037b'
   },
   {
     "name": '6th',
