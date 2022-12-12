@@ -44,7 +44,8 @@ class ChordPattern {
   }
 
   static String _intervalSetKey(Iterable<Interval> intervals) {
-    final key = intervals.map((interval) => interval.semitones).toList();
+    // TODO remove the % to recognize additions
+    final key = intervals.map((interval) => interval.semitones % 12).toList();
     key.sort();
     return key.join(',');
   }
@@ -77,8 +78,7 @@ class ChordPattern {
       final abbrs = spec['abbrs'];
       final intervals =
           List<Interval>.from(spec['intervals'].split('').map((c) {
-        var semitones =
-            {'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}[c];
+        var semitones = {'t': 10, 'e': 11}[c];
         if (semitones == null) {
           semitones = int.parse(c);
         }
@@ -179,12 +179,12 @@ final List _chordPatternSpecs = [
   {
     "name": 'Dominant 7th',
     "abbrs": ['7', 'dom7'],
-    "intervals": '047a'
+    "intervals": '047t'
   },
   {
     "name": 'Augmented 7th',
     "abbrs": ['+7', '7aug'],
-    "intervals": '048a'
+    "intervals": '048t'
   },
   {
     "name": 'Diminished 7th',
@@ -194,33 +194,33 @@ final List _chordPatternSpecs = [
   {
     "name": 'Major 7th',
     "abbrs": ['maj7'],
-    "intervals": '047b'
+    "intervals": '047e'
   },
   {
     "name": 'Minor 7th',
     "abbrs": ['min7'],
-    "intervals": '037a'
+    "intervals": '037t'
   },
   {
     "name": 'Dominant 7♭5',
     "abbrs": ['7♭5'],
-    "intervals": '046a'
+    "intervals": '046t'
   },
   // following is also half-diminished 7th
   {
     "name": 'Minor 7th ♭5',
     "abbrs": ['ø', 'Ø', 'm7♭5'],
-    "intervals": '036a'
+    "intervals": '036t'
   },
   {
     "name": 'Diminished Maj 7th',
     "abbrs": ['°Maj7'],
-    "intervals": '036b'
+    "intervals": '036e'
   },
   {
     "name": 'Minor-Major 7th',
     "abbrs": ['min/maj7', 'min(maj7)'],
-    "intervals": '037b'
+    "intervals": '037e'
   },
   {
     "name": '6th',
@@ -235,11 +235,11 @@ final List _chordPatternSpecs = [
   {
     "name": 'Major 69',
     "abbrs": ['M69', 'maj69'],
-    "intervals": '0479e'
+    "intervals": '0247e'
   },
   {
     "name": 'Minor 69',
     "abbrs": ['m69', 'min69'],
-    "intervals": '0379e'
+    "intervals": '02379'
   },
 ];
