@@ -231,7 +231,7 @@ class Pitch {
         number -= 7;
         semitones -= 12;
       }
-      return new Interval.fromSemitones(semitones, number: number);
+      return new Interval.fromSemitones(semitones);
     }
     throw new ArgumentError("can't subtract $other from $this");
   }
