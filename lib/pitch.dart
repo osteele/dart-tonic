@@ -227,7 +227,7 @@ class Pitch {
         number += 7;
         semitones += 12;
       }
-      while (number > 8 || (number == 8 && semitones > 12)) {
+      while (number > 8) {
         number -= 7;
         semitones -= 12;
       }
