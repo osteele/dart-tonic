@@ -233,4 +233,14 @@ final List _chordPatternSpecs = [
     "abbrs": ['m6', 'min6'],
     "intervals": '0379'
   },
+  {
+    "name": '69',
+    "abbrs": ['M69', 'maj69'],
+    "intervals": '0479e'
+  },
+  {
+    "name": 'Minor 6th',
+    "abbrs": ['m69', 'min69'],
+    "intervals": '0379e'
+  },
 ];
