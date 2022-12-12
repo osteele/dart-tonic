@@ -44,8 +44,7 @@ class ChordPattern {
   }
 
   static String _intervalSetKey(Iterable<Interval> intervals) {
-    // TODO remove the % to recognize additions
-    final key = intervals.map((interval) => interval.semitones % 12).toList();
+    final key = intervals.map((interval) => interval.semitones).toList();
     key.sort();
     return key.join(',');
   }
