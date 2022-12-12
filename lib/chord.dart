@@ -47,7 +47,6 @@ class ChordPattern {
     // TODO remove the % to recognize additions
     final key = intervals.map((interval) => interval.semitones % 12).toList();
     key.sort();
-    print(key.join(','));
     return key.join(',');
   }
 
