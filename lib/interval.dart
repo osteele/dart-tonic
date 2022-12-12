@@ -93,6 +93,7 @@ class Interval {
       interval = new Interval(number: number);
       final qs = _numberIsPerfect(number) ? "dPA" : "dmMA";
       final i = semitones - interval.semitones + (qs.length ~/ 2);
+      print("TONIC DEBUG: $interval $semitones $qs $i");
       if (!(0 <= i && i < qs.length))
         throw new ArgumentError(
             "can't qualify $interval to $semitones semitone(s)");
