@@ -152,7 +152,7 @@ final List _chordPatternSpecs = [
     "intervals": '047'
   },
   {
-    "name": 'Minor',
+    "name": 'minor',
     "abbrs": ['m'],
     "intervals": '037'
   },
@@ -170,6 +170,11 @@ final List _chordPatternSpecs = [
     "name": 'Sus2',
     "abbrs": ['sus2'],
     "intervals": '027'
+  },
+  {
+    "name": '6Sus2',
+    "abbrs": ['6sus2'],
+    "intervals": '0279'
   },
   {
     "name": 'Sus4',
@@ -202,7 +207,7 @@ final List _chordPatternSpecs = [
     "intervals": '047e'
   },
   {
-    "name": 'Minor 7th',
+    "name": 'minor 7th',
     "abbrs": ['min7'],
     "intervals": '037t'
   },
@@ -212,7 +217,7 @@ final List _chordPatternSpecs = [
     "intervals": '04e'
   },
   {
-    "name": 'Minor 7th',
+    "name": 'minor 7th',
     "abbrs": ['min7'],
     "intervals": '03t'
   },
@@ -223,7 +228,7 @@ final List _chordPatternSpecs = [
   },
   // following is also half-diminished 7th
   {
-    "name": 'Minor 7th ♭5',
+    "name": 'minor 7th ♭5',
     "abbrs": ['ø', 'Ø', 'm7♭5'],
     "intervals": '036t'
   },
@@ -233,17 +238,17 @@ final List _chordPatternSpecs = [
     "intervals": '036e'
   },
   {
-    "name": 'Minor-Major 7th',
+    "name": 'minor-Major 7th',
     "abbrs": ['min/maj7', 'min(maj7)'],
     "intervals": '037e'
   },
   {
-    "name": '6th',
+    "name": 'Major 6th',
     "abbrs": ['6', 'M6', 'M6', 'maj6'],
     "intervals": '0479'
   },
   {
-    "name": 'Minor 6th',
+    "name": 'minor 6th',
     "abbrs": ['m6', 'min6'],
     "intervals": '0379'
   },
@@ -253,7 +258,7 @@ final List _chordPatternSpecs = [
     "intervals": '02479'
   },
   {
-    "name": 'Minor 69',
+    "name": 'minor 69',
     "abbrs": ['m69', 'min69'],
     "intervals": '02379'
   },
