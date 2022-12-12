@@ -220,8 +220,13 @@ class Pitch {
   Interval operator -(dynamic other) {
     if (other is Pitch) {
       var semitones = this.semitones - other.semitones;
-      var number =
-          1 + letterIndex + 7 * octave - other.letterIndex - 7 * other.octave;
+      var number = 1 +
+          letterIndex +
+          accidentalSemitones +
+          7 * octave -
+          other.letterIndex +
+          accidentalSemitones -
+          7 * other.octave;
       // TODO enhance Interval to represent intervals greater than an octave
       while (number < 1) {
         number += 7;
