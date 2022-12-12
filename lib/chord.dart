@@ -194,12 +194,12 @@ final List _chordPatternSpecs = [
   {
     "name": 'Dominant 7b9',
     "abbrs": ['dom7b9', '7b9'],
-    "intervals": '0247t'
+    "intervals": '0147t'
   },
   {
     "name": 'Dominant 7b9',
     "abbrs": ['dom7b9', '7b9'],
-    "intervals": '024t'
+    "intervals": '014t'
   },
   {
     "name": '9',
