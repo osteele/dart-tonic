@@ -287,13 +287,13 @@ final List _chordPatternSpecs = [
     "intervals": '035t'
   },
   {
-    "name": 'Dominant 7♭5',
+    "name": 'Dominant 7(♭5)',
     "abbrs": ['7♭5'],
     "intervals": '046t'
   },
   // following is also half-diminished 7th
   {
-    "name": 'minor 7th ♭5',
+    "name": 'minor 7(♭5)',
     "abbrs": ['ø', 'Ø', 'm7♭5'],
     "intervals": '036t'
   },
