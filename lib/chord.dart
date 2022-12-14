@@ -277,6 +277,16 @@ final List _chordPatternSpecs = [
     "intervals": '03t'
   },
   {
+    "name": 'minor 7(11)',
+    "abbrs": ['min7(11)'],
+    "intervals": '0357t'
+  },
+  {
+    "name": 'minor 7(11)',
+    "abbrs": ['min7(11)'],
+    "intervals": '035t'
+  },
+  {
     "name": 'Dominant 7♭5',
     "abbrs": ['7♭5'],
     "intervals": '046t'
