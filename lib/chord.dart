@@ -146,16 +146,123 @@ class Chord {
 }
 
 final List _chordPatternSpecs = [
+  // Major / minor
   {
-    "name": 'Major',
+    "name": 'M',
     "abbrs": ['', 'M'],
     "intervals": '047'
   },
   {
-    "name": 'minor',
+    "name": 'm',
     "abbrs": ['m'],
     "intervals": '037'
   },
+  {
+    "name": 'M6',
+    "abbrs": ['6', 'M6', 'maj6'],
+    "intervals": '0479'
+  },
+  {
+    "name": 'M6',
+    "abbrs": ['6', 'M6', 'maj6'],
+    "intervals": '049'
+  },
+  {
+    "name": 'm6',
+    "abbrs": ['m6', 'min6'],
+    "intervals": '0379'
+  },
+  {
+    "name": 'm6',
+    "abbrs": ['m6', 'min6'],
+    "intervals": '039'
+  },
+  {
+    "name": 'M6(9)',
+    "abbrs": ['M69', 'maj69'],
+    "intervals": '02479'
+  },
+  {
+    "name": 'M6(9)',
+    "abbrs": ['M69', 'maj69'],
+    "intervals": '0249'
+  },
+  {
+    "name": 'm6(9)',
+    "abbrs": ['m69', 'min69'],
+    "intervals": '02379'
+  },
+  {
+    "name": 'm6(9)',
+    "abbrs": ['m69', 'min69'],
+    "intervals": '0239'
+  },
+  {
+    "name": 'M7',
+    "abbrs": ['maj7'],
+    "intervals": '047e'
+  },
+  {
+    "name": 'M7',
+    "abbrs": ['maj7'],
+    "intervals": '04e'
+  },
+  {
+    "name": 'M7(9)',
+    "abbrs": ['M7(9)'],
+    "intervals": '0247t'
+  },
+  {
+    "name": 'M7(9)',
+    "abbrs": ['M7(9)'],
+    "intervals": '024t'
+  },
+  {
+    "name": 'm7',
+    "abbrs": ['min7'],
+    "intervals": '037t'
+  },
+  {
+    "name": 'm7',
+    "abbrs": ['min7'],
+    "intervals": '03t'
+  },
+  {
+    "name": 'm7(♭5)',
+    "abbrs": ['ø', 'Ø', 'm7♭5'],
+    "intervals": '036t'
+  },
+  {
+    "name": 'm7(♭9)',
+    "abbrs": ['m7(b9)'],
+    "intervals": '0137t'
+  },
+  {
+    "name": 'm7(♭9)',
+    "abbrs": ['m7(9b)'],
+    "intervals": '013t'
+  },
+  {
+    "name": 'm7(9)',
+    "abbrs": ['m7(9)'],
+    "intervals": '0237t'
+  },
+  {
+    "name": 'm7(9)',
+    "abbrs": ['m7(9)'],
+    "intervals": '023t'
+  },
+  {
+    "name": 'm7(11)',
+    "abbrs": ['min7(11)'],
+    "intervals": '0357t'
+  },
+  {
+    "name": 'm7(11)',
+    "abbrs": ['min7(11)'],
+    "intervals": '035t'
+  },
+  // 5th
   {
     "name": 'Augmented',
     "abbrs": ['+', 'aug'],
@@ -166,6 +273,7 @@ final List _chordPatternSpecs = [
     "abbrs": ['°', 'dim'],
     "intervals": '036'
   },
+  // 2nd / 4th
   {
     "name": 'Sus2',
     "abbrs": ['sus2'],
@@ -196,160 +304,80 @@ final List _chordPatternSpecs = [
     "abbrs": ['6sus4'],
     "intervals": '059'
   },
+  // Dominant 7th
   {
-    "name": 'Dominant 7th',
+    "name": 'Dom7',
     "abbrs": ['7', 'dom7'],
     "intervals": '047t'
   },
   {
-    "name": 'Dominant 7th',
+    "name": 'Dom7',
     "abbrs": ['7', 'dom7'],
     "intervals": '04t'
   },
   {
-    "name": 'Dominant 7(b9)',
+    "name": 'Dom7(♭5)',
+    "abbrs": ['7♭5'],
+    "intervals": '046t'
+  },
+  {
+    "name": 'Dom7(♭9)',
     "abbrs": ['dom7(b9)', '7(b9)'],
     "intervals": '0147t'
   },
   {
-    "name": 'Dominant 7(b9)',
+    "name": 'Dom7(♭9)',
     "abbrs": ['dom7(b9)', '7(b9)'],
     "intervals": '014t'
   },
   {
-    "name": 'M7(9)',
-    "abbrs": ['M7(9)'],
+    "name": 'Dom7(9)',
+    "abbrs": ['dom7(9)', '7(9)'],
     "intervals": '0247t'
   },
   {
-    "name": 'M7(9)',
-    "abbrs": ['M7(9)'],
+    "name": 'Dom7(9)',
+    "abbrs": ['dom7(b)', '7(9)'],
     "intervals": '024t'
   },
   {
-    "name": 'm7(9)',
-    "abbrs": ['m7(9)'],
-    "intervals": '0237t'
-  },
-  {
-    "name": 'm7(9)',
-    "abbrs": ['m7(9)'],
-    "intervals": '023t'
-  },
-  {
-    "name": 'Dominant 7(#9)',
+    "name": 'Dom7(#9)',
     "abbrs": ['7#9', 'dom7(#9)'],
     "intervals": '0347t'
   },
   {
-    "name": 'Dominant 7(#9)',
+    "name": 'Dom7(#9)',
     "abbrs": ['7#9', 'dom7#9'],
     "intervals": '034t'
   },
   {
-    "name": 'Augmented 7th',
+    "name": 'Dom7(13)',
+    "abbrs": ['7(13)'],
+    "intervals": '049t'
+  },
+  {
+    "name": 'Augmented 7',
     "abbrs": ['+7', '7aug'],
     "intervals": '048t'
   },
   {
-    "name": 'Diminished 7th',
+    "name": 'Diminished 7',
     "abbrs": ['°7', 'dim7'],
     "intervals": '0369'
   },
   {
-    "name": 'Major 7th',
-    "abbrs": ['maj7'],
-    "intervals": '047e'
-  },
-  {
-    "name": 'Major 7th',
-    "abbrs": ['maj7'],
-    "intervals": '04e'
-  },
-  {
-    "name": 'minor 7th',
-    "abbrs": ['min7'],
-    "intervals": '037t'
-  },
-  {
-    "name": 'minor 7th',
-    "abbrs": ['min7'],
-    "intervals": '03t'
-  },
-  {
-    "name": 'minor 7(11)',
-    "abbrs": ['min7(11)'],
-    "intervals": '0357t'
-  },
-  {
-    "name": 'minor 7(11)',
-    "abbrs": ['min7(11)'],
-    "intervals": '035t'
-  },
-  {
-    "name": 'Dominant 7(♭5)',
-    "abbrs": ['7♭5'],
-    "intervals": '046t'
-  },
-  // following is also half-diminished 7th
-  {
-    "name": 'minor 7(♭5)',
-    "abbrs": ['ø', 'Ø', 'm7♭5'],
-    "intervals": '036t'
-  },
-  {
-    "name": 'Diminished Maj 7th',
+    "name": 'Diminished M7',
     "abbrs": ['°Maj7'],
     "intervals": '036e'
   },
   {
-    "name": 'minor-Major 7th',
+    "name": 'm(M7)',
     "abbrs": ['min/maj7', 'min(maj7)'],
     "intervals": '037e'
   },
   {
-    "name": 'minor-Major 7th',
+    "name": 'm(M7)',
     "abbrs": ['min/maj7', 'min(maj7)'],
     "intervals": '03e'
-  },
-  {
-    "name": 'Major 6th',
-    "abbrs": ['6', 'M6', 'M6', 'maj6'],
-    "intervals": '0479'
-  },
-  {
-    "name": 'minor 6th',
-    "abbrs": ['m6', 'min6'],
-    "intervals": '0379'
-  },
-  {
-    "name": 'Major 6th',
-    "abbrs": ['6', 'M6', 'M6', 'maj6'],
-    "intervals": '049'
-  },
-  {
-    "name": 'minor 6th',
-    "abbrs": ['m6', 'min6'],
-    "intervals": '039'
-  },
-  {
-    "name": 'Major 69',
-    "abbrs": ['M69', 'maj69'],
-    "intervals": '02479'
-  },
-  {
-    "name": 'minor 69',
-    "abbrs": ['m69', 'min69'],
-    "intervals": '02379'
-  },
-  {
-    "name": 'Major 69',
-    "abbrs": ['M69', 'maj69'],
-    "intervals": '0249'
-  },
-  {
-    "name": 'minor 69',
-    "abbrs": ['m69', 'min69'],
-    "intervals": '0239'
   },
 ];
