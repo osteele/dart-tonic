@@ -210,12 +210,12 @@ final List _chordPatternSpecs = [
   {
     "name": 'M7(9)',
     "abbrs": ['M7(9)'],
-    "intervals": '0247t'
+    "intervals": '0247e'
   },
   {
     "name": 'M7(9)',
     "abbrs": ['M7(9)'],
-    "intervals": '024t'
+    "intervals": '024e'
   },
   {
     "name": 'm7',
@@ -337,7 +337,7 @@ final List _chordPatternSpecs = [
   },
   {
     "name": 'Dom7(9)',
-    "abbrs": ['dom7(b)', '7(9)'],
+    "abbrs": ['dom7(9)', '7(9)'],
     "intervals": '024t'
   },
   {
