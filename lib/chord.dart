@@ -411,7 +411,7 @@ final List _chordPatternSpecs = [
     "abbrs": ['7(9)(13)'],
     "intervals": '0249t'
   },
-  {
+  /*{
     "name": 'Augmented 7',
     "abbrs": ['+7', '7aug'],
     "intervals": '048t'
@@ -425,7 +425,7 @@ final List _chordPatternSpecs = [
     "name": 'Diminished M7',
     "abbrs": ['°Maj7'],
     "intervals": '036e'
-  },
+  },*/
   {
     "name": 'm(M7)',
     "abbrs": ['min/maj7', 'min(maj7)'],
