@@ -218,6 +218,16 @@ final List _chordPatternSpecs = [
     "intervals": '024e'
   },
   {
+    "name": 'M7(#11)',
+    "abbrs": ['M7(#11)'],
+    "intervals": '0467e'
+  },
+  {
+    "name": 'M7(#11)',
+    "abbrs": ['M7(#11)'],
+    "intervals": '046e'
+  },
+  {
     "name": 'm7',
     "abbrs": ['min7'],
     "intervals": '037t'
@@ -304,6 +314,27 @@ final List _chordPatternSpecs = [
     "abbrs": ['6sus4'],
     "intervals": '059'
   },
+  {
+    "name": '7Sus4',
+    "abbrs": ['7sus4'],
+    "intervals": '057t'
+  },
+  {
+    "name": '7Sus4',
+    "abbrs": ['7sus4'],
+    "intervals": '05t'
+  },
+  {
+    "name": '9Sus4',
+    "abbrs": ['9sus4'],
+    "intervals": '0257'
+  },
+  {
+    "name": '9Sus4',
+    "abbrs": ['9sus4'],
+    "intervals": '025'
+  },
+
   // Dominant 7th
   {
     "name": 'Dom7',
