@@ -353,7 +353,7 @@ final List _chordPatternSpecs = [
   {
     "name": 'Dom7(13)',
     "abbrs": ['7(13)'],
-    "intervals": '047e'
+    "intervals": '049t'
   },
   {
     "name": 'Augmented 7',
