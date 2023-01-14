@@ -218,6 +218,16 @@ final List _chordPatternSpecs = [
     "intervals": '024e'
   },
   {
+    "name": 'M7(9)(#11)',
+    "abbrs": ['M7(9)(#11)'],
+    "intervals": '02467e'
+  },
+  {
+    "name": 'M7(9)(#11)',
+    "abbrs": ['M7(9)(#11)'],
+    "intervals": '0246e'
+  },
+  {
     "name": 'M7(#11)',
     "abbrs": ['M7(#11)'],
     "intervals": '0467e'
@@ -384,7 +394,22 @@ final List _chordPatternSpecs = [
   {
     "name": 'Dom7(13)',
     "abbrs": ['7(13)'],
+    "intervals": '0479t'
+  },
+  {
+    "name": 'Dom7(13)',
+    "abbrs": ['7(13)'],
     "intervals": '049t'
+  },
+  {
+    "name": 'Dom7(9)(13)',
+    "abbrs": ['7(9)(13)'],
+    "intervals": '02479t'
+  },
+  {
+    "name": 'Dom7(9)(13)',
+    "abbrs": ['7(9)(13)'],
+    "intervals": '0249t'
   },
   {
     "name": 'Augmented 7',
