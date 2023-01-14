@@ -325,14 +325,14 @@ final List _chordPatternSpecs = [
     "intervals": '05t'
   },
   {
-    "name": '9Sus4',
-    "abbrs": ['9sus4'],
-    "intervals": '0257'
+    "name": 'Dom7(9)Sus4',
+    "abbrs": ['9sus4', '7(9)sus4'],
+    "intervals": '0257t'
   },
   {
-    "name": '9Sus4',
-    "abbrs": ['9sus4'],
-    "intervals": '025'
+    "name": 'Dom7(9)Sus4',
+    "abbrs": ['9sus4', '7(9)sus4'],
+    "intervals": '025t'
   },
 
   // Dominant 7th
