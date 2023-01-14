@@ -289,9 +289,24 @@ final List _chordPatternSpecs = [
     "intervals": '048'
   },
   {
+    "name": 'Augmented 7',
+    "abbrs": ['+7', 'aug7'],
+    "intervals": '048t'
+  },
+  {
     "name": 'Diminished',
     "abbrs": ['°', 'dim'],
     "intervals": '036'
+  },
+  {
+    "name": 'Diminished 7',
+    "abbrs": ['°7', 'dim7'],
+    "intervals": '0369'
+  },
+  {
+    "name": 'Diminished M7',
+    "abbrs": ['°Maj7'],
+    "intervals": '036e'
   },
   // 2nd / 4th
   {
@@ -411,21 +426,16 @@ final List _chordPatternSpecs = [
     "abbrs": ['7(9)(13)'],
     "intervals": '0249t'
   },
-  /*{
-    "name": 'Augmented 7',
-    "abbrs": ['+7', '7aug'],
+  {
+    "name": 'Dom7(♭13)',
+    "abbrs": ['7(♭13)', '7(b13)'],
+    "intervals": '0478t'
+  },
+  {
+    "name": 'Dom7(♭13)',
+    "abbrs": ['7(♭13)', '7(b13)'],
     "intervals": '048t'
   },
-  {
-    "name": 'Diminished 7',
-    "abbrs": ['°7', 'dim7'],
-    "intervals": '0369'
-  },
-  {
-    "name": 'Diminished M7',
-    "abbrs": ['°Maj7'],
-    "intervals": '036e'
-  },*/
   {
     "name": 'm(M7)',
     "abbrs": ['min/maj7', 'min(maj7)'],
