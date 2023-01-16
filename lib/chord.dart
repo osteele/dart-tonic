@@ -200,22 +200,22 @@ final List _chordPatternSpecs = [
   {
     "name": 'M6(11)',
     "abbrs": ['maj6(11)'],
-    "intervals": '024579'
+    "intervals": '04579'
   },
   {
     "name": 'M6(11)',
     "abbrs": ['M6(11)', 'maj6(11)'],
-    "intervals": '02459'
+    "intervals": '0459'
   },
   {
     "name": 'm6(11)',
     "abbrs": ['m6(11)', 'min6(11)'],
-    "intervals": '023579'
+    "intervals": '03579'
   },
   {
     "name": 'm6(11)',
     "abbrs": ['m6(11)', 'min6(11)'],
-    "intervals": '02359'
+    "intervals": '0359'
   },
   {
     "name": 'M7',
