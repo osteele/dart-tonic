@@ -224,12 +224,6 @@ class Pitch {
       var number =
           1 + letterIndex + 7 * octave - other.letterIndex - 7 * other.octave;
 
-      // handle negative substractions
-      if (semitones < 0) {
-        semitones = -semitones;
-        number += 1;
-      }
-
       // TODO enhance Interval to represent intervals greater than an octave
       while (number < 1) {
         number += 7;
