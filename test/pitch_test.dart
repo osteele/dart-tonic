@@ -304,7 +304,7 @@ void main() {
       expect(Pitch.parse('C4') - Pitch.parse('C3'), Interval.P8);
       expect(Pitch.parse('C6') - Pitch.parse('C3'), Interval.P8);
       expect(Pitch.parse('C5') - Pitch.parse('C4'), Interval.P8);
-
+      // negative intervals
       expect(Pitch.parse('C4') - Pitch.parse('D♭4'), Interval.m2);
       expect(Pitch.parse('C4') - Pitch.parse('D♭5'), Interval.m2);
       expect(Pitch.parse('C4') - Pitch.parse('D4'), Interval.M2);
