@@ -265,8 +265,8 @@ void main() {
 
     test('- Pitch should return an Interval', () {
       expect(Pitch.parse('C4') - Pitch.parse('C4'), Interval.P1);
-      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.A1);
-      expect(Pitch.parse('C♯6') - Pitch.parse('C4'), Interval.A1);
+      expect(Pitch.parse('C♯4') - Pitch.parse('C4'), Interval.m2);
+      expect(Pitch.parse('C♯6') - Pitch.parse('C4'), Interval.m2);
       expect(Pitch.parse('D♭4') - Pitch.parse('C4'), Interval.m2);
       expect(Pitch.parse('D♭5') - Pitch.parse('C4'), Interval.m2);
       expect(Pitch.parse('C4') - Pitch.parse('B3'), Interval.m2);
@@ -275,16 +275,16 @@ void main() {
       expect(Pitch.parse('C♯5') - Pitch.parse('B3'), Interval.M2);
       expect(Pitch.parse('D4') - Pitch.parse('C4'), Interval.M2);
       expect(Pitch.parse('D6') - Pitch.parse('C4'), Interval.M2);
-      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.A2);
-      expect(Pitch.parse('D♯5') - Pitch.parse('C4'), Interval.A2);
-      expect(Pitch.parse('D♭4') - Pitch.parse('B3'), Interval.d3);
-      expect(Pitch.parse('D♭6') - Pitch.parse('B3'), Interval.d3);
+      expect(Pitch.parse('D♯4') - Pitch.parse('C4'), Interval.m3);
+      expect(Pitch.parse('D♯5') - Pitch.parse('C4'), Interval.m3);
+      expect(Pitch.parse('D♭4') - Pitch.parse('B3'), Interval.M2);
+      expect(Pitch.parse('D♭6') - Pitch.parse('B3'), Interval.M2);
       expect(Pitch.parse('D4') - Pitch.parse('B3'), Interval.m3);
       expect(Pitch.parse('D5') - Pitch.parse('B3'), Interval.m3);
       expect(Pitch.parse('D♯4') - Pitch.parse('B3'), Interval.M3);
       expect(Pitch.parse('D♯6') - Pitch.parse('B3'), Interval.M3);
-      expect(Pitch.parse('D4') - Pitch.parse('A♯3'), Interval.d4);
-      expect(Pitch.parse('D5') - Pitch.parse('A♯3'), Interval.d4);
+      expect(Pitch.parse('D4') - Pitch.parse('A♯3'), Interval.M3);
+      expect(Pitch.parse('D5') - Pitch.parse('A♯3'), Interval.M3);
       expect(Pitch.parse('D4') - Pitch.parse('A3'), Interval.P4);
       expect(Pitch.parse('D6') - Pitch.parse('A3'), Interval.P4);
       expect(Pitch.parse('D4') - Pitch.parse('G♯3'), Interval.d5);
@@ -299,11 +299,34 @@ void main() {
       expect(Pitch.parse('D5') - Pitch.parse('E3'), Interval.m7);
       expect(Pitch.parse('D#4') - Pitch.parse('E3'), Interval.M7);
       expect(Pitch.parse('D#6') - Pitch.parse('E3'), Interval.M7);
-      expect(Pitch.parse('D4') - Pitch.parse('D♯3'), Interval.d8);
-      expect(Pitch.parse('D5') - Pitch.parse('D♯3'), Interval.d8);
+      expect(Pitch.parse('D4') - Pitch.parse('D♯3'), Interval.M7);
+      expect(Pitch.parse('D5') - Pitch.parse('D♯3'), Interval.M7);
       expect(Pitch.parse('C4') - Pitch.parse('C3'), Interval.P8);
       expect(Pitch.parse('C6') - Pitch.parse('C3'), Interval.P8);
       expect(Pitch.parse('C5') - Pitch.parse('C4'), Interval.P8);
+
+      expect(Pitch.parse('C4') - Pitch.parse('D♭4'), Interval.m2);
+      expect(Pitch.parse('C4') - Pitch.parse('D♭5'), Interval.m2);
+      expect(Pitch.parse('C4') - Pitch.parse('D4'), Interval.M2);
+      expect(Pitch.parse('C4') - Pitch.parse('D5'), Interval.M2);
+      expect(Pitch.parse('C4') - Pitch.parse('D#4'), Interval.m3);
+      expect(Pitch.parse('C4') - Pitch.parse('D#5'), Interval.m3);
+      expect(Pitch.parse('C4') - Pitch.parse('E4'), Interval.M3);
+      expect(Pitch.parse('C4') - Pitch.parse('E5'), Interval.M3);
+      expect(Pitch.parse('C4') - Pitch.parse('F4'), Interval.P4);
+      expect(Pitch.parse('C4') - Pitch.parse('F5'), Interval.P4);
+      expect(Pitch.parse('C4') - Pitch.parse('F#4'), Interval.d5);
+      expect(Pitch.parse('C4') - Pitch.parse('F#5'), Interval.d5);
+      expect(Pitch.parse('C3') - Pitch.parse('G3'), Interval.P5);
+      expect(Pitch.parse('C3') - Pitch.parse('G4'), Interval.P5);
+      expect(Pitch.parse('C3') - Pitch.parse('G#3'), Interval.m6);
+      expect(Pitch.parse('C3') - Pitch.parse('G#4'), Interval.m6);
+      expect(Pitch.parse('C3') - Pitch.parse('A3'), Interval.M6);
+      expect(Pitch.parse('C3') - Pitch.parse('A4'), Interval.M6);
+      expect(Pitch.parse('C3') - Pitch.parse('A#3'), Interval.m7);
+      expect(Pitch.parse('C3') - Pitch.parse('A#4'), Interval.m7);
+      expect(Pitch.parse('C3') - Pitch.parse('B3'), Interval.M7);
+      expect(Pitch.parse('C3') - Pitch.parse('B4'), Interval.M7);
     });
   });
 }
