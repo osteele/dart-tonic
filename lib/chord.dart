@@ -260,47 +260,47 @@ final List _chordPatternSpecs = [
   {
     "name": 'm7',
     "abbrs": ['min7'],
-    "intervals": '037e'
+    "intervals": '037t'
   },
   {
     "name": 'm7',
     "abbrs": ['min7'],
-    "intervals": '03e'
+    "intervals": '03t'
   },
   {
     "name": 'm7(♭5)',
     "abbrs": ['ø', 'Ø', 'm7♭5'],
-    "intervals": '036e'
+    "intervals": '036t'
   },
   {
     "name": 'm7(♭9)',
     "abbrs": ['m7(b9)'],
-    "intervals": '0137e'
+    "intervals": '0137t'
   },
   {
     "name": 'm7(♭9)',
     "abbrs": ['m7(9b)'],
-    "intervals": '013e'
+    "intervals": '013t'
   },
   {
     "name": 'm7(9)',
     "abbrs": ['m7(9)'],
-    "intervals": '0237e'
+    "intervals": '0237t'
   },
   {
     "name": 'm7(9)',
     "abbrs": ['m7(9)'],
-    "intervals": '023e'
+    "intervals": '023t'
   },
   {
     "name": 'm7(11)',
     "abbrs": ['min7(11)'],
-    "intervals": '0357e'
+    "intervals": '0357t'
   },
   {
     "name": 'm7(11)',
     "abbrs": ['min7(11)'],
-    "intervals": '035e'
+    "intervals": '035t'
   },
   // 5th
   {
