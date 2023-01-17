@@ -7,24 +7,24 @@ void main() {
     group('parse', () {
       test('should recognize chord names', () {
         expect(ChordPattern.parse('Major'), isChordPattern);
-        expect(ChordPattern.parse('Minor'), isChordPattern);
+        expect(ChordPattern.parse('minor'), isChordPattern);
         expect(ChordPattern.parse('Augmented'), isChordPattern);
         expect(ChordPattern.parse('Diminished'), isChordPattern);
         expect(ChordPattern.parse('Augmented'), isChordPattern);
         expect(ChordPattern.parse('Diminished'), isChordPattern);
         expect(ChordPattern.parse('Sus2'), isChordPattern);
         expect(ChordPattern.parse('Sus4'), isChordPattern);
-        expect(ChordPattern.parse('Dominant 7th'), isChordPattern);
-        expect(ChordPattern.parse('Augmented 7th'), isChordPattern);
-        expect(ChordPattern.parse('Diminished 7th'), isChordPattern);
-        expect(ChordPattern.parse('Major 7th'), isChordPattern);
-        expect(ChordPattern.parse('Minor 7th'), isChordPattern);
-        expect(ChordPattern.parse('Dominant 7♭5'), isChordPattern);
-        expect(ChordPattern.parse('Minor 7th ♭5'), isChordPattern);
-        expect(ChordPattern.parse('Diminished Maj 7th'), isChordPattern);
-        expect(ChordPattern.parse('Minor-Major 7th'), isChordPattern);
-        expect(ChordPattern.parse('6th'), isChordPattern);
-        expect(ChordPattern.parse('Minor 6th'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7'), isChordPattern);
+        expect(ChordPattern.parse('Augmented 7'), isChordPattern);
+        expect(ChordPattern.parse('Diminished 7'), isChordPattern);
+        expect(ChordPattern.parse('Major 7'), isChordPattern);
+        expect(ChordPattern.parse('minor 7'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(♭5)'), isChordPattern);
+        expect(ChordPattern.parse('minor 7(♭5)'), isChordPattern);
+        expect(ChordPattern.parse('Diminished Major 7'), isChordPattern);
+        expect(ChordPattern.parse('minor-Major 7'), isChordPattern);
+        expect(ChordPattern.parse('6'), isChordPattern);
+        expect(ChordPattern.parse('minor 6'), isChordPattern);
       });
 
       test('should recognize chord abbreviations', () {
@@ -42,7 +42,7 @@ void main() {
 
     test('toString', () {
       expect(ChordPattern.parse('Major').fullName, equals('Major'));
-      expect(ChordPattern.parse('Minor').fullName, equals('Minor'));
+      expect(ChordPattern.parse('minor').fullName, equals('minor'));
       expect(ChordPattern.parse('Augmented').fullName, equals('Augmented'));
       expect(ChordPattern.parse('Diminished').fullName, equals('Diminished'));
     });
@@ -50,36 +50,38 @@ void main() {
     group('fromIntervals', () {
       test('should index chord classes by interval sequence', () {
         expect(
-            ChordPattern.fromIntervals([Interval.P1, Interval.M3, Interval.P5]),
-            equals(ChordPattern.parse('Major')));
+            ChordPattern.fromIntervals([Interval.P1, Interval.M3, Interval.P5])
+                .name,
+            equals(ChordPattern.parse('Major').name));
         expect(
-            ChordPattern.fromIntervals([Interval.P1, Interval.m3, Interval.P5]),
-            equals(ChordPattern.parse('Minor')));
-        expect(
-            ChordPattern.fromIntervals(
-                [Interval.P1, Interval.m3, Interval.P5, Interval.m7]),
-            equals(ChordPattern.parse('Minor 7th')));
+            ChordPattern.fromIntervals([Interval.P1, Interval.m3, Interval.P5])
+                .name,
+            equals(ChordPattern.parse('minor').name));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.P1, Interval.m3, Interval.P5, Interval.M7]),
-            equals(ChordPattern.parse('Minor-Major 7th')));
+                [Interval.P1, Interval.m3, Interval.P5, Interval.m7]).name,
+            equals(ChordPattern.parse('minor 7').name));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.P1, Interval.M3, Interval.P5, Interval.m7]),
-            equals(ChordPattern.parse('Dominant 7th')));
+                [Interval.P1, Interval.m3, Interval.P5, Interval.M7]).name,
+            equals(ChordPattern.parse('minor-Major 7').name));
         expect(
             ChordPattern.fromIntervals(
-                [Interval.P1, Interval.M3, Interval.P5, Interval.M7]),
-            equals(ChordPattern.parse('Major 7th')));
+                [Interval.P1, Interval.M3, Interval.P5, Interval.m7]).name,
+            equals(ChordPattern.parse('Dominant 7').name));
+        expect(
+            ChordPattern.fromIntervals(
+                [Interval.P1, Interval.M3, Interval.P5, Interval.M7]).name,
+            equals(ChordPattern.parse('Major 7').name));
       });
 
       test('should recognize inversions', () {
         expect(
             ChordPattern.fromIntervals([Interval.m3, Interval.P1, Interval.P5]),
-            equals(ChordPattern.parse('Minor')));
+            equals(ChordPattern.parse('minor')));
         expect(
             ChordPattern.fromIntervals([Interval.m3, Interval.P5, Interval.P1]),
-            equals(ChordPattern.parse('Minor')));
+            equals(ChordPattern.parse('minor')));
       });
     });
   });
@@ -95,8 +97,8 @@ void main() {
             equals(ChordPattern.parse('Major')));
         expect(Chord.parse('E4Major').pattern,
             equals(ChordPattern.parse('Major')));
-        expect(Chord.parse('E4 Minor').pattern,
-            equals(ChordPattern.parse('Minor')));
+        expect(Chord.parse('E4 minor').pattern,
+            equals(ChordPattern.parse('minor')));
       });
 
       test('should convert from Helmoltz pitch names', () {
@@ -127,7 +129,7 @@ void main() {
             Chord.fromPitches(
                     [Pitch.parse('A3'), Pitch.parse('C4'), Pitch.parse('E4')])
                 .pattern,
-            equals(ChordPattern.parse('Minor')));
+            equals(ChordPattern.parse('minor')));
       });
 
       test('should recognize pitches spread across multiple otaves', () {
@@ -150,17 +152,17 @@ void main() {
             Chord.fromPitches(
                     [Pitch.parse('A3'), Pitch.parse('C4'), Pitch.parse('E4')])
                 .pattern,
-            equals(ChordPattern.parse('Minor')));
+            equals(ChordPattern.parse('minor')));
         expect(
             Chord.fromPitches(
                     [Pitch.parse('A3'), Pitch.parse('C5'), Pitch.parse('E4')])
                 .pattern,
-            equals(ChordPattern.parse('Minor')));
+            equals(ChordPattern.parse('minor')));
         expect(
             Chord.fromPitches(
                     [Pitch.parse('A3'), Pitch.parse('C4'), Pitch.parse('E5')])
                 .pattern,
-            equals(ChordPattern.parse('Minor')));
+            equals(ChordPattern.parse('minor')));
       });
 
       test('should recognize inversions', () {
@@ -173,12 +175,12 @@ void main() {
             Chord.fromPitches(
                     [Pitch.parse('C♯4'), Pitch.parse('A3'), Pitch.parse('E4')])
                 .pattern,
-            equals(ChordPattern.parse('Major')));
+            equals(ChordPattern.parse('min ♭6')));
         expect(
             Chord.fromPitches(
                     [Pitch.parse('E4'), Pitch.parse('A3'), Pitch.parse('C♯4')])
                 .pattern,
-            equals(ChordPattern.parse('Major')));
+            equals(ChordPattern.parse('6Sus4')));
       });
     });
   });
@@ -191,7 +193,7 @@ void main() {
     });
 
     test('should have a name', () {
-      expect(chordPattern.name, equals('Major'));
+      expect(chordPattern.name, equals('Maj'));
     });
 
     test('should have a fullName', () {
@@ -219,7 +221,7 @@ void main() {
       });
 
       test('should have a name', () {
-        expect(chord.name, equals('E4 Major'));
+        expect(chord.name, equals('E4 Maj'));
       });
 
       test('should have a fullName', () {
@@ -249,7 +251,7 @@ void main() {
       });
 
       test('should have a name', () {
-        expect(chord.name, equals('C4 Major'));
+        expect(chord.name, equals('C4 Maj'));
       });
 
       test('should have a fullName', () {
@@ -272,8 +274,8 @@ void main() {
     });
   });
 
-  group('Minor Chord', () {
-    final chordPattern = ChordPattern.parse('Minor');
+  group('minor Chord', () {
+    final chordPattern = ChordPattern.parse('minor');
 
     group('at C4', () {
       final chord = chordPattern.at(Pitch.parse('C4'));
@@ -283,7 +285,7 @@ void main() {
       });
 
       test('should have a name', () {
-        expect(chord.name, equals('C4 Minor'));
+        expect(chord.name, equals('C4 min'));
       });
 
       test('should contain three intervals', () {
