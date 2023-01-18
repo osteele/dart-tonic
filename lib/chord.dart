@@ -329,9 +329,14 @@ final List _chordPatternSpecs = [
     "intervals": '0369'
   },
   {
-    "name": 'Diminished Major 7',
-    "abbrs": ['°Maj7'],
-    "intervals": '036e'
+    "name": 'Diminished 7(♭13)',
+    "abbrs": ['°7(♭13)', 'dim7(♭13)'],
+    "intervals": '03689'
+  },
+  {
+    "name": 'Diminished 7(♭13)',
+    "abbrs": ['°7(♭13)', 'dim7(♭13)'],
+    "intervals": '0389'
   },
   // 2nd / 4th
   {
@@ -470,5 +475,10 @@ final List _chordPatternSpecs = [
     "name": 'minor-Major 7',
     "abbrs": ['min/maj7', 'min(maj7)'],
     "intervals": '03e'
+  },
+  {
+    "name": 'minor-Major 7(#11)',
+    "abbrs": ['min/maj7(#11)', 'min(maj7)(#11)'],
+    "intervals": '036e'
   },
 ];
