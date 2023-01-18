@@ -13,6 +13,7 @@ void main() {
         expect(ChordPattern.parse('Major 7'), isChordPattern);
         expect(ChordPattern.parse('Major 7(9)'), isChordPattern);
         expect(ChordPattern.parse('Major 7(9)(#11)'), isChordPattern);
+        expect(ChordPattern.parse('Major 7(9)(13)'), isChordPattern);
         expect(ChordPattern.parse('Major 7(#9)'), isChordPattern);
         expect(ChordPattern.parse('Major 7(#11)'), isChordPattern);
 
