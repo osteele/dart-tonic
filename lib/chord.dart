@@ -436,13 +436,33 @@ final List _chordPatternSpecs = [
   },
   {
     "name": 'Dominant 7(♭9)',
-    "abbrs": ['dom7(b9)', '7(b9)'],
+    "abbrs": ['dom7(♭9)', '7(b9)'],
     "intervals": '0147t'
   },
   {
     "name": 'Dominant 7(♭9)',
-    "abbrs": ['dom7(b9)', '7(b9)'],
+    "abbrs": ['dom7(♭9)', '7(b9)'],
     "intervals": '014t'
+  },
+  {
+    "name": 'Dominant 7(♭9)(#11)',
+    "abbrs": ['dom7(♭9)(#11)', '7(b9)(#11)'],
+    "intervals": '01467t'
+  },
+  {
+    "name": 'Dominant 7(♭9)(#11)',
+    "abbrs": ['dom7(b9)(#11)', '7(b9)(#11)'],
+    "intervals": '0146t'
+  },
+  {
+    "name": 'Dominant 7(♭9)(♭13)',
+    "abbrs": ['dom7(b9)(♭13)', '7(b9)(b13)'],
+    "intervals": '01478t'
+  },
+  {
+    "name": 'Dominant 7(♭9)(♭13)',
+    "abbrs": ['dom7(b9)(♭13)', '7(b9)(b13)'],
+    "intervals": '0148t'
   },
   {
     "name": 'Dominant 7(9)',
@@ -473,6 +493,26 @@ final List _chordPatternSpecs = [
     "name": 'Dominant 7(#9)',
     "abbrs": ['7#9', 'dom7#9'],
     "intervals": '034t'
+  },
+  {
+    "name": 'Dominant 7(#9)(#11)',
+    "abbrs": ['dom7(#9)(#11)', '7(#9)(#11)'],
+    "intervals": '03467t'
+  },
+  {
+    "name": 'Dominant 7(#9)(#11)',
+    "abbrs": ['dom7(#9)(#11)', '7(#9)(#11)'],
+    "intervals": '0346t'
+  },
+  {
+    "name": 'Dominant 7(#9)(♭13)',
+    "abbrs": ['dom7(#9)(♭13)', '7(#9)(b13)'],
+    "intervals": '03478t'
+  },
+  {
+    "name": 'Dominant 7(#9)(♭13)',
+    "abbrs": ['dom7(#9)(♭13)', '7(#9)(b13)'],
+    "intervals": '0348t'
   },
   {
     "name": 'Dominant 7(#11)',
