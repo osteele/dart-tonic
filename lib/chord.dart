@@ -318,6 +318,17 @@ final List _chordPatternSpecs = [
     "abbrs": ['min7(11)'],
     "intervals": '035t'
   },
+  {
+    "name": 'minor add9',
+    "abbrs": ['m9'],
+    "intervals": '0237'
+  },
+  {
+    "name": 'minor add9',
+    "abbrs": ['m9'],
+    "intervals": '023'
+  },
+
   // 5th
   {
     "name": 'Augmented',
@@ -349,6 +360,12 @@ final List _chordPatternSpecs = [
     "abbrs": ['°7(♭13)', 'dim7(♭13)'],
     "intervals": '0389'
   },
+  {
+    "name": 'Diminished 7(9)',
+    "abbrs": ['°7(9)', 'dim7(9)'],
+    "intervals": '02369'
+  },
+
   // 2nd / 4th
   {
     "name": 'Sus2',
@@ -369,6 +386,11 @@ final List _chordPatternSpecs = [
     "name": '6Sus2',
     "abbrs": ['6sus2'],
     "intervals": '029'
+  },
+  {
+    "name": '6(#11)Sus2',
+    "abbrs": ['6sus2(#11)'],
+    "intervals": '0269'
   },
   {
     "name": '6Sus4',
