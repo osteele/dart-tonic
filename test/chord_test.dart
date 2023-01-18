@@ -7,24 +7,50 @@ void main() {
     group('parse', () {
       test('should recognize chord names', () {
         expect(ChordPattern.parse('Major'), isChordPattern);
+        expect(ChordPattern.parse('Major 6'), isChordPattern);
+        expect(ChordPattern.parse('Major 6(9)'), isChordPattern);
+        expect(ChordPattern.parse('Major 6(11)'), isChordPattern);
+        expect(ChordPattern.parse('Major 7'), isChordPattern);
+        expect(ChordPattern.parse('Major 7(9)'), isChordPattern);
+        expect(ChordPattern.parse('Major 7(9)(#11)'), isChordPattern);
+        expect(ChordPattern.parse('Major 7(#9)'), isChordPattern);
+        expect(ChordPattern.parse('Major 7(#11)'), isChordPattern);
+
         expect(ChordPattern.parse('minor'), isChordPattern);
+        expect(ChordPattern.parse('minor ♭6'), isChordPattern);
+        expect(ChordPattern.parse('minor 6'), isChordPattern);
+        expect(ChordPattern.parse('minor 6(9)'), isChordPattern);
+        expect(ChordPattern.parse('minor 6(11)'), isChordPattern);
+        expect(ChordPattern.parse('minor 7'), isChordPattern);
+        expect(ChordPattern.parse('minor 7(♭5)'), isChordPattern);
+        expect(ChordPattern.parse('minor 7(♭9)'), isChordPattern);
+        expect(ChordPattern.parse('minor 7(9)'), isChordPattern);
+        expect(ChordPattern.parse('minor 7(11)'), isChordPattern);
+
         expect(ChordPattern.parse('Augmented'), isChordPattern);
+        expect(ChordPattern.parse('Augmented 7'), isChordPattern);
         expect(ChordPattern.parse('Diminished'), isChordPattern);
-        expect(ChordPattern.parse('Augmented'), isChordPattern);
-        expect(ChordPattern.parse('Diminished'), isChordPattern);
+        expect(ChordPattern.parse('Diminished 7'), isChordPattern);
+        expect(ChordPattern.parse('Diminished 7(♭13)'), isChordPattern);
+
         expect(ChordPattern.parse('Sus2'), isChordPattern);
         expect(ChordPattern.parse('Sus4'), isChordPattern);
+        expect(ChordPattern.parse('6Sus2'), isChordPattern);
+        expect(ChordPattern.parse('6Sus4'), isChordPattern);
+        expect(ChordPattern.parse('7Sus4'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(9)Sus4'), isChordPattern);
+
         expect(ChordPattern.parse('Dominant 7'), isChordPattern);
-        expect(ChordPattern.parse('Augmented 7'), isChordPattern);
-        expect(ChordPattern.parse('Diminished 7'), isChordPattern);
-        expect(ChordPattern.parse('Major 7'), isChordPattern);
-        expect(ChordPattern.parse('minor 7'), isChordPattern);
-        expect(ChordPattern.parse('Dominant 7(♭5)'), isChordPattern);
-        expect(ChordPattern.parse('minor 7(♭5)'), isChordPattern);
-        expect(ChordPattern.parse('Diminished Major 7'), isChordPattern);
-        expect(ChordPattern.parse('minor-Major 7'), isChordPattern);
-        expect(ChordPattern.parse('6'), isChordPattern);
-        expect(ChordPattern.parse('minor 6'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(♭9)'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(9)'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(9)(13)'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(#9)'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(#11)'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(♭13)'), isChordPattern);
+        expect(ChordPattern.parse('Dominant 7(13)'), isChordPattern);
+
+        expect(ChordPattern.parse('minor Major 7(#11)'), isChordPattern);
+        expect(ChordPattern.parse('minor Major 7'), isChordPattern);
       });
 
       test('should recognize chord abbreviations', () {
@@ -64,7 +90,7 @@ void main() {
         expect(
             ChordPattern.fromIntervals(
                 [Interval.P1, Interval.m3, Interval.P5, Interval.M7]).name,
-            equals(ChordPattern.parse('minor-Major 7').name));
+            equals(ChordPattern.parse('minor Major 7').name));
         expect(
             ChordPattern.fromIntervals(
                 [Interval.P1, Interval.M3, Interval.P5, Interval.m7]).name,

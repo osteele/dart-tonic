@@ -146,16 +146,11 @@ class Chord {
 }
 
 final List _chordPatternSpecs = [
-  // Major / minor
+  // Major
   {
     "name": 'Major',
     "abbrs": ['', 'M'],
     "intervals": '047'
-  },
-  {
-    "name": 'minor',
-    "abbrs": ['m'],
-    "intervals": '037'
   },
   {
     "name": 'Major 6',
@@ -168,21 +163,6 @@ final List _chordPatternSpecs = [
     "intervals": '049'
   },
   {
-    "name": 'minor 6',
-    "abbrs": ['m6', 'min6'],
-    "intervals": '0379'
-  },
-  {
-    "name": 'minor 6',
-    "abbrs": ['m6', 'min6'],
-    "intervals": '039'
-  },
-  {
-    "name": 'minor ♭6',
-    "abbrs": ['m♭6', 'min♭6'],
-    "intervals": '038'
-  },
-  {
     "name": 'Major 6(9)',
     "abbrs": ['M69', 'maj69'],
     "intervals": '02479'
@@ -193,16 +173,6 @@ final List _chordPatternSpecs = [
     "intervals": '0249'
   },
   {
-    "name": 'minor 6(9)',
-    "abbrs": ['m69', 'min69'],
-    "intervals": '02379'
-  },
-  {
-    "name": 'minor 6(9)',
-    "abbrs": ['m69', 'min69'],
-    "intervals": '0239'
-  },
-  {
     "name": 'Major 6(11)',
     "abbrs": ['maj6(11)'],
     "intervals": '04579'
@@ -211,16 +181,6 @@ final List _chordPatternSpecs = [
     "name": 'Major 6(11)',
     "abbrs": ['M6(11)', 'maj6(11)'],
     "intervals": '0459'
-  },
-  {
-    "name": 'minor 6(11)',
-    "abbrs": ['m6(11)', 'min6(11)'],
-    "intervals": '03579'
-  },
-  {
-    "name": 'minor 6(11)',
-    "abbrs": ['m6(11)', 'min6(11)'],
-    "intervals": '0359'
   },
   {
     "name": 'Major 7',
@@ -243,6 +203,16 @@ final List _chordPatternSpecs = [
     "intervals": '024e'
   },
   {
+    "name": 'Major 7(#9)',
+    "abbrs": ['M7(#9)'],
+    "intervals": '0347e'
+  },
+  {
+    "name": 'Major 7(#9)',
+    "abbrs": ['M7(#9)'],
+    "intervals": '034e'
+  },
+  {
     "name": 'Major 7(9)(#11)',
     "abbrs": ['M7(9)(#11)'],
     "intervals": '02467e'
@@ -261,6 +231,47 @@ final List _chordPatternSpecs = [
     "name": 'Major 7(#11)',
     "abbrs": ['M7(#11)'],
     "intervals": '046e'
+  },
+  // Minor
+  {
+    "name": 'minor',
+    "abbrs": ['m'],
+    "intervals": '037'
+  },
+  {
+    "name": 'minor ♭6',
+    "abbrs": ['m♭6', 'min♭6'],
+    "intervals": '038'
+  },
+  {
+    "name": 'minor 6',
+    "abbrs": ['m6', 'min6'],
+    "intervals": '0379'
+  },
+  {
+    "name": 'minor 6',
+    "abbrs": ['m6', 'min6'],
+    "intervals": '039'
+  },
+  {
+    "name": 'minor 6(9)',
+    "abbrs": ['m69', 'min69'],
+    "intervals": '02379'
+  },
+  {
+    "name": 'minor 6(9)',
+    "abbrs": ['m69', 'min69'],
+    "intervals": '0239'
+  },
+  {
+    "name": 'minor 6(11)',
+    "abbrs": ['m6(11)', 'min6(11)'],
+    "intervals": '03579'
+  },
+  {
+    "name": 'minor 6(11)',
+    "abbrs": ['m6(11)', 'min6(11)'],
+    "intervals": '0359'
   },
   {
     "name": 'minor 7',
@@ -402,11 +413,6 @@ final List _chordPatternSpecs = [
     "intervals": '04t'
   },
   {
-    "name": 'Dominant 7(♭5)',
-    "abbrs": ['7♭5'],
-    "intervals": '046t'
-  },
-  {
     "name": 'Dominant 7(♭9)',
     "abbrs": ['dom7(b9)', '7(b9)'],
     "intervals": '0147t'
@@ -427,6 +433,16 @@ final List _chordPatternSpecs = [
     "intervals": '024t'
   },
   {
+    "name": 'Dominant 7(9)(13)',
+    "abbrs": ['7(9)(13)'],
+    "intervals": '02479t'
+  },
+  {
+    "name": 'Dominant 7(9)(13)',
+    "abbrs": ['7(9)(13)'],
+    "intervals": '0249t'
+  },
+  {
     "name": 'Dominant 7(#9)',
     "abbrs": ['7#9', 'dom7(#9)'],
     "intervals": '0347t'
@@ -437,24 +453,9 @@ final List _chordPatternSpecs = [
     "intervals": '034t'
   },
   {
-    "name": 'Dominant 7(13)',
-    "abbrs": ['7(13)'],
-    "intervals": '0479t'
-  },
-  {
-    "name": 'Dominant 7(13)',
-    "abbrs": ['7(13)'],
-    "intervals": '049t'
-  },
-  {
-    "name": 'Dominant 7(9)(13)',
-    "abbrs": ['7(9)(13)'],
-    "intervals": '02479t'
-  },
-  {
-    "name": 'Dominant 7(9)(13)',
-    "abbrs": ['7(9)(13)'],
-    "intervals": '0249t'
+    "name": 'Dominant 7(#11)',
+    "abbrs": ['7♭5', '7#11'],
+    "intervals": '046t'
   },
   {
     "name": 'Dominant 7(♭13)',
@@ -467,17 +468,28 @@ final List _chordPatternSpecs = [
     "intervals": '048t'
   },
   {
-    "name": 'minor-Major 7',
+    "name": 'Dominant 7(13)',
+    "abbrs": ['7(13)'],
+    "intervals": '0479t'
+  },
+  {
+    "name": 'Dominant 7(13)',
+    "abbrs": ['7(13)'],
+    "intervals": '049t'
+  },
+
+  {
+    "name": 'minor Major 7',
     "abbrs": ['min/maj7', 'min(maj7)'],
     "intervals": '037e'
   },
   {
-    "name": 'minor-Major 7',
+    "name": 'minor Major 7',
     "abbrs": ['min/maj7', 'min(maj7)'],
     "intervals": '03e'
   },
   {
-    "name": 'minor-Major 7(#11)',
+    "name": 'minor Major 7(#11)',
     "abbrs": ['min/maj7(#11)', 'min(maj7)(#11)'],
     "intervals": '036e'
   },
