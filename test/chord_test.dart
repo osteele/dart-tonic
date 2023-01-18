@@ -26,16 +26,19 @@ void main() {
         expect(ChordPattern.parse('minor 7(♭9)'), isChordPattern);
         expect(ChordPattern.parse('minor 7(9)'), isChordPattern);
         expect(ChordPattern.parse('minor 7(11)'), isChordPattern);
+        expect(ChordPattern.parse('minor add9'), isChordPattern);
 
         expect(ChordPattern.parse('Augmented'), isChordPattern);
         expect(ChordPattern.parse('Augmented 7'), isChordPattern);
         expect(ChordPattern.parse('Diminished'), isChordPattern);
         expect(ChordPattern.parse('Diminished 7'), isChordPattern);
+        expect(ChordPattern.parse('Diminished 7(9)'), isChordPattern);
         expect(ChordPattern.parse('Diminished 7(♭13)'), isChordPattern);
 
         expect(ChordPattern.parse('Sus2'), isChordPattern);
         expect(ChordPattern.parse('Sus4'), isChordPattern);
         expect(ChordPattern.parse('6Sus2'), isChordPattern);
+        expect(ChordPattern.parse('6(#11)Sus2'), isChordPattern);
         expect(ChordPattern.parse('6Sus4'), isChordPattern);
         expect(ChordPattern.parse('7Sus4'), isChordPattern);
         expect(ChordPattern.parse('Dominant 7(9)Sus4'), isChordPattern);
