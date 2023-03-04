@@ -220,18 +220,21 @@ class Pitch {
   Interval operator -(dynamic other) {
     if (other is Pitch) {
       var semitones = this.semitones - other.semitones;
+
       var number =
           1 + letterIndex + 7 * octave - other.letterIndex - 7 * other.octave;
+
       // TODO enhance Interval to represent intervals greater than an octave
       while (number < 1) {
         number += 7;
         semitones += 12;
       }
-      while (number > 8) {
+      while (number >= 8 && semitones > 12) {
         number -= 7;
         semitones -= 12;
       }
-      return new Interval.fromSemitones(semitones, number: number);
+
+      return new Interval.fromSemitones(semitones);
     }
     throw new ArgumentError("can't subtract $other from $this");
   }
