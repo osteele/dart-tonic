@@ -8,8 +8,7 @@ linter:
     - empty_statements
     - hash_and_equals
     - invariant_booleans
-    - iterable_contains_unrelated_type
-    - list_remove_unrelated_type
+    - collection_methods_unrelated_type
     - literal_only_boolean_expressions
     - test_types_in_equals
     - throw_in_finally
