@@ -7,23 +7,33 @@ void main() {
       expect(ScalePattern.findByName('Diatonic Major'), isNotNull);
       expect(ScalePattern.findByName('Natural Minor'), isNotNull);
       expect(ScalePattern.findByName('Major Pentatonic'), isNotNull);
-      expect(ScalePattern.findByName('Major Pentatonic', type: ScalePattern), isNotNull);
-      expect(ScalePattern.findByName('Major Pentatonic', type: Mode), isNotNull);
+      expect(ScalePattern.findByName('Major Pentatonic', type: ScalePattern),
+          isNotNull);
+      expect(
+          ScalePattern.findByName('Major Pentatonic', type: Mode), isNotNull);
       expect(ScalePattern.findByName('Diatonic Major'), isNotNull);
       expect(ScalePattern.findByName('Minor Pentatonic'), isNotNull);
       expect(ScalePattern.findByName('Melodic Minor'), isNotNull);
       expect(ScalePattern.findByName('Harmonic Minor'), isNotNull);
-      expect(ScalePattern.findByName('Harmonic Minor', type: ScalePattern), isNotNull);
+      expect(ScalePattern.findByName('Harmonic Minor', type: ScalePattern),
+          isNotNull);
       expect(ScalePattern.findByName('Harmonic Minor', type: Mode), isNotNull);
       expect(ScalePattern.findByName('Blues'), isNotNull);
       expect(ScalePattern.findByName('Freygish'), isNotNull);
       expect(ScalePattern.findByName('Whole Tone'), isNotNull);
       expect(ScalePattern.findByName('Octatonic'), isNotNull);
 
-      expect(() => ScalePattern.findByName('Should not be found'), throwsFormatException);
-      expect(() => ScalePattern.findByName(ScalePatternNames.aeolian, type: ScalePattern), throwsFormatException);
-      expect(() => ScalePattern.findByName(ScalePatternNames.blues, type: Mode), throwsFormatException);
-      expect(() => ScalePattern.findByName(ScalePatternNames.diatonicMajor, type: Pitch),
+      expect(() => ScalePattern.findByName('Should not be found'),
+          throwsFormatException);
+      expect(
+          () => ScalePattern.findByName(ScalePatternNames.aeolian,
+              type: ScalePattern),
+          throwsFormatException);
+      expect(() => ScalePattern.findByName(ScalePatternNames.blues, type: Mode),
+          throwsFormatException);
+      expect(
+          () => ScalePattern.findByName(ScalePatternNames.diatonicMajor,
+              type: Pitch),
           throwsA(TypeMatcher<AssertionError>()));
 
       for (final pattern in ScalePatternNames.scaleNames()) {
@@ -197,7 +207,8 @@ void main() {
   });
 
   group('Major Pentatonic Scale', () {
-    final scalePattern = ScalePattern.findByName(ScalePatternNames.majorPentatonic);
+    final scalePattern =
+        ScalePattern.findByName(ScalePatternNames.majorPentatonic);
 
     test('should exist', () {
       expect(scalePattern, isNotNull);
@@ -277,10 +288,13 @@ void main() {
       test('should contain five pitch classes', () {
         expect(scale.pitchClasses, hasLength(5));
         expect(scale.pitchClasses, contains(PitchClass.parse(NoteNames.e)));
-        expect(scale.pitchClasses, contains(PitchClass.parse(NoteNames.fSharp)));
-        expect(scale.pitchClasses, contains(PitchClass.parse(NoteNames.gSharp)));
+        expect(
+            scale.pitchClasses, contains(PitchClass.parse(NoteNames.fSharp)));
+        expect(
+            scale.pitchClasses, contains(PitchClass.parse(NoteNames.gSharp)));
         expect(scale.pitchClasses, contains(PitchClass.parse(NoteNames.b)));
-        expect(scale.pitchClasses, contains(PitchClass.parse(NoteNames.cSharp)));
+        expect(
+            scale.pitchClasses, contains(PitchClass.parse(NoteNames.cSharp)));
       });
 
       //     test('should contain five chords', () {

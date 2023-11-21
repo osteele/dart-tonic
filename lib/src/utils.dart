@@ -19,7 +19,9 @@ List sortedBy<T>(
   bool reverse = false,
 }) {
   final list = new List.from(items);
-  final comparator = reverse ? (a, b) => sortKey(a) - sortKey(b) : (a, b) => sortKey(b) - sortKey(a);
+  final comparator = reverse
+      ? (a, b) => sortKey(a) - sortKey(b)
+      : (a, b) => sortKey(b) - sortKey(a);
   insertionSort(list, compare: comparator);
   return list;
 }

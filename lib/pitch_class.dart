@@ -33,17 +33,20 @@ class PitchClass {
 
   String get inspect => {'integer': integer}.toString();
 
-  Pitch toPitch({int octave = 0}) => new Pitch(chromaticIndex: integer, octave: octave);
+  Pitch toPitch({int octave = 0}) =>
+      new Pitch(chromaticIndex: integer, octave: octave);
 
   PitchClass toPitchClass() => this;
 
-  factory PitchClass.fromSemitones(int integer) => new PitchClass(integer: integer);
+  factory PitchClass.fromSemitones(int integer) =>
+      new PitchClass(integer: integer);
 
   static final _pitchClassPattern = new RegExp(r'^([A-Ga-g])([#♯b♭𝄪𝄫]*)$');
 
   static PitchClass parse(String pitchClassName) {
     final match = _pitchClassPattern.matchAsPrefix(pitchClassName);
-    if (match == null) throw new FormatException("$pitchClassName is not a pitch class name");
+    if (match == null)
+      throw new FormatException("$pitchClassName is not a pitch class name");
     final String naturalName = match[1]!;
     final String accidentals = match[2]!;
     int integer = noteNames.indexOf(naturalName.toUpperCase());
@@ -63,5 +66,6 @@ class PitchClass {
 
   int get hashCode => integer;
 
-  PitchClass operator +(Interval interval) => new PitchClass(integer: integer + interval.semitones);
+  PitchClass operator +(Interval interval) =>
+      new PitchClass(integer: integer + interval.semitones);
 }

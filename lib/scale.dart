@@ -23,12 +23,15 @@ class ScalePattern {
     if (type == null) {
       scalePattern = _byName['$name $ScalePattern'];
       if (scalePattern == null) scalePattern = _byName['$name $Mode'];
-      if (scalePattern == null) throw new FormatException('$name is not a ScalePattern name');
+      if (scalePattern == null)
+        throw new FormatException('$name is not a ScalePattern name');
     } else {
       //user has specified a type, if wrong type used or no scale pattern found, throw an exception
       assert(['$Mode', '$ScalePattern'].contains('$type'));
       scalePattern = _byName['$name $type'];
-      if (scalePattern == null) throw new FormatException('$name is not a ScalePattern name with specific type $type');
+      if (scalePattern == null)
+        throw new FormatException(
+            '$name is not a ScalePattern name with specific type $type');
     }
 
     return scalePattern;
@@ -42,16 +45,21 @@ class ScalePattern {
       final parentName = spec[Keywords.parent];
       List<String>? modeNames = spec[Keywords.modeNames];
       final List<int> intervalValues = spec[Keywords.intervals];
-      final intervals = intervalValues.map((n) => new Interval.fromSemitones(n)).toList();
+      final intervals =
+          intervalValues.map((n) => new Interval.fromSemitones(n)).toList();
       final scale = parentName != null
-          ? new Mode(name: scaleName, parent: ScalePattern.findByName(parentName), intervals: intervals)
+          ? new Mode(
+              name: scaleName,
+              parent: ScalePattern.findByName(parentName),
+              intervals: intervals)
           : new ScalePattern(name: scaleName, intervals: intervals);
       if (modeNames == null) modeNames = [];
       eachWithIndex(modeNames, (String modeName, index) {
         List<Interval> modeIntervals = new List.from(intervals.skip(index));
         modeIntervals.addAll(intervals.take(index));
         final root = modeIntervals[0];
-        modeIntervals = modeIntervals.map((interval) => interval - root).toList();
+        modeIntervals =
+            modeIntervals.map((interval) => interval - root).toList();
         new Mode(name: modeName, parent: scale, intervals: modeIntervals);
       });
     }
@@ -82,7 +90,8 @@ class Scale {
 
   List<Interval> get intervals => pattern.intervals;
 
-  List<PitchClass> get pitchClasses => intervals.map((interval) => tonic + interval).toList();
+  List<PitchClass> get pitchClasses =>
+      intervals.map((interval) => tonic + interval).toList();
 
   // : intervals = (new Interval(semitones) for semitones in @pitchClasses)
   // @pitches = (@tonic.add(interval) for interval in @intervals) if @tonic?
