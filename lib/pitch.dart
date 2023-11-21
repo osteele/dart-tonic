@@ -2,37 +2,11 @@ part of tonic;
 
 /// Note names (e.g. C, C♯), indexed by half-steps above C. Notes that require
 /// accidentals use sharps (♯).
-final List<String> sharpNoteNames = [
-  'C',
-  'C♯',
-  'D',
-  'D♯',
-  'E',
-  'F',
-  'F♯',
-  'G',
-  'G♯',
-  'A',
-  'A♯',
-  'B'
-];
+final List<String> sharpNoteNames = NoteNames.sharpNoteNames();
 
 /// Note names (e.g. C, D♭), indexed by half-steps above C. Notes that require
 /// accidentals use flats (♭).
-final List<String> flatNoteNames = [
-  'C',
-  'D♭',
-  'D',
-  'E♭',
-  'E',
-  'F',
-  'G♭',
-  'G',
-  'A♭',
-  'A',
-  'B♭',
-  'B'
-];
+final List<String> flatNoteNames = NoteNames.flatNoteNames();
 
 /// Note names (e.g. C, C♯), indexed by half-steps above C. This has the same
 /// value as sharpNoteNames.
