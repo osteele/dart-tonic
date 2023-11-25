@@ -2,37 +2,11 @@ part of tonic;
 
 /// Note names (e.g. C, C♯), indexed by half-steps above C. Notes that require
 /// accidentals use sharps (♯).
-final List<String> sharpNoteNames = [
-  'C',
-  'C♯',
-  'D',
-  'D♯',
-  'E',
-  'F',
-  'F♯',
-  'G',
-  'G♯',
-  'A',
-  'A♯',
-  'B'
-];
+final List<String> sharpNoteNames = NoteNames.sharpNoteNames();
 
 /// Note names (e.g. C, D♭), indexed by half-steps above C. Notes that require
 /// accidentals use flats (♭).
-final List<String> flatNoteNames = [
-  'C',
-  'D♭',
-  'D',
-  'E♭',
-  'E',
-  'F',
-  'G♭',
-  'G',
-  'A♭',
-  'A',
-  'B♭',
-  'B'
-];
+final List<String> flatNoteNames = NoteNames.flatNoteNames();
 
 /// Note names (e.g. C, C♯), indexed by half-steps above C. This has the same
 /// value as sharpNoteNames.
@@ -126,8 +100,8 @@ class Pitch {
   // chromaticIndex is in semitones but must index a diatonic pitch
   factory Pitch(
       {required int chromaticIndex,
-      int accidentalSemitones: 0,
-      int octave: -1}) {
+      int accidentalSemitones = 0,
+      int octave = -1}) {
     octave += chromaticIndex ~/ 12;
     chromaticIndex = chromaticIndex % 12;
     if (noteNames[chromaticIndex].length > 1) {
@@ -144,8 +118,8 @@ class Pitch {
 
   Pitch._internal({
     required int chromaticIndex,
-    this.accidentalSemitones: 0,
-    int octave: -1,
+    this.accidentalSemitones = 0,
+    int octave = -1,
   }) : diatonicSemitones = chromaticIndex + 12 * (octave + 1);
 
   static Pitch parse(String pitchName) =>
@@ -271,6 +245,6 @@ class Pitch {
   String get inspect => {
         'letter': letterName,
         'diatonicSemitones': diatonicSemitones,
-        'accidentals': accidentalSemitones
+        'accidentals': accidentalSemitones,
       }.toString();
 }

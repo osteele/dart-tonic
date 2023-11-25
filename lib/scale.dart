@@ -12,14 +12,28 @@ class ScalePattern {
   static bool _builtinPatternsInitialized = false;
 
   ScalePattern({required this.name, required this.intervals}) {
-    _byName[name] = this;
+    _byName['$name ${this.runtimeType}'] = this;
   }
 
-  static ScalePattern findByName(String name) {
+  static ScalePattern findByName(String name, {Type? type}) {
     _initializeBuiltinPatterns();
-    final scalePattern = _byName[name];
-    if (scalePattern == null)
-      throw new FormatException("$name is not a ScalePattern name");
+    ScalePattern? scalePattern;
+
+    //if no type is specified, search for ScalePattern first, then Mode if nothing found
+    if (type == null) {
+      scalePattern = _byName['$name $ScalePattern'];
+      if (scalePattern == null) scalePattern = _byName['$name $Mode'];
+      if (scalePattern == null)
+        throw new FormatException('$name is not a ScalePattern name');
+    } else {
+      //user has specified a type, if wrong type used or no scale pattern found, throw an exception
+      assert(['$Mode', '$ScalePattern'].contains('$type'));
+      scalePattern = _byName['$name $type'];
+      if (scalePattern == null)
+        throw new FormatException(
+            '$name is not a ScalePattern name with specific type $type');
+    }
+
     return scalePattern;
   }
 
@@ -27,10 +41,10 @@ class ScalePattern {
     if (_builtinPatternsInitialized) return;
     _builtinPatternsInitialized = true;
     for (final spec in _scalePatternSpecs) {
-      final scaleName = spec['name'];
-      final parentName = spec['parent'];
-      List<String>? modeNames = spec['modeNames'];
-      final List<int> intervalValues = spec['intervals'];
+      final scaleName = spec[Keywords.name];
+      final parentName = spec[Keywords.parent];
+      List<String>? modeNames = spec[Keywords.modeNames];
+      final List<int> intervalValues = spec[Keywords.intervals];
       final intervals =
           intervalValues.map((n) => new Interval.fromSemitones(n)).toList();
       final scale = parentName != null
@@ -108,81 +122,51 @@ class Scale {
 
 final List _scalePatternSpecs = [
   {
-    'name': 'Diatonic Major',
-    'intervals': [0, 2, 4, 5, 7, 9, 11],
-    'modeNames': [
-      'Ionian',
-      'Dorian',
-      'Phrygian',
-      'Lydian',
-      'Mixolydian',
-      'Aeolian',
-      'Locrian'
-    ]
+    Keywords.name: ScalePatternNames.diatonicMajor,
+    Keywords.intervals: [0, 2, 4, 5, 7, 9, 11],
+    Keywords.modeNames: ScalePatternNames.diatonicMajorModes(),
   },
   {
-    'name': 'Natural Minor',
-    'intervals': [0, 2, 3, 5, 7, 8, 10],
-    // 'parent': 'Diatonic Major',
+    Keywords.name: ScalePatternNames.naturalMinor,
+    Keywords.intervals: [0, 2, 3, 5, 7, 8, 10],
+    // Keywords.parent: ScalePatternNames.diatonicMajor,
   },
   {
-    'name': 'Major Pentatonic',
-    'intervals': [0, 2, 4, 7, 9],
-    'modeNames': [
-      'Major Pentatonic',
-      'Suspended Pentatonic',
-      'Man Gong',
-      'Ritusen',
-      'Minor Pentatonic'
-    ],
+    Keywords.name: ScalePatternNames.majorPentatonic,
+    Keywords.intervals: [0, 2, 4, 7, 9],
+    Keywords.modeNames: ScalePatternNames.majorPentatonicModes(),
   },
   {
-    'name': 'Minor Pentatonic',
-    'intervals': [0, 3, 5, 7, 10],
-    'parent': 'Major Pentatonic',
+    Keywords.name: ScalePatternNames.minorPentatonic,
+    Keywords.intervals: [0, 3, 5, 7, 10],
+    Keywords.parent: ScalePatternNames.majorPentatonic,
   },
   {
-    'name': 'Melodic Minor',
-    'intervals': [0, 2, 3, 5, 7, 9, 11],
-    'modeNames': [
-      'Jazz Minor',
-      'Dorian ♭2',
-      'Lydian Augmented',
-      'Lydian Dominant',
-      'Mixolydian ♭6',
-      'Semilocrian',
-      'Superlocrian'
-    ]
+    Keywords.name: ScalePatternNames.melodicMinor,
+    Keywords.intervals: [0, 2, 3, 5, 7, 9, 11],
+    Keywords.modeNames: ScalePatternNames.melodicMinorModes(),
   },
   {
-    'name': 'Harmonic Minor',
-    'intervals': [0, 2, 3, 5, 7, 8, 11],
-    'modeNames': [
-      'Harmonic Minor',
-      'Locrian ♯6',
-      'Ionian Augmented',
-      'Romanian',
-      'Phrygian Dominant',
-      'Lydian ♯2',
-      'Ultralocrian'
-    ]
+    Keywords.name: ScalePatternNames.harmonicMinor,
+    Keywords.intervals: [0, 2, 3, 5, 7, 8, 11],
+    Keywords.modeNames: ScalePatternNames.harmonicMinorModes(),
   },
   {
-    'name': 'Blues',
-    'intervals': [0, 3, 5, 6, 7, 10],
+    Keywords.name: ScalePatternNames.blues,
+    Keywords.intervals: [0, 3, 5, 6, 7, 10],
   },
   {
-    'name': 'Freygish',
-    'intervals': [0, 1, 4, 5, 7, 8, 10],
+    Keywords.name: ScalePatternNames.freygish,
+    Keywords.intervals: [0, 1, 4, 5, 7, 8, 10],
   },
   {
-    'name': 'Whole Tone',
-    'intervals': [0, 2, 4, 6, 8, 10],
+    Keywords.name: ScalePatternNames.wholeTone,
+    Keywords.intervals: [0, 2, 4, 6, 8, 10],
   },
   {
     // 'Octatonic' is the classical name. It's the jazz 'Diminished' scale.
-    'name': 'Octatonic',
-    'intervals': [0, 2, 3, 5, 6, 8, 9, 11],
+    Keywords.name: ScalePatternNames.octatonic,
+    Keywords.intervals: [0, 2, 3, 5, 6, 8, 9, 11],
   }
 ];
 
@@ -215,5 +199,5 @@ final List<String> scaleDegreeNames = [
   '♭6',
   '6',
   '♭7',
-  '7'
+  '7',
 ];

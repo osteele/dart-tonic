@@ -19,14 +19,19 @@ class Fretting {
     required this.chord,
     required Iterable<FretPosition> positions,
   }) : this.positions = List<FretPosition>.from(sortedBy(
-            positions, (FretPosition pos) => pos.stringIndex,
-            reverse: true)) {
+          positions,
+          (FretPosition pos) => pos.stringIndex,
+          reverse: true,
+        )) {
     assert(positions.length ==
         positions.map((position) => position.stringIndex).toSet().length);
   }
 
-  static Fretting fromFretString(String fretString,
-      {required FrettedInstrument instrument, required Chord chord}) {
+  static Fretting fromFretString(
+    String fretString, {
+    required FrettedInstrument instrument,
+    required Chord chord,
+  }) {
     if (fretString.length != instrument.stringIndices.length) {
       throw new FormatException(
           "fretString wrong length for $instrument: $fretString");
@@ -172,7 +177,7 @@ class FretPosition {
   String get inspect => {
         'string': stringIndex,
         'fret': fretNumber,
-        'semitones': semitones
+        'semitones': semitones,
       }.toString();
 }
 
@@ -199,7 +204,7 @@ Set<FretPosition> chordFrets(
 }
 
 List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
-    {highestFret: 4}) {
+    {highestFret = 4}) {
   final int minPitchClasses = chord.intervals.length;
   Map<int, Set<FretPosition>> partitionFretsByString() {
     final Set<FretPosition> positions =
@@ -376,7 +381,7 @@ List<Fretting> chordFrettings(Chord chord, FrettedInstrument instrument,
   //   {name: 'low finger count', key: reverseSortKey(getFingerCount)}
   // ];
 
-  int Function(T, T) compareBy<T>(int Function(T) f, {bool reverse: false}) =>
+  int Function(T, T) compareBy<T>(int Function(T) f, {bool reverse = false}) =>
       reverse ? (a, b) => f(a) - f(b) : (a, b) => f(b) - f(a);
 
   List<Fretting> sortFrettings(Iterable<Fretting> frettingSet) {

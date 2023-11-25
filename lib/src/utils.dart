@@ -13,8 +13,11 @@ void eachWithIndex<T>(List<T> list, void Function(T, int) fn) {
 ///
 /// The implementation uses `collection.insertionSort`, which is optimized for
 /// short lists.
-List sortedBy<T>(Iterable<T> items, int Function(T) sortKey,
-    {bool reverse: false}) {
+List sortedBy<T>(
+  Iterable<T> items,
+  int Function(T) sortKey, {
+  bool reverse = false,
+}) {
   final list = new List.from(items);
   final comparator = reverse
       ? (a, b) => sortKey(a) - sortKey(b)

@@ -4,7 +4,7 @@ int normalizePitchClass(int pitchClass) => pitchClass % 12;
 
 final pitchToPitchClass = normalizePitchClass;
 
-String pitchClassToString(int pitch, {bool flat: false, bool sharp: false}) {
+String pitchClassToString(int pitch, {bool flat = false, bool sharp = false}) {
   final int pitchClass = pitchToPitchClass(pitch);
   final String flatName = flatNoteNames[pitchClass];
   final String sharpName = sharpNoteNames[pitchClass];
@@ -33,7 +33,7 @@ class PitchClass {
 
   String get inspect => {'integer': integer}.toString();
 
-  Pitch toPitch({int octave: 0}) =>
+  Pitch toPitch({int octave = 0}) =>
       new Pitch(chromaticIndex: integer, octave: octave);
 
   PitchClass toPitchClass() => this;
